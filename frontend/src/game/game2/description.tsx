@@ -3,11 +3,14 @@ import des from "../../assets/temp/game2.png"; // use actual extension if it's .
 import Navigator from "../../shared/navigator/navigator.component";
 
 import Game from "./game.component"; // this is the file you moved the game code into
+import GameSetting from "./game-setting.component"; // this is the file you moved the game code into
 
 export default function Description2() {
-  const [startGame, setStartGame] = useState(false);
+  // const [startGame, setStartGame] = useState(false);
+  const [view, setView] = useState<"description" | "game" | "setting">("description");
 
-  if (startGame) return <Game />;
+  if (view === "game") return <Game />;
+  if (view === "setting") return <GameSetting />;
 
   return (
     <div className="p-6 max-w-4xl mx-auto text-center">
@@ -17,9 +20,15 @@ export default function Description2() {
 
       <p className="text-lg text-gray-200 mb-4">Trong trò chơi này, bạn sẽ trả lời các câu hỏi trắc nghiệm với thời gian giới hạn.</p>
 
-      <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition" onClick={() => setStartGame(true)}>
-        Bắt đầu chơi
-      </button>
+      <div className="flex justify-center gap-4">
+        <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition" onClick={() => setView("setting")}>
+          Cài đặt
+        </button>
+
+        <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition" onClick={() => setView("game")}>
+          Bắt đầu chơi
+        </button>
+      </div>
 
       <Navigator previewLink="../game1" nextLink="../game3" />
     </div>
