@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import App from "./app/app.component.tsx";
 import Home from "./feature/home/home.component";
 // import GameWrapper from "./feature/game-wrapper/game-wrapper.component.tsx";
 import Leaderboard from "./feature/leaderboard/leaderboard.component.tsx";
