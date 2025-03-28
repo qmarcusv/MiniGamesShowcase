@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Question } from "./question";
 
 export default function GameSetting() {
   const [questions, setQuestions] = useState([
@@ -30,9 +31,12 @@ export default function GameSetting() {
     setExpandedIndex((prev) => (prev === index ? null : index));
   };
 
-  const updateField = (index: number, field: keyof (typeof questions)[0], value: any) => {
+  const updateField = (index: number, field: keyof (typeof questions)[0], value: Question[keyof Question]) => {
     const updated = [...questions];
-    (updated[index] as any)[field] = value;
+    updated[index] = {
+      ...updated[index],
+      [field]: value,
+    };
     setQuestions(updated);
   };
 
