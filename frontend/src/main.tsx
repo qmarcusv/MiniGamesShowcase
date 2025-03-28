@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import "./languages";
+import "./config/language";
 import { router } from "./router";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
