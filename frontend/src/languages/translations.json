@@ -1,0 +1,59 @@
+{
+	"vi": {
+		"language": {
+			"vi": "Tiếng Việt",
+			"en": "Tiếng Anh",
+			"fr": "Tiếng Pháp"
+		},
+		"app": {
+			"title": "Chào mừng đến với Khu trò chơi!",
+			"select_game": "Hãy chọn một trò chơi để chơi"
+		},
+		"games": {
+			"game1": "Trò chơi 1: Tìm địa điểm",
+			"game2": "Trò chơi 2: Câu hỏi ",
+			"game3": "Trò chơi 3: Khám phá bí ẩn",
+			"game4": "Trò chơi 4: So sánh quá khứ và hiện tại",
+			"game5": "Trò chơi 5: Tài liệu bay",
+			"game6": "Trò chơi 6: Vẫn đang tìm hiểu"
+		}
+	},
+	"en": {
+		"language": {
+			"vi": "Vietnamese",
+			"en": "English",
+			"fr": "French"
+		},
+		"app": {
+			"title": "Welcome to the Game Zone!",
+			"select_game": "Please choose a game to play"
+		},
+		"games": {
+			"game1": "Game 1: Find the Place",
+			"game2": "Game 2: Questionaire",
+			"game3": "Game 3: Discorver the mistery",
+			"game4": "Game 4: Compare the past and present",
+			"game5": "Game 5: Document fly",
+			"game6": "Game 6: Still figure out"
+		}
+	},
+	"fr": {
+		"language": {
+			"vi": "Vietnamien",
+			"en": "Anglais",
+			"fr": "Français"
+		},
+		"app": {
+			"title": "Bienvenue dans la zone de jeu!",
+			"select_game": "Veuillez choisir un jeu à jouer"
+		},
+		"games": {
+			"game1": "Jeu 1 : Trouver l'endroit",
+			"game2": "Jeu 2 : Questionnaire",
+			"game3": "Jeu 3 : Découvrir le mystère",
+			"game4": "Jeu 4 : Comparer le passé et le présent",
+			"game5": "Jeu 5 : Document volant",
+			"game6": "Jeu 6 : Toujours en train de comprendre"
+		}
+	}
+}
