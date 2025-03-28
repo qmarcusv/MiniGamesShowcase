@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navigator from "../../shared/navigator/navigator.component";
+import ButtonSound from "../../feature/button-sound/button-sound.component";
 
 export default function Game() {
   const questions = [
@@ -122,9 +123,9 @@ export default function Game() {
             <div className="flex justify-center gap-4 items-center mb-4">
               <div className="text-xl text-red-500 font-bold">⏱ {timeLeft}s</div>
               {!fiftyUsed && (
-                <button onClick={useFiftyFifty} className="bg-purple-500 text-white px-4 py-1 rounded hover:bg-purple-600 transition">
+                <ButtonSound onClick={useFiftyFifty} className="bg-purple-500 text-white px-4 py-1 rounded hover:bg-purple-600 transition">
                   50/50
-                </button>
+                </ButtonSound>
               )}
             </div>
           )}

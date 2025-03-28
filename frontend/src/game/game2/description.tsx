@@ -4,6 +4,8 @@ import Navigator from "../../shared/navigator/navigator.component";
 
 import Game from "./game.component"; // this is the file you moved the game code into
 import GameSetting from "./game-setting.component"; // this is the file you moved the game code into
+// import ButtonSound from "../../feature/button-sound/button-sound.component";
+// import pressSound from "/sound/pressed.mp3";
 
 export default function Description2() {
   // const [startGame, setStartGame] = useState(false);
@@ -31,6 +33,10 @@ export default function Description2() {
       </div>
 
       <Navigator previewLink="../game1" nextLink="../game3" />
+
+      {/* <ButtonSound soundUrl={pressSound} onClick={() => console.log("Clicked!")}>
+        🔊 Play Sound
+      </ButtonSound> */}
     </div>
   );
 }

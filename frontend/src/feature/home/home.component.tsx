@@ -3,7 +3,7 @@ import "./home.component.scss";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import mapGame from "../../assets/images/map-game.jpg";
-// import millionGame from "../../assets/images/million-game.jpg";
+import millionGame from "../../assets/images/million-game.jpg";
 import treasureGame from "../../assets/images/treasure-game.jpg";
 import differenceGame from "../../assets/images/difference-game.jpg";
 import documentGame from "../../assets/images/document-game.png";
@@ -17,7 +17,7 @@ const games = [
   },
   {
     id: "game2",
-    // image: millionGame,
+    image: millionGame,
     path: "../../game2",
   },
   {
