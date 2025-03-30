@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navigator from "../../shared/navigator/navigator.component";
+import Stepper from "../../shared/stepper/stepper.component";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
 import Game3 from "./game.component";
 import Game3Setting from "./game-setting.component";
@@ -48,7 +48,7 @@ export default function Description3() {
 					</ButtonSound>
 				</div>
 
-				<Navigator previewLink="../game2" nextLink="../game4" />
+				<Stepper previewLink="../game2" nextLink="../game4" />
 			</div>
 		</div>
 	);
