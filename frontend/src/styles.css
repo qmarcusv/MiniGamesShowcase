@@ -7,3 +7,30 @@ body,
 	height: 100%;
 	margin: 0;
 }
+/* In your styles/globals.css or tailwind base layer */
+.perspective {
+	perspective: 1000px;
+}
+.transform-style-preserve-3d {
+	transform-style: preserve-3d;
+}
+.backface-hidden {
+	backface-visibility: hidden;
+}
+.rotate-y-180 {
+	transform: rotateY(180deg);
+}
+/* global.css */
+
+.hide-navbar .navbar {
+	display: none !important;
+}
+
+.hide-footer .footer {
+	display: none !important;
+}
+
+.hide-navbar-footer .navbar,
+.hide-navbar-footer .footer {
+	display: none !important;
+}

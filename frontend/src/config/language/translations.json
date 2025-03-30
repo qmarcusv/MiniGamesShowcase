@@ -15,7 +15,7 @@
 			"game3": "Trò chơi 3: Khám phá bí ẩn",
 			"game4": "Trò chơi 4: So sánh quá khứ và hiện tại",
 			"game5": "Trò chơi 5: Tài liệu bay",
-			"game6": "Trò chơi 6: Vẫn đang tìm hiểu"
+			"game6": "Trò chơi 6: Lật thẻ ghi nhớ"
 		},
 		"description5": {
 			"instructions": "Trong trò chơi này, bạn sẽ thấy nhiều tài liệu bay qua màn hình theo các hướng khác nhau.\nNhiệm vụ của bạn là chọn đúng các tài liệu phù hợp với yêu cầu câu hỏi (về tác giả, loại văn bản, hoặc lĩnh vực).\n❗ Chọn sai sẽ khiến tốc độ bay tăng lên và màn hình rung nhẹ. Hãy cẩn thận!",
@@ -33,6 +33,11 @@
 			"type": "Loại",
 			"author": "Tác giả",
 			"field": "Lĩnh vực"
+		},
+		"description6": {
+			"instructions": "Trong trò chơi này, bạn sẽ lật các thẻ úp xuống để tìm cặp thẻ giống nhau.\nMỗi cặp đại diện cho một địa điểm nổi tiếng. Ghi nhớ và lật thật nhanh để hoàn thành trò chơi!",
+			"setting": "Cài đặt thẻ",
+			"start": "Bắt đầu trò chơi"
 		}
 	},
 	"en": {
@@ -51,7 +56,7 @@
 			"game3": "Game 3: Discorver the mistery",
 			"game4": "Game 4: Compare the past and present",
 			"game5": "Game 5: Document fly",
-			"game6": "Game 6: Still figure out"
+			"game6": "Game 6: Flip Card Memory"
 		},
 		"description5": {
 			"instructions": "In this game, you'll see documents flying across the screen in different directions.\nYour task is to choose the documents that match the given question (by author, type, or field).\n❗ Wrong picks increase speed and shake the screen. Be careful!",
@@ -69,6 +74,11 @@
 			"type": "Type",
 			"author": "Author",
 			"field": "Field"
+		},
+		"description6": {
+			"instructions": "In this game, you'll flip cards to find matching pairs.\nEach pair represents a famous place. Test your memory and match them all to win!",
+			"setting": "Card Setup",
+			"start": "Start Game"
 		}
 	},
 	"fr": {
@@ -87,7 +97,7 @@
 			"game3": "Jeu 3 : Découvrir le mystère",
 			"game4": "Jeu 4 : Comparer le passé et le présent",
 			"game5": "Jeu 5 : Document volant",
-			"game6": "Jeu 6 : Toujours en train de comprendre"
+			"game6": "Jeu 6 : Mémorisation des cartes"
 		},
 		"description5": {
 			"instructions": "Dans ce jeu, vous verrez des documents voler à travers l'écran dans différentes directions.\nVotre tâche est de choisir les documents correspondant à la question (par auteur, type ou domaine).\n❗ Les mauvaises réponses augmentent la vitesse et font trembler l'écran. Soyez prudent !",
@@ -105,6 +115,11 @@
 			"type": "Type",
 			"author": "Auteur",
 			"field": "Domaine"
+		},
+		"description6": {
+			"instructions": "Dans ce jeu, vous retournerez des cartes pour trouver les paires correspondantes.\nChaque paire représente un lieu célèbre. Testez votre mémoire et retrouvez-les tous !",
+			"setting": "Configuration des cartes",
+			"start": "Démarrer le jeu"
 		}
 	}
 }

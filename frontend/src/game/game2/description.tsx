@@ -1,47 +1,51 @@
-import { useState } from "react";
-import des from "../../assets/temp/game2.png";
+import { useEffect, useState } from "react";
 import Navigator from "../../shared/navigator/navigator.component";
 import Game from "./game.component";
 import GameSetting from "./game-setting.component";
-// import ButtonSound from "../../feature/button-sound/button-sound.component";
-// import pressSound from "/sound/pressed.mp3";
 
 export default function Description2() {
 	const [view, setView] = useState<"description" | "game" | "setting">(
 		"description"
 	);
 
-	if (view === "game") return <Game />;
+	// Optional: add class to body to hide nav/footer when in game view
+	useEffect(() => {
+		if (view === "game") {
+			document.body.classList.add("hide-navbar-footer");
+		} else {
+			document.body.classList.remove("hide-navbar-footer");
+		}
+	}, [view]);
+
+	if (view === "game")
+		return (
+			<div className="hide-navbar-footer">
+				<Game />
+			</div>
+		);
 	if (view === "setting") return <GameSetting />;
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gray-800 text-white">
-			<div className="w-full max-w-4xl text-center">
-				<h1 className="text-5xl font-bold text-blue-400 mb-6 drop-shadow">
+		<div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center px-4">
+			<div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl p-10 max-w-3xl w-full text-center space-y-8">
+				<h1 className="text-4xl font-extrabold text-blue-400 drop-shadow">
 					Trò chơi 2: Câu hỏi
 				</h1>
 
-				<img
-					src={des}
-					alt="Game preview"
-					className="rounded-2xl w-full h-auto max-h-[400px] object-cover mb-6 shadow-lg"
-				/>
-
-				<p className="text-lg text-gray-300 mb-6">
+				<p className="text-lg text-slate-100 leading-relaxed">
 					Trong trò chơi này, bạn sẽ trả lời các câu hỏi trắc nghiệm với thời
 					gian giới hạn.
 				</p>
 
-				<div className="flex justify-center gap-6 mb-8 flex-wrap">
+				<div className="flex justify-center gap-6 flex-wrap">
 					<button
-						className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition text-lg font-medium"
+						className="bg-white/20 text-white px-6 py-2 rounded-xl hover:bg-white/30 transition shadow-md"
 						onClick={() => setView("setting")}
 					>
 						Cài đặt
 					</button>
-
 					<button
-						className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition text-lg font-medium"
+						className="bg-blue-500 text-white px-6 py-2 rounded-xl hover:bg-blue-600 transition shadow-md"
 						onClick={() => setView("game")}
 					>
 						Bắt đầu chơi
@@ -50,10 +54,6 @@ export default function Description2() {
 
 				<Navigator previewLink="../game1" nextLink="../game3" />
 			</div>
-
-			{/* <ButtonSound soundUrl={pressSound} onClick={() => console.log("Clicked!")}>
-        🔊 Play Sound
-      </ButtonSound> */}
 		</div>
 	);
 }
