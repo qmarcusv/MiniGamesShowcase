@@ -16,6 +16,23 @@
 			"game4": "Trò chơi 4: So sánh quá khứ và hiện tại",
 			"game5": "Trò chơi 5: Tài liệu bay",
 			"game6": "Trò chơi 6: Vẫn đang tìm hiểu"
+		},
+		"description5": {
+			"instructions": "Trong trò chơi này, bạn sẽ thấy nhiều tài liệu bay qua màn hình theo các hướng khác nhau.\nNhiệm vụ của bạn là chọn đúng các tài liệu phù hợp với yêu cầu câu hỏi (về tác giả, loại văn bản, hoặc lĩnh vực).\n❗ Chọn sai sẽ khiến tốc độ bay tăng lên và màn hình rung nhẹ. Hãy cẩn thận!",
+			"setting": "Cài đặt",
+			"start": "Bắt đầu chơi"
+		},
+		"game5": {
+			"summary": "Tổng kết trò chơi",
+			"playtime": "Thời gian chơi",
+			"seconds": "giây",
+			"accuracy": "Độ chính xác",
+			"correctPicks": "Lựa chọn đúng",
+			"question": "Câu {{section}}",
+			"correct": "Đúng",
+			"type": "Loại",
+			"author": "Tác giả",
+			"field": "Lĩnh vực"
 		}
 	},
 	"en": {
@@ -35,6 +52,23 @@
 			"game4": "Game 4: Compare the past and present",
 			"game5": "Game 5: Document fly",
 			"game6": "Game 6: Still figure out"
+		},
+		"description5": {
+			"instructions": "In this game, you'll see documents flying across the screen in different directions.\nYour task is to choose the documents that match the given question (by author, type, or field).\n❗ Wrong picks increase speed and shake the screen. Be careful!",
+			"setting": "Settings",
+			"start": "Start Playing"
+		},
+		"game5": {
+			"summary": "Game Summary",
+			"playtime": "Play Time",
+			"seconds": "seconds",
+			"accuracy": "Accuracy",
+			"correctPicks": "Correct Picks",
+			"question": "Question {{section}}",
+			"correct": "Correct",
+			"type": "Type",
+			"author": "Author",
+			"field": "Field"
 		}
 	},
 	"fr": {
@@ -54,6 +88,23 @@
 			"game4": "Jeu 4 : Comparer le passé et le présent",
 			"game5": "Jeu 5 : Document volant",
 			"game6": "Jeu 6 : Toujours en train de comprendre"
+		},
+		"description5": {
+			"instructions": "Dans ce jeu, vous verrez des documents voler à travers l'écran dans différentes directions.\nVotre tâche est de choisir les documents correspondant à la question (par auteur, type ou domaine).\n❗ Les mauvaises réponses augmentent la vitesse et font trembler l'écran. Soyez prudent !",
+			"setting": "Paramètres",
+			"start": "Commencer"
+		},
+		"game5": {
+			"summary": "Résumé du jeu",
+			"playtime": "Temps de jeu",
+			"seconds": "secondes",
+			"accuracy": "Précision",
+			"correctPicks": "Choix corrects",
+			"question": "Question {{section}}",
+			"correct": "Correct",
+			"type": "Type",
+			"author": "Auteur",
+			"field": "Domaine"
 		}
 	}
 }
