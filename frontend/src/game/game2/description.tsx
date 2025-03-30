@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Stepper from "../../shared/stepper/stepper.component";
 import Game from "./game.component";
 import GameSetting from "./game-setting.component";
 
@@ -38,8 +37,6 @@ export default function Description2() {
             Bắt đầu chơi
           </button>
         </div>
-
-        <Stepper previewLink="../game1" nextLink="../game3" />
       </div>
     </div>
   );

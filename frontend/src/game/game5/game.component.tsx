@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
 import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Stepper from "../../shared/stepper/stepper.component";
 import { useTranslation } from "react-i18next";
 
 const sampleDocs = [
@@ -251,9 +250,7 @@ export default function Game5() {
               <span className="font-semibold text-green-600">{correctAnswers} / 20</span>
             </p>
           </div>
-          <div className="mt-10">
-            <Stepper previewLink="../game4" nextLink="../game6" />
-          </div>
+          <div className="mt-10"></div>
         </div>
       </div>
     );

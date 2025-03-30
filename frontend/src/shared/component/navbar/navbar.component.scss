@@ -1,0 +1,17 @@
+nav {
+    background-color: red !important;
+    display: flex;
+    img.map {
+        max-width: 50px;
+        max-height: auto;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+    .navigator {
+        flex: 1;
+    }
+}

@@ -9,6 +9,8 @@ import Description3 from "./game/game3/description";
 import Description4 from "./game/game4/description";
 import Description5 from "./game/game5/description";
 import Description6 from "./game/game6/description";
+import Treasure from "./game/treasure/treasure.component.tsx";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +23,7 @@ export const router = createBrowserRouter([
       { path: "game4", element: <Description4 /> },
       { path: "game5", element: <Description5 /> },
       { path: "game6", element: <Description6 /> },
+      { path: "treasure", element: <Treasure /> },
       // { path: "play", element: <GameWrapper /> },
       { path: "leaderboard", element: <Leaderboard /> },
     ],

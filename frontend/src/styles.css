@@ -34,3 +34,10 @@ body,
 .hide-navbar-footer .footer {
 	display: none !important;
 }
+
+.c {
+	border: 1px solid red;
+}
+.c > * {
+	border: 1px solid green;
+}
