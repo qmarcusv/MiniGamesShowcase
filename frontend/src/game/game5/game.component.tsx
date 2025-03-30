@@ -274,7 +274,7 @@ export default function Game5() {
 						</p>
 					</div>
 					<div className="mt-10">
-						<Navigator previewLink="../game1" nextLink="../game3" />
+						<Navigator previewLink="../game4" nextLink="../game6" />
 					</div>
 				</div>
 			</div>

@@ -17,6 +17,19 @@
 			"game5": "Trò chơi 5: Tài liệu bay",
 			"game6": "Trò chơi 6: Lật thẻ ghi nhớ"
 		},
+		"description1": {
+			"instructions": "Trong trò chơi này, bạn sẽ thấy bản đồ có 10 điểm đỏ tương ứng với các địa danh nổi tiếng tại Việt Nam.\nBạn có thể nhấn vào các điểm đỏ để xem thông tin chi tiết trước khi bắt đầu.\nKhi bắt đầu, vị trí các điểm sẽ đổi chỗ và bạn phải tìm đúng địa danh được yêu cầu trong thời gian giới hạn.",
+			"start": "Bắt đầu chơi",
+			"setting": "Cài đặt"
+		},
+		"game1": {
+			"find": "Tìm",
+			"correct": "Đúng",
+			"clicks": "lần click",
+			"timeUsed": "Thời gian sử dụng",
+			"accuracy": "Độ chính xác",
+			"resultTitle": "🎉 Kết quả"
+		},
 		"description5": {
 			"instructions": "Trong trò chơi này, bạn sẽ thấy nhiều tài liệu bay qua màn hình theo các hướng khác nhau.\nNhiệm vụ của bạn là chọn đúng các tài liệu phù hợp với yêu cầu câu hỏi (về tác giả, loại văn bản, hoặc lĩnh vực).\n❗ Chọn sai sẽ khiến tốc độ bay tăng lên và màn hình rung nhẹ. Hãy cẩn thận!",
 			"setting": "Cài đặt",
@@ -38,6 +51,28 @@
 			"instructions": "Trong trò chơi này, bạn sẽ lật các thẻ úp xuống để tìm cặp thẻ giống nhau.\nMỗi cặp đại diện cho một địa điểm nổi tiếng. Ghi nhớ và lật thật nhanh để hoàn thành trò chơi!",
 			"setting": "Cài đặt thẻ",
 			"start": "Bắt đầu trò chơi"
+		},
+		"description4": {
+			"instructions": "Trong trò chơi này, bạn sẽ so sánh hai bức ảnh của cùng một địa điểm ở quá khứ và hiện tại.\nHãy tìm và nhấp vào những điểm khác biệt được đánh dấu sẵn.\n⏰ Bạn có 180 giây để hoàn thành nhiệm vụ. Cố gắng tìm hết các điểm trước khi hết giờ nhé!",
+			"setting": "Cài đặt bản đồ",
+			"start": "Bắt đầu chơi"
+		},
+		"game4": {
+			"title": "Trò chơi 4: So sánh quá khứ và hiện tại",
+			"selectMap": "Chọn bản đồ để bắt đầu",
+			"remainingTime": "⏱️ Thời gian còn lại",
+			"found": "✅ Điểm đã tìm thấy",
+			"explanationTitle": "📌 Giải thích các điểm đã tìm thấy:",
+			"conclusion": {
+				"done": "🎉 Hoàn thành!",
+				"timeout": "⏰ Hết giờ!",
+				"foundSpots": "🧠 Số điểm tìm thấy",
+				"playTime": "⏱️ Thời gian chơi",
+				"clicks": "🖱️ Số lần click",
+				"next": "Tiếp theo",
+				"back": "Quay lại"
+			},
+			"viewResult": "Xem kết quả"
 		}
 	},
 	"en": {
@@ -57,6 +92,19 @@
 			"game4": "Game 4: Compare the past and present",
 			"game5": "Game 5: Document fly",
 			"game6": "Game 6: Flip Card Memory"
+		},
+		"description1": {
+			"instructions": "In this game, you'll see a map with 10 red dots representing famous places in Vietnam.\nYou can click on any dot to learn about that place before starting.\nWhen the game starts, the dots will shuffle and you'll need to find the target place within the time limit.",
+			"start": "Start Playing",
+			"setting": "Settings"
+		},
+		"game1": {
+			"find": "Find",
+			"correct": "Correct",
+			"clicks": "clicks",
+			"timeUsed": "Time Used",
+			"accuracy": "Accuracy",
+			"resultTitle": "🎉 Result"
 		},
 		"description5": {
 			"instructions": "In this game, you'll see documents flying across the screen in different directions.\nYour task is to choose the documents that match the given question (by author, type, or field).\n❗ Wrong picks increase speed and shake the screen. Be careful!",
@@ -79,6 +127,28 @@
 			"instructions": "In this game, you'll flip cards to find matching pairs.\nEach pair represents a famous place. Test your memory and match them all to win!",
 			"setting": "Card Setup",
 			"start": "Start Game"
+		},
+		"description4": {
+			"instructions": "In this game, you'll compare two photos of the same place from the past and present.\nTry to find and click the preset differences.\n⏰ You have 180 seconds. Try to find all the differences before time runs out!",
+			"setting": "Map Settings",
+			"start": "Start Game"
+		},
+		"game4": {
+			"title": "Game 4: Compare the past and present",
+			"selectMap": "Select a map to start",
+			"remainingTime": "⏱️ Time left",
+			"found": "✅ Found",
+			"explanationTitle": "📌 Explanation of found spots:",
+			"conclusion": {
+				"done": "🎉 Finished!",
+				"timeout": "⏰ Time's up!",
+				"foundSpots": "🧠 Found spots",
+				"playTime": "⏱️ Play Time",
+				"clicks": "🖱️ Clicks",
+				"next": "Next",
+				"back": "Back"
+			},
+			"viewResult": "View Result"
 		}
 	},
 	"fr": {
@@ -98,6 +168,19 @@
 			"game4": "Jeu 4 : Comparer le passé et le présent",
 			"game5": "Jeu 5 : Document volant",
 			"game6": "Jeu 6 : Mémorisation des cartes"
+		},
+		"description1": {
+			"instructions": "Dans ce jeu, vous verrez une carte avec 10 points rouges représentant des lieux célèbres au Vietnam.\nVous pouvez cliquer sur les points pour en savoir plus avant de commencer.\nUne fois commencé, les points changeront de place et vous devrez trouver le bon lieu dans le temps imparti.",
+			"start": "Commencer",
+			"setting": "Paramètres"
+		},
+		"game1": {
+			"find": "Trouver",
+			"correct": "Correct",
+			"clicks": "clics",
+			"timeUsed": "Temps utilisé",
+			"accuracy": "Précision",
+			"resultTitle": "🎉 Résultat"
 		},
 		"description5": {
 			"instructions": "Dans ce jeu, vous verrez des documents voler à travers l'écran dans différentes directions.\nVotre tâche est de choisir les documents correspondant à la question (par auteur, type ou domaine).\n❗ Les mauvaises réponses augmentent la vitesse et font trembler l'écran. Soyez prudent !",
@@ -120,6 +203,28 @@
 			"instructions": "Dans ce jeu, vous retournerez des cartes pour trouver les paires correspondantes.\nChaque paire représente un lieu célèbre. Testez votre mémoire et retrouvez-les tous !",
 			"setting": "Configuration des cartes",
 			"start": "Démarrer le jeu"
+		},
+		"description4": {
+			"instructions": "Dans ce jeu, vous comparerez deux photos d'un même lieu dans le passé et le présent.\nTrouvez et cliquez sur les différences prédéfinies.\n⏰ Vous avez 180 secondes. Essayez de toutes les repérer avant la fin du temps !",
+			"setting": "Paramètres de la carte",
+			"start": "Commencer le jeu"
+		},
+		"game4": {
+			"title": "Jeu 4 : Comparer le passé et le présent",
+			"selectMap": "Choisissez une carte pour commencer",
+			"remainingTime": "⏱️ Temps restant",
+			"found": "✅ Trouvé",
+			"explanationTitle": "📌 Explications des différences trouvées :",
+			"conclusion": {
+				"done": "🎉 Terminé !",
+				"timeout": "⏰ Temps écoulé !",
+				"foundSpots": "🧠 Différences trouvées",
+				"playTime": "⏱️ Temps de jeu",
+				"clicks": "🖱️ Clics",
+				"next": "Suivant",
+				"back": "Retour"
+			},
+			"viewResult": "Voir les résultats"
 		}
 	}
 }
