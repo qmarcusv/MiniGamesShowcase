@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
 import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Stepper from "../../shared/stepper/stepper.component";
 
 export default function Game() {
   const questions = [
@@ -235,7 +234,6 @@ export default function Game() {
               </p>
             </div>
             <div className="mt-8">
-              <Stepper previewLink="../game1" nextLink="../game3" />
             </div>
           </div>
         )}

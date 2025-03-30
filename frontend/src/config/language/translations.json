@@ -82,8 +82,8 @@
 			"fr": "French"
 		},
 		"app": {
-			"title": "Welcome to the Game Zone!",
-			"select_game": "Please choose a game to play"
+			"title": "Find The Treasure !",
+			"select_game": "Play & collect all the required items"
 		},
 		"games": {
 			"game1": "Game 1: Find the Place",

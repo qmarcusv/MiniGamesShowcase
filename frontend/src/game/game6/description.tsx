@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import Game6 from "./game.component.tsx";
 // import Game6Setting from "./game-setting.component.tsx";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
-import Stepper from "../../shared/stepper/stepper.component.tsx";
 import { useTranslation } from "react-i18next";
+import { useGameContext } from "../../shared/context/game.context.tsx";
 
 export default function Description6() {
+  const { games, completeGame } = useGameContext();
   const [view, setView] = useState<"description" | "game" | "setting">("description");
   const [gridSize, setGridSize] = useState<"4x4" | "6x6">("6x6");
   const [timers, setTimers] = useState({
@@ -67,9 +68,11 @@ export default function Description6() {
             className="bg-emerald-500 text-white px-6 py-2 rounded-xl hover:bg-emerald-600 transition shadow-md">
             {t("description6.start")}
           </ButtonSound>
-        </div>
 
-        <Stepper previewLink="../game5" nextLink="../game1" />
+          <button onClick={() => completeGame(5)} className="bg-emerald-500 text-white px-4 py-2 rounded-xl">
+            Complete
+          </button>
+        </div>
       </div>
     </div>
   );

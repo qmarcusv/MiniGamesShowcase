@@ -4,7 +4,6 @@ import foundSound from "/sound/correct.mp3";
 import tickSound from "/sound/tick.mp3";
 import hurrySound from "/sound/hurry.mp3";
 import endSound from "/sound/end.mp3";
-import Stepper from "../../shared/stepper/stepper.component";
 import { playSoundRepeatedly } from "../../feature/environment-sound/environment-sound.component";
 
 export default function Game4() {
@@ -96,7 +95,6 @@ export default function Game4() {
           </p>
           <p>⏱️ Thời gian chơi: {timePlayed}s</p>
           <p>🖱️ Số lần click: {clickCount}</p>
-          <Stepper previewLink="../game3" nextLink="../game5" />
         </div>
       </div>
     );

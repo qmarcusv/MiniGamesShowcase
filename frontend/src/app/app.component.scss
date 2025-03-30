@@ -1,2 +1,7 @@
 .app {
+    &:has(main .treasure-page, main .game-map-page) {
+        .steps {
+            display: none;
+        }
+    }
 }

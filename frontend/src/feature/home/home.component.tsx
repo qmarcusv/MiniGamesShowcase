@@ -1,6 +1,7 @@
 import "./home.component.scss";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import mapGame from "../../assets/images/map-game.jpg";
 import millionGame from "../../assets/images/million-game.jpg";
 import treasureGame from "../../assets/images/treasure-game.jpg";
@@ -8,25 +9,58 @@ import differenceGame from "../../assets/images/difference-game.jpg";
 import documentGame from "../../assets/images/document-game.png";
 import question from "../../assets/images/question.png";
 
+const MAP_WIDTH = 1200; // px (same as .game-map CSS width)
+const MAP_HEIGHT = 800; // px (same as .game-map CSS height)
+const GAME_SIZE = 140;
+
 const games = [
-	{ id: "game1", image: mapGame, path: "../../game1" },
-	{ id: "game2", image: millionGame, path: "../../game2" },
-	{ id: "game3", image: treasureGame, path: "../../game3" },
-	{ id: "game4", image: differenceGame, path: "../../game4" },
-	{ id: "game5", image: documentGame, path: "../../game5" },
-	{ id: "game6", image: question, path: "../../game6" },
+  { id: "game1", image: mapGame, path: "../../game1" },
+  { id: "game2", image: millionGame, path: "../../game2" },
+  { id: "game3", image: treasureGame, path: "../../game3" },
+  { id: "game4", image: differenceGame, path: "../../game4" },
+  { id: "game5", image: documentGame, path: "../../game5" },
+  { id: "game6", image: question, path: "../../game6" },
 ];
 
 const Home = () => {
-	const { t } = useTranslation();
+  const { t } = useTranslation();
 
-	return (
-		<div className="min-h-screen px-4 py-10 text-center bg-gradient-to-b from-blue-300 to-blue-500 ">
-			<h1 className="text-5xl font-extrabold text-blue-800 mb-3 drop-shadow-sm">
-				{t("app.title")}
-			</h1>
-			<p className=" text-lg text-gray-600 mb-12">{t("app.select_game")}</p>
+  // Generate random positions for each game (but stable on render)
+  const positionedGames = useMemo(() => {
+    const placed: { left: number; top: number }[] = [];
+    const maxAttempts = 100;
 
+    function isOverlapping(newX: number, newY: number): boolean {
+      return placed.some(({ left, top }) => {
+        const dx = newX - left;
+        const dy = newY - top;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < GAME_SIZE + 10; // 10px padding
+      });
+    }
+
+    return games.map((game) => {
+      let left = 0;
+      let top = 0;
+      let attempts = 0;
+
+      do {
+        left = Math.random() * (MAP_WIDTH - GAME_SIZE);
+        top = Math.random() * (MAP_HEIGHT - GAME_SIZE);
+        attempts++;
+      } while (isOverlapping(left, top) && attempts < maxAttempts);
+
+      placed.push({ left, top });
+
+      return { ...game, left, top };
+    });
+  }, [games]);
+
+  return (
+    <div className="game-map-page min-h-screen px-4 py-10 text-center bg-gradient-to-b from-blue-300 to-blue-500 ">
+      {/* <h1 className="text-5xl font-extrabold text-blue-800 mb-3 drop-shadow-sm">{t("app.title")}</h1>
+      <p className=" text-lg text-gray-600 mb-12">{t("app.select_game")}</p>
+      
 			<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-40 max-w-9xl mx-auto px-6">
 				{games.map((game) => (
 					<Link
@@ -46,9 +80,32 @@ const Home = () => {
 						</div>
 					</Link>
 				))}
-			</div>
-		</div>
-	);
+			</div> */}
+
+      <h1 className="text-5xl font-extrabold text-blue-800 mb-3 drop-shadow-sm">{t("app.title")}</h1>
+      <p className=" text-lg text-gray-600 mb-12">{t("app.select_game")}</p>
+      <div className="game-map">
+        {positionedGames.map((game) => (
+          <div
+            key={game.id}
+            className="game"
+            style={{
+              left: `${game.left}px`,
+              top: `${game.top}px`,
+            }}>
+            <Link to={game.path}>
+              <img src={game.image} />
+              <div className="label">{game.id}</div>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <div className="story mt-2">
+        <p className="story-teller text-gray-600">Story teller ...</p>
+      </div>
+    </div>
+  );
 };
 
 export default Home;

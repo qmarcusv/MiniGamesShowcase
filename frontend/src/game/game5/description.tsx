@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Game from "./game.component";
 import GameSetting from "./game-setting.component";
-import Stepper from "../../shared/stepper/stepper.component";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
 
 export default function Description5() {
@@ -48,8 +47,6 @@ export default function Description5() {
             🎮 {t("description5.start")}
           </ButtonSound>
         </div>
-
-        <Stepper previewLink="../game4" nextLink="../game6" />
       </div>
     </div>
   );
