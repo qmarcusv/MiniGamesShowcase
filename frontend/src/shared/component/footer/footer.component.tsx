@@ -1,10 +1,11 @@
 import "./footer.component.scss";
 const Footer = () => {
-	return (
-		<footer className="footer w-full bg-gray-100 text-center text-sm text-gray-600 rounded-t-xl shadow-inner">
-			© 2025 Mini Games Showcase. Built with ❤️
-		</footer>
-	);
+  return (
+    <footer className="footer flex px-4 justify-between w-full bg-gradient-to-r from-purple-500 to-blue-500 text-center text-sm text-white shadow-inner">
+      <p>© 2025 Treasure hunt ❤️</p>
+      <p>v 1.0.0.1</p>
+    </footer>
+  );
 };
 
 export default Footer;

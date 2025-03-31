@@ -142,7 +142,7 @@ export default function Game() {
   const isGameOver = currentIndex >= shuffledQuestions.length;
 
   return (
-    <div className="w-full min-h-screen px-6 py-10 flex flex-col items-center bg-gradient-to-b from-blue-50 to-blue-100">
+    <div className="w-full h-full px-6 py-10 flex flex-col items-center bg-gradient-to-b from-blue-50 to-blue-100">
       <h1 className="text-5xl font-extrabold text-blue-700 mb-6 text-center">Trò chơi 2: Câu hỏi</h1>
 
       {/* Progress Dots */}
@@ -233,8 +233,7 @@ export default function Game() {
                 <strong>Bỏ qua (hết giờ):</strong> {skippedCount}
               </p>
             </div>
-            <div className="mt-8">
-            </div>
+            <div className="mt-8"></div>
           </div>
         )}
       </div>

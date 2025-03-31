@@ -54,7 +54,7 @@ export default function Game4() {
 
   if (!selectedMap) {
     return (
-      <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center px-4">
+      <div className="h-full bg-slate-900 text-white flex flex-col items-center justify-center px-4">
         <h1 className="text-3xl font-bold mb-4">Chọn bản đồ để bắt đầu</h1>
         <select
           className="bg-white/10 text-white px-4 py-2 rounded mb-6"
@@ -87,7 +87,7 @@ export default function Game4() {
     const timePlayed = startTime ? Math.floor((Date.now() - startTime) / 1000) : 180;
 
     return (
-      <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-6">
+      <div className="h-full bg-slate-900 text-white flex flex-col items-center justify-center p-6">
         <div className="bg-white/10 backdrop-blur rounded-xl p-8 max-w-xl w-full text-center space-y-4">
           <h2 className="text-2xl font-bold text-emerald-400">{allFound ? "🎉 Hoàn thành!" : "⏰ Hết giờ!"}</h2>
           <p>
@@ -101,7 +101,7 @@ export default function Game4() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-4">
+    <div className="h-full bg-slate-900 text-white p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">⏱️ Thời gian còn lại: {timeLeft}s</h2>
         <h3>
