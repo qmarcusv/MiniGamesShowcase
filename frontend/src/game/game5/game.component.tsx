@@ -232,7 +232,7 @@ export default function Game5() {
     const timePlayed = Math.round(((endTime ?? Date.now()) - startTimeRef.current) / 1000);
     const accuracy = correctAnswers === 0 ? 0 : Math.round((correctAnswers / 20) * 100);
     return (
-      <div className="px-6 py-10 flex flex-col items-center text-center bg-gradient-to-b from-green-100 to-green-300 min-h-screen">
+      <div className="px-6 py-10 flex flex-col items-center text-center bg-gradient-to-b from-green-100 to-green-300 h-full">
         <div className="w-[80%] max-w-[800px] min-w-[400px] min-h-[500px] p-10 rounded-[2rem] bg-white shadow-2xl text-xl animate-fade-in">
           <h2 className="text-3xl font-extrabold text-green-700 mb-6">{t("game5.summary")}</h2>
           <div className="flex flex-col items-center gap-4 text-lg">

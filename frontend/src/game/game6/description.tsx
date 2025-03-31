@@ -39,7 +39,7 @@ export default function Description6() {
   // }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center px-4">
+    <div className="h-full bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center px-4">
       <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl p-10 max-w-3xl w-full text-center space-y-8">
         <h1 className="text-4xl font-extrabold text-emerald-400 drop-shadow">{t("games.game6")}</h1>
 

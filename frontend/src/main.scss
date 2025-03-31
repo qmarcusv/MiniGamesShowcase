@@ -1,0 +1,67 @@
+// =============================================================
+// RESET CSS
+// =============================================================
+* {
+    // margin: 0;
+    // padding: 0;
+    box-sizing: border-box !important;
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    dl,
+    ol,
+    ul {
+        list-style: none;
+        margin: 0;
+    }
+}
+html,
+body {
+    width: 100vw;
+    background-color: #e3e6e6;
+    margin: 0;
+    padding: 0;
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+    // background: bottom left repeat-x fixed url('./assets/images/bgs/m2.png');
+}
+
+#root {
+    width: 100%;
+    position: relative;
+    // font-family: "Syne", sans-serif;
+}
+
+// Layout
+// ======================================
+
+// Element options
+// ======================================
+.hide-navbar .navbar {
+    display: none !important;
+}
+
+.hide-footer .footer {
+    display: none !important;
+}
+
+.hide-navbar-footer .navbar,
+.hide-navbar-footer .footer {
+    display: none !important;
+}
+
+.hidden-scroll {
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+}
+
+.c {
+    border: 1px solid red;
+}
+.c > * {
+    border: 1px solid green;
+}
