@@ -2,8 +2,10 @@ import { useState } from "react";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
 import Game3 from "./game.component";
 import Game3Setting from "./game-setting.component";
+import { useGameContext } from "../../shared/context/game.hook";
 
 export default function Description3() {
+  const { games, completeGame } = useGameContext();
   const [view, setView] = useState<"description" | "game" | "setting">("description");
 
   if (view === "game") return <Game3 />;
@@ -37,6 +39,10 @@ export default function Description3() {
             className="bg-pink-500 text-white px-6 py-2 rounded-xl hover:bg-pink-600 transition shadow-md">
             Bắt đầu chơi
           </ButtonSound>
+
+          <button onClick={() => completeGame(2)} className="bg-emerald-500 text-white px-4 py-2 rounded-xl">
+            Complete
+          </button>
         </div>
       </div>
     </div>

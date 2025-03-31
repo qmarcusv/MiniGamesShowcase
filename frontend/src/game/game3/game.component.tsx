@@ -25,12 +25,6 @@ const maxFails = 5;
 const roundDuration = 20;
 
 export default function Game3() {
-  useEffect(() => {
-    document.body.classList.add("hide-navbar-footer");
-    return () => {
-      document.body.classList.remove("hide-navbar-footer");
-    };
-  }, []);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [guessed, setGuessed] = useState<string[]>([]);
   const [fails, setFails] = useState(0);
@@ -113,7 +107,7 @@ export default function Game3() {
   }, [guessed, fails]);
 
   return (
-    <div className="game3-container bg-slate-900 text-white h-full flex p-6 gap-6 items-stretch">
+    <div className="game-zone game3-container bg-slate-900 text-white h-full flex p-6 gap-6 items-stretch">
       {/* Left: Timer + 3x3 Grid */}
       <div className="flex flex-col flex-[1.2] max-w-[800px] h-full gap-4">
         {/* Timer */}

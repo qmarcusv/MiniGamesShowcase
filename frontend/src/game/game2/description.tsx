@@ -1,24 +1,17 @@
 import { useEffect, useState } from "react";
 import Game from "./game.component";
 import GameSetting from "./game-setting.component";
+import { useGameContext } from "../../shared/context/game.hook";
 
 export default function Description2() {
+  const { games, completeGame } = useGameContext();
   const [view, setView] = useState<"description" | "game" | "setting">("description");
-
-  // Optional: add class to body to hide nav/footer when in game view
-  useEffect(() => {
-    if (view === "game") {
-      document.body.classList.add("hide-navbar-footer");
-    } else {
-      document.body.classList.remove("hide-navbar-footer");
-    }
-  }, [view]);
 
   if (view === "game")
     return (
-      <div className="hide-navbar-footer">
-        <Game />
-      </div>
+      // <div className="hide-navbar-footer">
+      <Game />
+      // </div>
     );
   if (view === "setting") return <GameSetting />;
 
@@ -35,6 +28,10 @@ export default function Description2() {
           </button>
           <button className="bg-blue-500 text-white px-6 py-2 rounded-xl hover:bg-blue-600 transition shadow-md" onClick={() => setView("game")}>
             Bắt đầu chơi
+          </button>
+
+          <button onClick={() => completeGame(1)} className="bg-emerald-500 text-white px-4 py-2 rounded-xl">
+            Complete
           </button>
         </div>
       </div>

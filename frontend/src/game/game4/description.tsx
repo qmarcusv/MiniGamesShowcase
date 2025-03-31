@@ -3,8 +3,10 @@ import Game4 from "./game.component";
 import Game4Setting from "./game-setting.component";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
 import { useTranslation } from "react-i18next";
+import { useGameContext } from "../../shared/context/game.hook";
 
 export default function Description4() {
+  const { games, completeGame } = useGameContext();
   const [view, setView] = useState<"description" | "game" | "setting">("description");
   const { t } = useTranslation();
 
@@ -36,6 +38,10 @@ export default function Description4() {
             className="bg-emerald-500 text-white px-6 py-2 rounded-xl hover:bg-emerald-600 transition shadow-md">
             {t("description4.start") || "Bắt đầu chơi"}
           </ButtonSound>
+
+          <button onClick={() => completeGame(3)} className="bg-emerald-500 text-white px-4 py-2 rounded-xl">
+            Complete
+          </button>
         </div>
       </div>
     </div>

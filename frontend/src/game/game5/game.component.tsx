@@ -232,7 +232,7 @@ export default function Game5() {
     const timePlayed = Math.round(((endTime ?? Date.now()) - startTimeRef.current) / 1000);
     const accuracy = correctAnswers === 0 ? 0 : Math.round((correctAnswers / 20) * 100);
     return (
-      <div className="px-6 py-10 flex flex-col items-center text-center bg-gradient-to-b from-green-100 to-green-300 h-full">
+      <div className="game-zone px-6 py-10 flex flex-col items-center text-center bg-gradient-to-b from-green-100 to-green-300 h-full">
         <div className="w-[80%] max-w-[800px] min-w-[400px] min-h-[500px] p-10 rounded-[2rem] bg-white shadow-2xl text-xl animate-fade-in">
           <h2 className="text-3xl font-extrabold text-green-700 mb-6">{t("game5.summary")}</h2>
           <div className="flex flex-col items-center gap-4 text-lg">
@@ -257,7 +257,7 @@ export default function Game5() {
   }
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-b from-blue-50 to-blue-100 overflow-hidden">
+    <div className="game-zone relative w-full h-screen bg-gradient-to-b from-blue-50 to-blue-100 overflow-hidden">
       <div className="flex items-center gap-4 px-6 py-3 bg-white shadow-md z-50 relative w-fit max-w-[90%] mt-2 ml-4 rounded-xl border border-blue-200">
         <h1 className="text-base font-semibold text-blue-600">
           {t("game5.question", { section })}: {question?.label} ({t("game5.correct")}: {score}/{question?.correctCount})

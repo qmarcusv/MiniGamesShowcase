@@ -1,7 +1,7 @@
 import "./home.component.scss";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { useGameContext } from "../../shared/context/game.context";
+import { useGameContext } from "../../shared/context/game.hook";
 import { motion, AnimatePresence } from "framer-motion";
 
 import correctSound from "/sound/correct.mp3";

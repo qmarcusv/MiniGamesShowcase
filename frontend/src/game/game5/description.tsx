@@ -3,25 +3,18 @@ import { useTranslation } from "react-i18next";
 import Game from "./game.component";
 import GameSetting from "./game-setting.component";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
+import { useGameContext } from "../../shared/context/game.hook";
 
 export default function Description5() {
+  const { games, completeGame } = useGameContext();
   const [view, setView] = useState<"description" | "game" | "setting">("description");
   const { t } = useTranslation();
 
-  // Optional: apply hide-navbar-footer when in game view
-  useEffect(() => {
-    if (view === "game") {
-      document.body.classList.add("hide-navbar-footer");
-    } else {
-      document.body.classList.remove("hide-navbar-footer");
-    }
-  }, [view]);
-
   if (view === "game")
     return (
-      <div className="hide-navbar-footer">
-        <Game />
-      </div>
+      // <div className="hide-navbar-footer">
+      <Game />
+      // </div>
     );
   if (view === "setting") return <GameSetting />;
 
@@ -46,6 +39,10 @@ export default function Description5() {
             className="bg-purple-500 text-white px-6 py-2 rounded-xl hover:bg-purple-600 transition shadow-md">
             🎮 {t("description5.start")}
           </ButtonSound>
+
+          <button onClick={() => completeGame(4)} className="bg-emerald-500 text-white px-4 py-2 rounded-xl">
+            Complete
+          </button>
         </div>
       </div>
     </div>

@@ -39,8 +39,13 @@ body {
 
 // Element options
 // ======================================
-.hide-navbar .navbar {
-    display: none !important;
+.hide-navbar {
+    .navbar {
+        display: none !important;
+    }
+    .nav-map {
+        display: block !important;
+    }
 }
 
 .hide-footer .footer {

@@ -3,7 +3,7 @@ import Game6 from "./game.component.tsx";
 // import Game6Setting from "./game-setting.component.tsx";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
 import { useTranslation } from "react-i18next";
-import { useGameContext } from "../../shared/context/game.context.tsx";
+import { useGameContext } from "../../shared/context/game.hook";
 
 export default function Description6() {
   const { games, completeGame } = useGameContext();
@@ -14,14 +14,6 @@ export default function Description6() {
     "6x6": 120,
   });
   const { t } = useTranslation();
-
-  useEffect(() => {
-    if (view === "game") {
-      document.body.classList.add("hide-navbar-footer");
-    } else {
-      document.body.classList.remove("hide-navbar-footer");
-    }
-  }, [view]);
 
   if (view === "game") {
     return <Game6 gridSize={gridSize} timer={timers[gridSize]} />;
