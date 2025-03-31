@@ -39,13 +39,6 @@ export default function Game1() {
   }>({});
 
   useEffect(() => {
-    document.body.classList.add("hide-navbar-footer");
-    return () => {
-      document.body.classList.remove("hide-navbar-footer");
-    };
-  }, []);
-
-  useEffect(() => {
     let interval: number;
 
     if (started && !showConclusion && !waitingToFinish) {
@@ -136,7 +129,7 @@ export default function Game1() {
     const accuracy = clickCount > 0 ? Math.round((correctCount / clickCount) * 100) : 0;
 
     return (
-      <div className="p-6 text-center text-yellow-100 h-full bg-[url('/image/pirate-wood.jpg')] bg-cover flex items-center justify-center font-pirate">
+      <div className="game-zone p-6 text-center text-yellow-100 h-full bg-[url('/image/pirate-wood.jpg')] bg-cover flex items-center justify-center font-pirate">
         <div className="bg-black/60 backdrop-blur p-8 rounded-xl max-w-xl w-full space-y-4 border-4 border-yellow-600 shadow-xl">
           <h2 className="text-3xl font-bold text-yellow-300">🎉 Kết quả của cuộc truy tìm!</h2>
           <p>
@@ -156,7 +149,7 @@ export default function Game1() {
   const hiddenProgress = (correctCount / 5) * 100;
 
   return (
-    <div className="flex w-full h-full gap-4 pt-4 px-6 bg-[#1e293b] font-pirate text-yellow-100">
+    <div className="game-zone flex w-full h-full gap-4 pt-4 px-6 bg-[#1e293b] font-pirate text-yellow-100">
       {/* Map Column */}
       <div className="relative flex-1 rounded-xl border-4 border-yellow-600 shadow-lg overflow-hidden bg-black/20">
         <img src={mapImage} alt="Vietnam map" className="absolute w-full h-full object-cover" />

@@ -1,5 +1,5 @@
 nav {
-    background-color: red !important;
+    height: 70px;
     display: flex;
     img.map {
         max-width: 50px;
@@ -13,5 +13,27 @@ nav {
     }
     .navigator {
         flex: 1;
+    }
+}
+
+.nav-map {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 17, 0, 0.671);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 99;
+
+    img.map {
+        max-width: 50px;
+        max-height: auto;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 }

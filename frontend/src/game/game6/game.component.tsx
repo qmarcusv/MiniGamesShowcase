@@ -36,13 +36,6 @@ interface Game6Props {
 }
 
 export default function Game6({ gridSize, timer: initialTimer }: Game6Props) {
-  useEffect(() => {
-    document.body.classList.add("hide-navbar-footer");
-    return () => {
-      document.body.classList.remove("hide-navbar-footer");
-    };
-  }, []);
-
   const [cards, setCards] = useState<
     {
       id: number;
@@ -165,7 +158,7 @@ export default function Game6({ gridSize, timer: initialTimer }: Game6Props) {
     const win = isComplete && timer > 0;
 
     return (
-      <div className="p-6 text-center">
+      <div className="game-zone p-6 text-center">
         <div className="bg-white rounded-xl shadow p-8 max-w-xl mx-auto">
           <h2 className="text-2xl font-bold mb-4">{win ? "🎉 Bạn đã hoàn thành trò chơi!" : "⏰ Hết giờ!"}</h2>
           <p className="text-lg">⏱️ Thời gian sử dụng: {timeUsed} giây</p>
@@ -179,7 +172,7 @@ export default function Game6({ gridSize, timer: initialTimer }: Game6Props) {
   }
 
   return (
-    <div className="hide-navbar-footer relative p-6 max-w-6xl mx-auto bg-gradient-to-b from-slate-800 to-slate-700 h-full rounded-xl shadow-lg">
+    <div className="game-zone relative p-6 max-w-6xl mx-auto bg-gradient-to-b from-slate-800 to-slate-700 h-full rounded-xl shadow-lg">
       <div className="absolute top-4 left-4 w-16 h-16 z-10 bg-white rounded-full shadow-lg flex items-center justify-center">
         <CircularProgressbarWithChildren
           value={(timer / initialTimer) * 100}

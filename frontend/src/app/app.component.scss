@@ -8,7 +8,20 @@
         }
     }
 
+    &:has(main .game-zone) {
+        .navbar,
+        .footer {
+            display: none !important;
+        }
+        .nav-map {
+            display: block !important;
+        }
+    }
+
     main {
         // flex: 1;
+        .game-zone {
+            height: 100%;
+        }
     }
 }
