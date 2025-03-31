@@ -4,13 +4,23 @@
 	overflow: hidden;
 	background: linear-gradient(to bottom, #cbe4f9, #e0f2fe);
 	font-family: "Pirata One", cursive;
+
+	.treasure-hunt-page {
+		background-color: #fdf7e2;
+		display: flex;
+		.left-panel {
+			width: 65%;
+		}
+		.right-panel {
+			flex: 1;
+		}
+	}
 }
 
 /* LEFT: Treasure Map */
 .left-panel {
-	width: 65%;
 	background: url("/image/big-map.png") center/contain no-repeat;
-	background-color: #0f172a;
+	// background-color: #0f172a;
 	position: relative;
 	border-right: 8px dashed #fbbf24; // golden map border
 	box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
@@ -32,12 +42,19 @@
 	pointer-events: all;
 	transition: transform 0.2s ease;
 }
-.game-icon:hover {
+.game-icon:not(.locked):hover {
 	transform: scale(1.08);
 }
-.game-icon.locked img {
-	filter: grayscale(90%);
-	opacity: 0.6;
+
+.game-icon.locked {
+	cursor: default;
+	img {
+		filter: grayscale(90%);
+		opacity: 0.6;
+	}
+	&:hover {
+		transform: scale(1);
+	}
 }
 .game-icon img {
 	width: 100%;
@@ -56,9 +73,13 @@
 
 /* RIGHT: Story and Title */
 .right-panel {
-	width: 35%;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	height: calc(100vh - 100px);
+
 	padding: 2rem;
-	overflow-y: auto;
+	overflow-y: hidden;
 	background: linear-gradient(to bottom, #fdf6e3, #fef3c7);
 	border-left: 6px solid #8b5e3c;
 	box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.15);
@@ -69,7 +90,6 @@
 	font-size: 2.8rem;
 	color: #b45309;
 	text-align: center;
-	margin-bottom: 1rem;
 	text-shadow: 1px 1px 0 #fff;
 	border-bottom: 2px dashed #eab308;
 	padding-bottom: 0.5rem;
@@ -79,59 +99,62 @@
 	font-size: 1.2rem;
 	color: #78350f;
 	text-align: center;
-	margin-bottom: 2rem;
 }
 
 /* STORY */
 .story-box {
+	flex: 1;
+	width: 100%;
 	background: url("/image/parchment.png") center/cover no-repeat;
 	padding: 2rem;
 	border: 5px solid #8b5e3c;
 	border-radius: 20px;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-	position: relative;
+	// position: relative;
 	color: #3b2f2f;
-}
+	overflow: auto;
+	font-family: monospace;
 
-.story-box::before {
-	content: "☠️";
-	position: absolute;
-	top: -20px;
-	left: -20px;
-	font-size: 2rem;
-	transform: rotate(-15deg);
-}
-
-.story-box::after {
-	content: "🗺️";
-	position: absolute;
-	bottom: -20px;
-	right: -20px;
-	font-size: 2rem;
-	transform: rotate(10deg);
-}
-
-.story-text {
-	font-size: 1.1rem;
-	white-space: pre-wrap;
-	line-height: 1.8;
-	text-shadow: 0 1px 1px #fef3c7;
-	position: relative;
-}
-
-.story-text::after {
-	content: "|";
-	animation: blink 1s step-start infinite;
-	position: relative;
-	left: 5px;
-	color: #000;
-}
-
-@keyframes blink {
-	50% {
-		opacity: 0;
+	&::before {
+		content: "☠️";
+		position: absolute;
+		top: -20px;
+		left: -20px;
+		font-size: 2rem;
+		transform: rotate(-15deg);
 	}
+
+	&::after {
+		content: "🗺️";
+		position: absolute;
+		bottom: -20px;
+		right: -20px;
+		font-size: 2rem;
+		transform: rotate(10deg);
+	}
+
+	.story-text {
+		font-size: 1.1rem;
+		white-space: pre-wrap;
+		line-height: 1.8;
+		text-shadow: 0 1px 1px #fef3c7;
+		// position: relative;
+	}
+
+	// .story-text::after {
+	// 	content: "|";
+	// 	animation: blink 1s step-start infinite;
+	// 	position: relative;
+	// 	left: 5px;
+	// 	color: #000;
+	// }
 }
+
+// @keyframes blink {
+// 	50% {
+// 		opacity: 0;
+// 	}
+// }
 
 .game-icon {
 	position: absolute;
@@ -148,7 +171,7 @@
 	&.locked {
 		z-index: 1;
 		filter: grayscale(90%);
-		opacity: 0.6;
+		opacity: 0.8;
 	}
 
 	&:hover {
@@ -196,5 +219,38 @@
 	}
 	to {
 		transform: translate(20px, -15px) scale(var(--cloud-scale, 1));
+	}
+}
+
+// Multi Lines Typing
+// -----------------------------------
+
+// font-family: monospace;
+$text-color: rgba(29, 31, 31, 0.767);
+
+.typing-multiline {
+	color: #0000;
+	background:
+		linear-gradient(-90deg, $text-color 5px, #0000 0) 10px 0,
+		linear-gradient($text-color 0 0) 0 0;
+	background-size: calc(var(--n) * 1ch) 200%;
+	-webkit-background-clip: padding-box, text;
+	background-clip: padding-box, text;
+	background-repeat: no-repeat;
+	animation:
+		b 0.7s infinite steps(1),
+		t calc(var(--n) * 0.05s) steps(var(--n)) forwards;
+}
+
+@keyframes t {
+	from {
+		background-size: 0 200%;
+	}
+}
+@keyframes b {
+	50% {
+		background-position:
+			0 -100%,
+			0 0;
 	}
 }
