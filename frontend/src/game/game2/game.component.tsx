@@ -1,249 +1,222 @@
+// Game 2 - Pirate Theme (Scaled Up)
 import { useEffect, useRef, useState } from "react";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
-import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
+import {
+	CircularProgressbarWithChildren,
+	buildStyles,
+} from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-export default function Game() {
-  const questions = [
-    {
-      question: "Ngọn núi cao nhất thế giới là?",
-      responses: ["Fansipan", "Everest", "Phú Sĩ", "Andes"],
-      result: 1,
-      explanation: "Everest là đỉnh núi cao nhất thế giới.",
-    },
-    {
-      question: "Quốc kỳ Việt Nam có màu gì?",
-      responses: ["Xanh", "Đỏ/Vàng", "Trắng", "Tím"],
-      result: 1,
-      explanation: "Quốc kỳ Việt Nam có nền đỏ với ngôi sao vàng.",
-    },
-    {
-      question: "Sông nào dài nhất thế giới?",
-      responses: ["Nile", "Amazon", "Mekong", "Hồng Hà"],
-      result: 0,
-      explanation: "Sông Nile là sông dài nhất thế giới.",
-    },
-    {
-      question: "Thủ đô của Nhật Bản là gì?",
-      responses: ["Osaka", "Kyoto", "Tokyo", "Nagoya"],
-      result: 2,
-      explanation: "Tokyo là thủ đô của Nhật Bản.",
-    },
-    {
-      question: "Trái đất quay quanh gì?",
-      responses: ["Mặt Trăng", "Sao Hỏa", "Mặt Trời", "Sao Kim"],
-      result: 2,
-      explanation: "Trái đất quay quanh Mặt Trời.",
-    },
-  ];
+export default function Game2() {
+	const questions = [
+		{
+			question: "Ngọn núi cao nhất thế giới là?",
+			responses: ["Fansipan", "Everest", "Phú Sĩ", "Andes"],
+			result: 1,
+			explanation: "Everest là đỉnh núi cao nhất thế giới.",
+		},
+		{
+			question: "Quốc kỳ Việt Nam có màu gì?",
+			responses: ["Xanh", "Đỏ/Vàng", "Trắng", "Tím"],
+			result: 1,
+			explanation: "Quốc kỳ Việt Nam có nền đỏ với ngôi sao vàng.",
+		},
+		{
+			question: "Sông nào dài nhất thế giới?",
+			responses: ["Nile", "Amazon", "Mekong", "Hồng Hà"],
+			result: 0,
+			explanation: "Sông Nile là sông dài nhất thế giới.",
+		},
+		{
+			question: "Thủ đô của Nhật Bản là gì?",
+			responses: ["Osaka", "Kyoto", "Tokyo", "Nagoya"],
+			result: 2,
+			explanation: "Tokyo là thủ đô của Nhật Bản.",
+		},
+		{
+			question: "Trái đất quay quanh gì?",
+			responses: ["Mặt Trăng", "Sao Hỏa", "Mặt Trời", "Sao Kim"],
+			result: 2,
+			explanation: "Trái đất quay quanh Mặt Trời.",
+		},
+	];
 
-  const [shuffledQuestions] = useState(() => {
-    const shuffled = [...questions].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 5);
-  });
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [selected, setSelected] = useState<number | null>(null);
+	const [timeLeft, setTimeLeft] = useState(10);
+	const [showAnswer, setShowAnswer] = useState(false);
+	const [timedOut, setTimedOut] = useState(false);
+	const [correctCount, setCorrectCount] = useState(0);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [timeLeft, setTimeLeft] = useState(10);
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [timedOut, setTimedOut] = useState(false);
-  const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
-  const [fiftyUsed, setFiftyUsed] = useState(false);
-  const [progress, setProgress] = useState<(null | "correct" | "wrong")[]>(Array(5).fill(null));
-  const [correctCount, setCorrectCount] = useState(0);
-  const [wrongCount, setWrongCount] = useState(0);
-  const [skippedCount, setSkippedCount] = useState(0);
+	const tickRef = useRef<HTMLAudioElement>(null);
+	const tickFastRef = useRef<HTMLAudioElement>(null);
+	const correctRef = useRef<HTMLAudioElement>(null);
+	const wrongRef = useRef<HTMLAudioElement>(null);
 
-  const currentQuestion = shuffledQuestions[currentIndex];
+	const currentQuestion = questions[currentIndex];
+	const isGameOver = currentIndex >= questions.length;
 
-  const tickRef = useRef<HTMLAudioElement>(null);
-  const tickFastRef = useRef<HTMLAudioElement>(null);
-  const correctRef = useRef<HTMLAudioElement>(null);
-  const wrongRef = useRef<HTMLAudioElement>(null);
+	const rewardImages = {
+		common: "/image/reward-common.png",
+		rare: "/image/reward-rare.png",
+		legendary: "/image/reward-legendary.png",
+		mythic: "/image/reward-mythic.png",
+	};
 
-  const nextQuestion = () => {
-    setSelected(null);
-    setShowAnswer(false);
-    setTimeLeft(10);
-    setTimedOut(false);
-    setDisabledOptions([]);
-    setFiftyUsed(false);
-    setCurrentIndex((prev) => prev + 1);
-  };
+	const getReward = () => {
+		if (correctCount === 5)
+			return { label: "👑 Duy ngã độc tôn", rarity: "mythic" };
+		if (correctCount === 4)
+			return { label: "🛡️ Vật phẩm truyền thuyết", rarity: "legendary" };
+		if (correctCount >= 2) return { label: "💎 Vật phẩm quý", rarity: "rare" };
+		if (correctCount >= 1)
+			return { label: "🪙 Vật phẩm thường", rarity: "common" };
+		return { label: "😅 Không nhận được vật phẩm", rarity: "none" };
+	};
 
-  const selectResponse = (responseIndex: number) => {
-    if (selected !== null || !currentQuestion || disabledOptions.includes(responseIndex)) return;
+	const nextQuestion = () => {
+		setSelected(null);
+		setShowAnswer(false);
+		setTimeLeft(10);
+		setTimedOut(false);
+		setCurrentIndex((prev) => prev + 1);
+	};
 
-    setSelected(responseIndex);
-    setShowAnswer(true);
-    setTimedOut(false);
+	const selectResponse = (index: number) => {
+		if (selected !== null || showAnswer) return;
+		setSelected(index);
+		setShowAnswer(true);
+		setTimedOut(false);
+		const isCorrect = index === currentQuestion.result;
+		if (isCorrect) {
+			setCorrectCount((c) => c + 1);
+			correctRef.current?.play();
+		} else {
+			wrongRef.current?.play();
+		}
+		setTimeout(nextQuestion, 3000);
+	};
 
-    const isCorrect = responseIndex === currentQuestion.result;
-    setProgress((prev) => {
-      const updated = [...prev];
-      updated[currentIndex] = isCorrect ? "correct" : "wrong";
-      return updated;
-    });
+	useEffect(() => {
+		if (!currentQuestion || showAnswer || isGameOver) return;
+		if (timeLeft === 0) {
+			setTimedOut(true);
+			setShowAnswer(true);
+			wrongRef.current?.play();
+			setTimeout(nextQuestion, 3000);
+			return;
+		}
+		const timer = setTimeout(() => {
+			setTimeLeft((t) => t - 1);
+			if (timeLeft <= 3) tickFastRef.current?.play();
+			else tickRef.current?.play();
+		}, 1000);
+		return () => clearTimeout(timer);
+	}, [timeLeft, showAnswer, currentQuestion]);
 
-    if (isCorrect) {
-      correctRef.current?.play();
-      setCorrectCount((prev) => prev + 1);
-    } else {
-      wrongRef.current?.play();
-      setWrongCount((prev) => prev + 1);
-    }
+	return (
+		<div className="min-h-screen bg-[url('/image/pirate-wood.jpg')] bg-cover p-12 text-yellow-100 font-pirate relative">
+			<h1 className="text-6xl text-center font-bold text-yellow-300 mb-10">
+				🧠 Thử thách trí tuệ!
+			</h1>
 
-    setTimeout(nextQuestion, 3000);
-  };
+			{/* Treasure Progress */}
+			<div className="absolute top-10 right-10 w-28 h-28">
+				<CircularProgressbarWithChildren
+					value={correctCount * 20}
+					styles={buildStyles({ pathColor: "#facc15", trailColor: "#1e293b" })}
+				>
+					<span className="text-lg font-bold">{correctCount * 20}%</span>
+				</CircularProgressbarWithChildren>
+			</div>
 
-  const useFiftyFifty = () => {
-    if (fiftyUsed || !currentQuestion) return;
-    const correctIndex = currentQuestion.result;
-    const wrongIndexes = currentQuestion.responses.map((_, i) => i).filter((i) => i !== correctIndex);
-    const toHide = wrongIndexes.sort(() => 0.5 - Math.random()).slice(0, 2);
-    setDisabledOptions(toHide);
-    setFiftyUsed(true);
-  };
+			{/* Question Box */}
+			<div className="max-w-6xl mx-auto bg-black/50 rounded-3xl border-4 border-yellow-600 p-12 shadow-2xl">
+				{!isGameOver ? (
+					<>
+						<h2 className="text-4xl text-yellow-300 mb-8">
+							Câu {currentIndex + 1}: {currentQuestion.question}
+						</h2>
 
-  useEffect(() => {
-    if (!currentQuestion || showAnswer) return;
+						<div className="flex justify-between items-start gap-12">
+							<div className="flex-1 grid grid-cols-2 gap-6">
+								{currentQuestion.responses.map((res, idx) => (
+									<ButtonSound
+										key={idx}
+										soundUrl="/sound/press.mp3"
+										onClick={() => selectResponse(idx)}
+										className={`py-5 px-6 text-center text-2xl rounded-2xl transition cursor-pointer
+                      ${
+												showAnswer && idx === currentQuestion.result
+													? "bg-green-500 text-white"
+													: showAnswer && idx === selected
+													? "bg-red-500 text-white"
+													: "bg-white text-black hover:bg-yellow-100"
+											}`}
+									>
+										{res}
+									</ButtonSound>
+								))}
+							</div>
 
-    if (timeLeft === 0) {
-      setShowAnswer(true);
-      setTimedOut(true);
-      wrongRef.current?.play();
-      setProgress((prev) => {
-        const updated = [...prev];
-        updated[currentIndex] = "wrong";
-        return updated;
-      });
-      setSkippedCount((prev) => prev + 1);
-      setTimeout(nextQuestion, 3000);
-      return;
-    }
+							<div className="w-32">
+								<CircularProgressbarWithChildren
+									value={(timeLeft / 10) * 100}
+									styles={buildStyles({
+										pathColor: timeLeft <= 3 ? "#ef4444" : "#facc15",
+										trailColor: "#1e293b",
+									})}
+								>
+									<div className="text-xl font-bold">{timeLeft}s</div>
+								</CircularProgressbarWithChildren>
+							</div>
+						</div>
 
-    const timer = setTimeout(() => {
-      setTimeLeft((prev) => prev - 1);
-      if (timeLeft <= 3) tickFastRef.current?.play();
-      else tickRef.current?.play();
-    }, 1000);
+						{showAnswer && (
+							<div className="mt-10 bg-yellow-100 text-yellow-900 border-4 border-yellow-600 p-6 rounded-2xl text-xl font-semibold shadow-xl">
+								<strong className="block mb-2 text-2xl">📖 Giải thích:</strong>
+								{currentQuestion.explanation}
+							</div>
+						)}
+					</>
+				) : (
+					<div className="text-center">
+						<h2 className="text-5xl font-bold text-green-400 mb-6">
+							🎉 Hoàn thành trò chơi!
+						</h2>
+						<p className="text-2xl mb-4">
+							Số câu đúng: {correctCount} / {questions.length}
+						</p>
+						{(() => {
+							const reward = getReward();
+							return reward.rarity !== "none" ? (
+								<>
+									<img
+										src={
+											rewardImages[reward.rarity as keyof typeof rewardImages]
+										}
+										alt={reward.label}
+										className="w-40 h-40 mx-auto my-6"
+									/>
+									<p className="text-3xl font-bold text-yellow-300">
+										{reward.label}
+									</p>
+								</>
+							) : (
+								<p className="text-2xl text-red-400 font-bold">
+									{reward.label}
+								</p>
+							);
+						})()}
+					</div>
+				)}
+			</div>
 
-    return () => clearTimeout(timer);
-  }, [timeLeft, currentQuestion, showAnswer]);
-
-  const getResponseStyle = (index: number) => {
-    if (disabledOptions.includes(index) && !showAnswer) return "bg-gray-200 text-gray-400 cursor-not-allowed";
-    if (!showAnswer) return selected === index ? "bg-blue-400 text-white" : "bg-white text-black hover:bg-blue-100";
-    if (index === currentQuestion?.result) return "bg-green-500 text-white";
-    if (index === selected) return "bg-red-500 text-white";
-    return "bg-white text-black";
-  };
-
-  const isGameOver = currentIndex >= shuffledQuestions.length;
-
-  return (
-    <div className="w-full min-h-screen px-6 py-10 flex flex-col items-center bg-gradient-to-b from-blue-50 to-blue-100">
-      <h1 className="text-5xl font-extrabold text-blue-700 mb-6 text-center">Trò chơi 2: Câu hỏi</h1>
-
-      {/* Progress Dots */}
-      <div className="flex justify-center gap-4 mb-6">
-        {progress.map((status, idx) => (
-          <div
-            key={idx}
-            className={`w-6 h-6 rounded-full border-2 ${
-              status === "correct"
-                ? "bg-green-500 border-green-700"
-                : status === "wrong"
-                ? "bg-red-500 border-red-700"
-                : "bg-gray-300 border-gray-500"
-            }`}
-          />
-        ))}
-      </div>
-
-      <div className="w-[80%] max-w-[1200px] min-w-[900px] min-h-[500px] p-10 rounded-[2rem] bg-white shadow-2xl text-xl">
-        {!isGameOver ? (
-          <>
-            {/* Question Box */}
-            <div className="bg-blue-50 border border-blue-300 rounded-xl p-6 shadow-sm mb-10 text-center">
-              <h2 className="text-3xl font-bold mb-2">Câu hỏi {currentIndex + 1}:</h2>
-              <p className="text-2xl">{currentQuestion.question}</p>
-            </div>
-
-            {/* Answer + Timer Side by Side */}
-            <div className="flex items-start justify-between gap-10">
-              <div className="flex-1 flex flex-col gap-4">
-                {currentQuestion.responses.map((res, index) => (
-                  <ButtonSound
-                    key={index}
-                    soundUrl="/sounds/press.mp3"
-                    onClick={() => selectResponse(index)}
-                    className={`py-3 px-6 text-lg rounded-lg transition border text-center cursor-pointer ${getResponseStyle(index)}`}>
-                    {res}
-                  </ButtonSound>
-                ))}
-              </div>
-
-              {/* Timer + Explanation + 50/50 */}
-              <div className="flex flex-col items-center gap-4 mt-2 w-36">
-                <div className="w-full">
-                  <CircularProgressbarWithChildren
-                    value={(timeLeft / 10) * 100}
-                    strokeWidth={8}
-                    styles={buildStyles({
-                      pathColor: timeLeft <= 3 ? "#dc2626" : "#2563eb",
-                      trailColor: "#e5e7eb",
-                    })}>
-                    <div className={`text-2xl font-bold ${timeLeft <= 3 ? "text-red-600" : "text-blue-600"}`}>{timeLeft}s</div>
-                  </CircularProgressbarWithChildren>
-                </div>
-
-                {!fiftyUsed && (
-                  <ButtonSound
-                    soundUrl="/sounds/press.mp3"
-                    onClick={useFiftyFifty}
-                    className="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700">
-                    50/50
-                  </ButtonSound>
-                )}
-
-                {showAnswer && (
-                  <div className="bg-yellow-100 text-yellow-900 border border-yellow-300 p-3 rounded-lg text-sm w-full">
-                    <strong>Giải thích:</strong> {currentQuestion.explanation}
-                    {timedOut && <p className="text-red-500 mt-2 font-semibold">⏰ Hết giờ! Bạn chưa chọn đáp án.</p>}
-                  </div>
-                )}
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="text-green-700 font-semibold text-2xl text-center">
-            🎉 Bạn đã hoàn thành trò chơi!
-            <div className="mt-4 text-base text-gray-800 bg-green-100 p-4 rounded-lg max-w-md mx-auto">
-              <p>
-                <strong>Tổng số câu hỏi:</strong> {shuffledQuestions.length}
-              </p>
-              <p>
-                <strong>Trả lời đúng:</strong> {correctCount}
-              </p>
-              <p>
-                <strong>Trả lời sai:</strong> {wrongCount}
-              </p>
-              <p>
-                <strong>Bỏ qua (hết giờ):</strong> {skippedCount}
-              </p>
-            </div>
-            <div className="mt-8">
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Sound FX */}
-      <audio ref={tickRef} src="/sounds/tick.mp3" preload="auto" />
-      <audio ref={tickFastRef} src="/sounds/tick-fast.mp3" preload="auto" />
-      <audio ref={correctRef} src="/sounds/correct.mp3" preload="auto" />
-      <audio ref={wrongRef} src="/sounds/wrong.mp3" preload="auto" />
-    </div>
-  );
+			{/* Sound Effects */}
+			<audio ref={tickRef} src="/sound/tick.mp3" preload="auto" />
+			<audio ref={tickFastRef} src="/sound/hurry.mp3" preload="auto" />
+			<audio ref={correctRef} src="/sound/correct.mp3" preload="auto" />
+			<audio ref={wrongRef} src="/sound/wrong.mp3" preload="auto" />
+		</div>
+	);
 }

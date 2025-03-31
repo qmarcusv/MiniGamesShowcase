@@ -11,7 +11,7 @@ export interface Game {
 
 const initialGames: Game[] = [
 	{ id: 1, name: "Game 1", path: "/game1", status: "completed" },
-	{ id: 2, name: "Game 2", path: "/game2", status: "locked" },
+	{ id: 2, name: "Game 2", path: "/game2", status: "completed" },
 	{ id: 3, name: "Game 3", path: "/game3", status: "locked" },
 	{ id: 4, name: "Game 4", path: "/game4", status: "locked" },
 	{ id: 5, name: "Game 5", path: "/game5", status: "locked" },
