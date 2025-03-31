@@ -2,7 +2,7 @@ import "./home.component.scss";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useGameContext } from "../../shared/context/game.context";
-// import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import correctSound from "/sound/correct.mp3";
 import wrongSound from "/sound/wrong.mp3";
@@ -113,19 +113,19 @@ const Home = () => {
   `;
 
   useEffect(() => {
-    // const timer = setTimeout(() => setShowIntro(false), 3200);
-    // return () => clearTimeout(timer);
+    const timer = setTimeout(() => setShowIntro(false), 100);
+    return () => clearTimeout(timer);
   }, []);
 
-  // useEffect(() => {
-  //   if (!showIntro && index < dummyStory.length) {
-  //     const interval = setInterval(() => {
-  //       setStoryText((prev) => prev + dummyStory[index]);
-  //       setIndex((prev) => prev + 1);
-  //     }, 35);
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [index, showIntro]);
+  useEffect(() => {
+    if (!showIntro && index < dummyStory.length) {
+      const interval = setInterval(() => {
+        setStoryText((prev) => prev + dummyStory[index]);
+        setIndex((prev) => prev + 1);
+      }, 5);
+      return () => clearInterval(interval);
+    }
+  }, [index, showIntro]);
 
   const handleClick = (gameId: string, path: string, status: string) => {
     if (status === "locked") {
@@ -154,7 +154,7 @@ const Home = () => {
       </AnimatePresence> */}
 
       {!showIntro && (
-        <div className="treasure-hunt-page">
+        <div className="treasure-hunt-page ">
           <div className="left-panel">
             <div className="map-overlay">
               {/* <div className="cloud-group">
@@ -215,19 +215,23 @@ const Home = () => {
                     }}
                     onClick={() => handleClick(game.id, game.path, gameStatus)}>
                     <img src={game.image} alt={game.id} />
-                    <div className="label">🏴‍☠️ {t(`games.${game.id}`)}</div>
+                    <div className="label">
+                      🏴‍☠️
+                      {t(`games.${game.id}`)}
+                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="right-panel">
+          <div className="right-panel ">
             <h1 className="title">📖 {t("app.title")} 📖</h1>
             <p className="subtitle">🗺️ {t("app.select_game")}</p>
 
-            <div className="story-box">
-              <p className="story-text">{storyText}</p>
+            <div className="story-box hidden-scroll">
+              <p className="story-text">{dummyStory}</p>
+              {/* <p className="story-text">{storyText}</p> */}
             </div>
           </div>
         </div>

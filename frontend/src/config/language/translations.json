@@ -82,16 +82,16 @@
 			"fr": "French"
 		},
 		"app": {
-			"title": "Treasure hunter",
+			"title": "Treasure hunt",
 			"select_game": "Play & collect all the required items"
 		},
 		"games": {
-			"game1": "Game 1: Find the Place",
-			"game2": "Game 2: Questionaire",
-			"game3": "Game 3: Discorver the mistery",
-			"game4": "Game 4: Compare the past and present",
-			"game5": "Game 5: Document fly",
-			"game6": "Game 6: Flip Card Memory"
+			"game1": "Find the Place",
+			"game2": "Questionaire",
+			"game3": "Discorver the mistery",
+			"game4": "Compare the past and present",
+			"game5": "Document fly",
+			"game6": "Flip Card Memory"
 		},
 		"description1": {
 			"instructions": "In this game, you'll see a map with 10 red dots representing famous places in Vietnam.\nYou can click on any dot to learn about that place before starting.\nWhen the game starts, the dots will shuffle and you'll need to find the target place within the time limit.",
