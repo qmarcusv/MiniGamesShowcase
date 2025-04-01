@@ -7,6 +7,7 @@ export interface Game {
   name: string;
   path?: string;
   icon?: string;
+  image?: string;
   status?: GameStatus;
 }
 

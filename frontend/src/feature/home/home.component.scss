@@ -6,8 +6,10 @@
 	font-family: "Pirata One", cursive;
 
 	.treasure-hunt-page {
+		width: 100vw;
 		background-color: #fdf7e2;
 		display: flex;
+		flex-direction: row;
 		.left-panel {
 			width: 65%;
 		}
@@ -20,70 +22,87 @@
 /* LEFT: Treasure Map */
 // ---------------------------------
 .left-panel {
-	background: url("/image/big-map.png") center/contain no-repeat;
+	background: url("/image/big-map.png") center/cover no-repeat;
 	// background-color: #0f172a;
 	position: relative;
 	border-right: 8px dashed #fbbf24; // golden map border
 	box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
-}
 
-.map-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-}
+	.game-coordinate {
+		position: absolute;
+		// width: 140px;
+		cursor: pointer;
+		pointer-events: all;
+		transition: transform 0.2s ease;
+		z-index: 2;
 
-.game-icon {
-	position: absolute;
-	width: 140px;
-	cursor: pointer;
-	pointer-events: all;
-	transition: transform 0.2s ease;
-}
-.game-icon:not(.locked):hover {
-	transform: scale(1.08);
-}
+		&:not(.locked):hover {
+			transform: scale(1.08);
+		}
 
-.game-icon.locked {
-	cursor: default;
-	img {
-		filter: grayscale(90%);
-		opacity: 0.6;
+		&.locked {
+			cursor: default;
+			img {
+				filter: grayscale(90%);
+				opacity: 0.6;
+			}
+		}
+
+		.game {
+			position: relative;
+			width: 100%;
+			.game-img {
+				width: 140px;
+				height: 100px;
+				border-radius: 50%;
+				border: 4px dashed #fcd34d;
+				background-color: #fff3c6;
+
+				box-shadow:
+					0 12px 20px rgba(0, 0, 0, 0.25),
+					0 24px 36px rgba(0, 0, 0, 0.2),
+					0 36px 50px rgba(0, 0, 0, 0.15);
+			}
+
+			.label {
+				margin-top: 4px;
+				display: flex;
+				justify-content: center;
+				text-align: center;
+				gap: 0.5rem;
+				font-weight: 600;
+				color: white;
+				text-shadow: 1px 1px 2px black;
+			}
+
+			.game-icon {
+				position: absolute;
+				top: -0.5rem;
+				left: -0.5rem;
+				width: 50px;
+				height: auto;
+				padding: 0.5rem;
+				border: none;
+				border-radius: 50%;
+				background-color: rgba(13, 89, 177, 0.562);
+			}
+		}
 	}
-	&:hover {
-		transform: scale(1);
-	}
-}
-.game-icon img {
-	width: 100%;
-	height: auto;
-	border-radius: 50%;
-	border: 4px dashed #fcd34d;
-	background-color: #fff3c6;
-}
-.label {
-	margin-top: 4px;
-	text-align: center;
-	font-weight: 600;
-	color: #fff;
-	text-shadow: 1px 1px 3px #000;
 }
 
 /* RIGHT: Story and Title */
 // ---------------------------------
 .right-panel {
+	// background: url("/image/big-map.png") center/cover no-repeat;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
 	height: calc(100vh - 100px);
 
-	padding: 2rem;
+	padding: 2rem 5rem;
 	overflow-y: hidden;
-	background: linear-gradient(to bottom, #fdf6e3, #fef3c7);
-	border-left: 6px solid #8b5e3c;
+	// background: linear-gradient(to bottom, #fdf6e3, #fef3c7);
+	// border-left: 6px solid #8b5e3c;
 	box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.15);
 	position: relative;
 	overflow-x: hidden;
@@ -116,87 +135,14 @@
 	// position: relative;
 	color: #3b2f2f;
 	overflow: auto;
-	// font-family: monospace;
-
-	&::before {
-		content: "☠️";
-		position: absolute;
-		top: -20px;
-		left: -20px;
-		font-size: 2rem;
-		transform: rotate(-15deg);
-	}
-
-	&::after {
-		content: "🗺️";
-		position: absolute;
-		bottom: -20px;
-		right: -20px;
-		font-size: 2rem;
-		transform: rotate(10deg);
-	}
 
 	.story-text {
-		font-size: 1.1rem;
+		font-size: 1.5rem;
 		white-space: pre-wrap;
-		line-height: 1.8;
-		text-shadow: 0 1px 1px #fef3c7;
-		// position: relative;
-	}
-
-	// .story-text::after {
-	// 	content: "|";
-	// 	animation: blink 1s step-start infinite;
-	// 	position: relative;
-	// 	left: 5px;
-	// 	color: #000;
-	// }
-}
-
-// @keyframes blink {
-// 	50% {
-// 		opacity: 0;
-// 	}
-// }
-
-.game-icon {
-	position: absolute;
-	width: 140px;
-	cursor: pointer;
-	pointer-events: all;
-	transition: transform 0.2s ease;
-	z-index: 2;
-
-	&.unlocked {
-		z-index: 3;
-		filter: brightness(1.15) drop-shadow(0 0 5px gold);
-	}
-	&.locked {
-		z-index: 1;
-		filter: grayscale(90%);
-		opacity: 0.8;
-	}
-
-	&:hover {
-		transform: scale(1.05);
-	}
-
-	img {
-		width: 100%;
-		height: auto;
-		border-radius: 100px;
-		border: 4px solid #a3e635;
-		background-color: #fff;
-	}
-
-	.label {
-		margin-top: 4px;
-		text-align: center;
-		font-weight: 600;
-		color: white;
-		text-shadow: 1px 1px 2px black;
+		line-height: 2;
 	}
 }
+
 .cloud-group {
 	position: absolute;
 	inset: 0;
@@ -227,8 +173,6 @@
 
 // Multi Lines Typing
 // -----------------------------------
-
-// font-family: monospace;
 $text-color: rgba(29, 31, 31, 0.767);
 
 .typing-multiline {
