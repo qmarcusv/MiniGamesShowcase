@@ -2,7 +2,7 @@ import "./home.component.scss";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useGameContext } from "../../shared/context/game.hook";
-import { motion, AnimatePresence } from "framer-motion";
+// import { motion, AnimatePresence } from "framer-motion";
 
 import correctSound from "/sound/correct.mp3";
 import wrongSound from "/sound/wrong.mp3";
@@ -102,12 +102,11 @@ const Home = () => {
   );
 
   const dummyStory = `
-  🗓️ In the year 1800, a legendary crew of six daring pirates set sail across uncharted waters in search of the fabled Magic Stone — a mythical gem said to unlock the hidden passage to the Fortune Islands. ⚔️ After years of storms and betrayal, they found it. But greed consumed them. In the struggle, the stone shattered into six powerful shards. 💥 Each pirate took one shard and disappeared, hiding it in secret places and forging deadly games to protect it.
-  🧭 Now in 2025, you — the last descendant of the sixth pirate — are called to restore what was broken. 🧩 Only by conquering all six pirate trials can you reforge the Magic Stone and uncover the Fortune Islands... once and for all. 🗓️ In the year 1800, a legendary crew of six daring pirates set sail across uncharted waters in search of the fabled Magic Stone — a mythical gem said to unlock the hidden passage to the Fortune Islands.
-  ⚔️ After years of storms and betrayal, they found it. But greed consumed them. In the struggle, the stone shattered into six powerful shards.💥 Each pirate took one shard and disappeared, hiding it in secret places and forging deadly games to protect it.
-  🧭 Now in 2025, you — the last descendant of the sixth pirate — are called to restore what was broken. 🧩 Only by conquering all six pirate trials can you reforge the Magic Stone and uncover the Fortune Islands... once and for all.  🗓️ In the year 1800, a legendary crew of six daring pirates set sail across uncharted waters in search of the fabled Magic Stone — a mythical gem said to unlock the hidden passage to the Fortune Islands.
-  ⚔️ After years of storms and betrayal, they found it. But greed consumed them. In the struggle, the stone shattered into six powerful shards.
-  💥 Each pirate took one shard and disappeared, hiding it in secret places and forging deadly games to protect it.
+  🗓️ In the year 1800, a legendary crew of six daring pirates set sail across uncharted waters in search of the fabled Magic Stone — a mythical gem said to unlock the hidden passage to the Fortune Islands. 
+  ⚔️ After years of storms and betrayal, they found it. But greed consumed them. 
+  In the struggle, the stone shattered into six powerful shards.💥 Each pirate took one shard and disappeared, hiding it in secret places and forging deadly games to protect it.
+  🧭 Now in 2025, you — the last descendant of the sixth pirate — are called to restore what was broken. 
+  
   🧭 Now in 2025, you — the last descendant of the sixth pirate — are called to restore what was broken.
   🧩 Only by conquering all six pirate trials can you reforge the Magic Stone and uncover the Fortune Islands... once and for all.
   `;
@@ -117,15 +116,15 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (!showIntro && index < dummyStory.length) {
-      const interval = setInterval(() => {
-        setStoryText((prev) => prev + dummyStory[index]);
-        setIndex((prev) => prev + 1);
-      }, 5);
-      return () => clearInterval(interval);
-    }
-  }, [index, showIntro]);
+  // useEffect(() => {
+  //   if (!showIntro && index < dummyStory.length) {
+  //     const interval = setInterval(() => {
+  //       setStoryText((prev) => prev + dummyStory[index]);
+  //       setIndex((prev) => prev + 1);
+  //     }, 5);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [index, showIntro]);
 
   const handleClick = (gameId: string, path: string, status: string) => {
     if (status === "locked") {
@@ -208,7 +207,7 @@ const Home = () => {
                 return (
                   <div
                     key={game.id}
-                    className={`game-icon ${isLocked ? "locked" : "unlocked"}`}
+                    className={`game-cordinate ${isLocked ? "locked" : "unlocked"}`}
                     style={{
                       top: `${pos.top}%`,
                       left: `${pos.left}%`,
@@ -219,13 +218,15 @@ const Home = () => {
                       🏴‍☠️
                       {t(`games.${game.id}`)}
                     </div>
+
+                    <img src={game.icon}></img>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="right-panel ">
+          <div className="right-panel">
             <h1 className="title">📖 {t("app.title")} 📖</h1>
             <p className="subtitle">🗺️ {t("app.select_game")}</p>
 
