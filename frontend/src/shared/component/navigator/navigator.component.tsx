@@ -1,3 +1,4 @@
+
 import "./navigator.component.scss";
 
 import React, { useState } from "react";

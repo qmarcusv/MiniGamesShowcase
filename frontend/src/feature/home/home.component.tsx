@@ -6,13 +6,7 @@ import { useGameContext } from "../../shared/context/game.hook";
 
 import correctSound from "/sound/correct.mp3";
 import wrongSound from "/sound/wrong.mp3";
-
-import mapGame from "../../assets/images/map-game.jpg";
-import millionGame from "../../assets/images/million-game.jpg";
-import treasureGame from "../../assets/images/treasure-game.jpg";
-import differenceGame from "../../assets/images/difference-game.jpg";
-import documentGame from "../../assets/images/document-game.png";
-import question from "../../assets/images/question.png";
+import { Game } from "../../shared/context/game.context";
 
 // 🌫️ Cloud config
 const CLOUD_CONFIG = {
@@ -36,15 +30,6 @@ const SAFE_ZONE = {
   leftMin: 10,
   leftMax: 80,
 };
-
-const GAMES = [
-  { id: "game1", image: mapGame, path: "/game1" },
-  { id: "game2", image: millionGame, path: "/game2" },
-  { id: "game3", image: treasureGame, path: "/game3" },
-  { id: "game4", image: differenceGame, path: "/game4" },
-  { id: "game5", image: documentGame, path: "/game5" },
-  { id: "game6", image: question, path: "/game6" },
-];
 
 interface Bounds {
   topMin: number;
@@ -81,34 +66,20 @@ const generateNonOverlappingPositions = (count: number, bounds: Bounds, minDista
 
 const Home = () => {
   const { t } = useTranslation();
-  const { games: gameStatuses } = useGameContext();
-
-  const [storyText, setStoryText] = useState("");
-  const [index, setIndex] = useState(0);
+  const { games } = useGameContext();
   const [showIntro, setShowIntro] = useState(true);
 
-  const [gamePositions] = useState(() => generateNonOverlappingPositions(GAMES.length, SAFE_ZONE, 12));
-  const [cloudPositions] = useState(() =>
-    generateNonOverlappingPositions(
-      CLOUD_CONFIG.count,
-      {
-        topMin: 0,
-        topMax: 90,
-        leftMin: 0,
-        leftMax: 90,
-      },
-      15
-    )
-  );
+  const [gameCoordinates] = useState(() => generateNonOverlappingPositions(games.length - 1, SAFE_ZONE, 12));
 
   const dummyStory = `
-  🗓️ In the year 1800, a legendary crew of six daring pirates set sail across uncharted waters in search of the fabled Magic Stone — a mythical gem said to unlock the hidden passage to the Fortune Islands. 
-  ⚔️ After years of storms and betrayal, they found it. But greed consumed them. 
-  In the struggle, the stone shattered into six powerful shards.💥 Each pirate took one shard and disappeared, hiding it in secret places and forging deadly games to protect it.
-  🧭 Now in 2025, you — the last descendant of the sixth pirate — are called to restore what was broken. 
-  
-  🧭 Now in 2025, you — the last descendant of the sixth pirate — are called to restore what was broken.
-  🧩 Only by conquering all six pirate trials can you reforge the Magic Stone and uncover the Fortune Islands... once and for all.
+  🗓️ In the year 1800, a legendary crew of six daring pirates set sail across uncharted waters in search of the fabled Magic Stone
+  ⚔️ After years of storms and betrayal, they found it. 
+  But greed consumed them. 
+  In the struggle, 
+  the stone shattered into six powerful shards.💥 
+
+
+  🧩 Goodluck ! 🧩
   `;
 
   useEffect(() => {
@@ -126,16 +97,16 @@ const Home = () => {
   //   }
   // }, [index, showIntro]);
 
-  const handleClick = (gameId: string, path: string, status: string) => {
-    if (status === "locked") {
-      new Audio(wrongSound).play();
+  const selectGame = (game: Game) => {
+    if (game.status === "locked") {
+      // new Audio(wrongSound).play();
     } else {
       new Audio(correctSound).play();
-      window.location.href = path;
+      window.location.href = game.path!;
     }
   };
 
-  const randomBetween = (min: number, max: number) => min + Math.random() * (max - min);
+  // const randomBetween = (min: number, max: number) => min + Math.random() * (max - min);
 
   return (
     <div className="home-page">
@@ -155,84 +126,40 @@ const Home = () => {
       {!showIntro && (
         <div className="treasure-hunt-page ">
           <div className="left-panel">
-            <div className="map-overlay">
-              {/* <div className="cloud-group">
-								{cloudPositions.map((pos, i) => {
-									const opacity = randomBetween(
-										CLOUD_CONFIG.minOpacity,
-										CLOUD_CONFIG.maxOpacity
-									);
-									const scale = CLOUD_CONFIG.minScale;
-									// randomBetween(
-									// 	CLOUD_CONFIG.maxScale
-									// );
-									const width = CLOUD_CONFIG.minWidth;
-									// randomBetween(
-									// 	CLOUD_CONFIG.maxWidth
-									// );
-									const height = CLOUD_CONFIG.minHeight;
-									// randomBetween(
-									// 	CLOUD_CONFIG.maxHeight
-									// );
-									const duration = CLOUD_CONFIG.minDuration;
-									// randomBetween(
-									// 	CLOUD_CONFIG.maxDuration
-									// );
+            {/* Render games (without last element: the treasure) */}
+            {games.slice(0, -1).map((game, idx) => {
+              const pos = gameCoordinates[idx];
 
-									return (
-										<div
-											key={i}
-											className="floating-cloud"
-											style={
-												{
-													top: `${pos.top}%`,
-													left: `${pos.left}%`,
-													width: `${width}px`,
-													height: `${height}px`,
-													opacity,
-													animationDuration: `${duration}s`,
-													"--cloud-scale": scale.toString(),
-												} as React.CSSProperties
-											}
-										/>
-									);
-								})}
-							</div> */}
-
-              {GAMES.map((game, idx) => {
-                const gameStatus = gameStatuses.find((g) => g.path === game.path)?.status ?? "default";
-                const isLocked = gameStatus === "locked";
-                const pos = gamePositions[idx];
-
-                return (
-                  <div
-                    key={game.id}
-                    className={`game-cordinate ${isLocked ? "locked" : "unlocked"}`}
-                    style={{
-                      top: `${pos.top}%`,
-                      left: `${pos.left}%`,
-                    }}
-                    onClick={() => handleClick(game.id, game.path, gameStatus)}>
-                    <img src={game.image} alt={game.id} />
+              return (
+                <div
+                  key={game.id}
+                  className={`game-coordinate ${game.status === "locked" ? "locked" : "unlocked"}`}
+                  style={{
+                    top: `${pos.top}%`,
+                    left: `${pos.left}%`,
+                  }}
+                  onClick={() => selectGame(game)}>
+                  <div className="game">
+                    <img src={game.image} className="game-img" />
                     <div className="label">
                       🏴‍☠️
-                      {t(`games.${game.id}`)}
+                      <p>{t(`games.${game.id}`)}</p>
                     </div>
 
-                    <img src={game.icon}></img>
+                    <img src={game.icon} className="game-icon"></img>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
 
           <div className="right-panel">
-            <h1 className="title">📖 {t("app.title")} 📖</h1>
-            <p className="subtitle">🗺️ {t("app.select_game")}</p>
-
+            <h1 className="title ">☠️ {t("app.title")} ☠️</h1>
+            <p className="subtitle">{t("app.select_game")}</p>
             <div className="story-box hidden-scroll">
-              <p className="story-text">{dummyStory}</p>
-              {/* <p className="story-text">{storyText}</p> */}
+              <span className="story-text typing-multiline" style={{ "--n": dummyStory.length + 5 }}>
+                {dummyStory}
+              </span>
             </div>
           </div>
         </div>
