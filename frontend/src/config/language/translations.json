@@ -10,17 +10,133 @@
 			"select_game": "Hãy chọn một trò chơi để chơi"
 		},
 		"games": {
-			"game1": "Trò chơi 1: Tìm địa điểm",
-			"game2": "Trò chơi 2: Câu hỏi ",
-			"game3": "Trò chơi 3: Khám phá bí ẩn",
-			"game4": "Trò chơi 4: So sánh quá khứ và hiện tại",
-			"game5": "Trò chơi 5: Tài liệu bay",
-			"game6": "Trò chơi 6: Lật thẻ ghi nhớ"
+			"game1": "Con Tàu Ma - Tìm mảnh ghép",
+			"game2": "Di Sản Thuyền Trưởng - Kiến thức hàng hải",
+			"game3": "Hải Tặc Lăm Le - Giải mã vũ khí",
+			"game4": "Kẻ Du Hành - So sánh quá khứ",
+			"game5": "Đôi Mắt Đại Bàng - Thử thách tốc độ",
+			"game6": "Thủy Thủ Tài Ba - Trí nhớ siêu phàm",
+			"game7": "Người Phân Loại - Sắp xếp tài liệu",
+			"game8": "Giải Mã Hải Đồ - Mật mã cổ xưa",
+			"game9": "Vượt Qua Bão Biển - Thử thách điều khiển",
+			"game10": "Ghép Mảnh Kho Báu - Hành trình cuối cùng"
 		},
 		"description1": {
-			"instructions": "Trong trò chơi này, bạn sẽ thấy bản đồ có 10 điểm đỏ tương ứng với các địa danh nổi tiếng tại Việt Nam.\nBạn có thể nhấn vào các điểm đỏ để xem thông tin chi tiết trước khi bắt đầu.\nKhi bắt đầu, vị trí các điểm sẽ đổi chỗ và bạn phải tìm đúng địa danh được yêu cầu trong thời gian giới hạn.",
-			"start": "Bắt đầu chơi",
-			"setting": "Cài đặt"
+			"title": "Con Tàu Ma - Tìm mảnh ghép",
+			"description": "Mô tả trò chơi",
+			"description_content": "Trong thử thách này, bạn phải tìm lại mảnh đầu tiên của Viên đá Ma thuật đã bị vỡ. Bản đồ kho báu nằm trước mặt bạn, nhưng hãy cẩn thận! Các dấu hiệu sẽ thay đổi vị trí và thử thách trí thông minh của bạn. Chỉ có dòng máu cướp biển thực thụ mới có thể tìm ra đúng vị trí kịp thời...",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Quan sát kỹ bản đồ và vị trí các điểm đánh dấu",
+			"instruction2": "Ghi nhớ các địa điểm quan trọng trước khi bắt đầu",
+			"instruction3": "Tìm và click vào đúng vị trí được yêu cầu",
+			"instruction4": "Hoàn thành càng nhanh càng được nhiều điểm",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description2": {
+			"title": "Di Sản Thuyền Trưởng",
+			"description": "Mô tả trò chơi",
+			"description_content": "Thử thách kiến thức của bạn về hàng hải và lịch sử cướp biển. Trả lời các câu hỏi để chứng minh bạn xứng đáng với di sản của vị thuyền trưởng huyền thoại.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Đọc kỹ từng câu hỏi được đưa ra",
+			"instruction2": "Chọn một trong các đáp án được cung cấp",
+			"instruction3": "Trả lời trong thời gian quy định",
+			"instruction4": "Càng nhiều câu đúng càng được nhiều điểm",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description3": {
+			"title": "Hải Tặc Lăm Le",
+			"description": "Mô tả trò chơi",
+			"description_content": "Giải mã các loại vũ khí cổ xưa của cướp biển. Mỗi vũ khí đều ẩn chứa một câu đố, và bạn cần phải giải mã chúng để tiến lên.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Quan sát kỹ hình ảnh vũ khí được hiển thị",
+			"instruction2": "Tìm ra quy luật của mã số bí mật",
+			"instruction3": "Nhập mã số bạn cho là đúng",
+			"instruction4": "Có 3 lượt thử cho mỗi câu đố",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description4": {
+			"title": "Kẻ Du Hành",
+			"description": "Mô tả trò chơi",
+			"description_content": "Du hành thời gian để so sánh cùng một địa điểm ở quá khứ và hiện tại. Tìm ra những điểm khác biệt để hiểu rõ hơn về lịch sử.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "So sánh hai bức ảnh cùng một địa điểm",
+			"instruction2": "Tìm và click vào các điểm khác biệt",
+			"instruction3": "Hoàn thành trong thời gian quy định",
+			"instruction4": "Càng nhanh càng được nhiều điểm",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description5": {
+			"title": "Đôi Mắt Đại Bàng",
+			"description": "Mô tả trò chơi",
+			"description_content": "Thử thách phản xạ và tốc độ của bạn. Chọn đúng các đối tượng bay qua màn hình theo yêu cầu để giành chiến thắng.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Quan sát các đối tượng bay qua màn hình",
+			"instruction2": "Click vào đối tượng đúng với yêu cầu",
+			"instruction3": "Tránh chọn nhầm đối tượng",
+			"instruction4": "Độ chính xác càng cao điểm càng cao",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description6": {
+			"title": "Thủy Thủ Tài Ba",
+			"description": "Mô tả trò chơi",
+			"description_content": "Thử thách trí nhớ của bạn với trò chơi lật thẻ. Tìm các cặp thẻ giống nhau để hoàn thành nhiệm vụ.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Lật hai thẻ mỗi lượt để tìm cặp giống nhau",
+			"instruction2": "Ghi nhớ vị trí các thẻ đã lật",
+			"instruction3": "Hoàn thành trong thời gian quy định",
+			"instruction4": "Càng ít lượt lật càng được nhiều điểm",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description7": {
+			"title": "Người Phân Loại",
+			"description": "Mô tả trò chơi",
+			"description_content": "Sắp xếp và phân loại các tài liệu quan trọng. Mỗi tài liệu cần được đặt đúng vị trí để hoàn thành nhiệm vụ.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Kéo và thả tài liệu vào đúng danh mục",
+			"instruction2": "Đọc kỹ nội dung trước khi phân loại",
+			"instruction3": "Hoàn thành trong thời gian quy định",
+			"instruction4": "Càng ít sai sót càng được nhiều điểm",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description8": {
+			"title": "Giải Mã Hải Đồ",
+			"description": "Mô tả trò chơi",
+			"description_content": "Giải mã các ký tự cổ trên bản đồ hải tặc. Mỗi ký tự là một mảnh ghép trong câu đố lớn.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Quan sát các ký tự và tìm quy luật",
+			"instruction2": "Giải mã từng ký tự theo gợi ý",
+			"instruction3": "Hoàn thành các câu đố liên tiếp",
+			"instruction4": "Thời gian càng nhanh điểm càng cao",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
+		},
+		"description9": {
+			"title": "Vượt Qua Bão Biển",
+			"description": "Mô tả trò chơi",
+			"description_content": "Điều khiển con tàu vượt qua cơn bão dữ dội. Tránh các chướng ngại vật và thu thập các vật phẩm quý giá.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Sử dụng các phím mũi tên để di chuyển",
+			"instruction2": "Tránh va chạm với chướng ngại vật",
+			"instruction3": "Thu thập các vật phẩm có giá trị",
+			"instruction4": "Điểm càng cao cấp độ càng khó",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
 		},
 		"game1": {
 			"find": "Tìm",
@@ -30,49 +146,18 @@
 			"accuracy": "Độ chính xác",
 			"resultTitle": "🎉 Kết quả"
 		},
-		"description5": {
-			"instructions": "Trong trò chơi này, bạn sẽ thấy nhiều tài liệu bay qua màn hình theo các hướng khác nhau.\nNhiệm vụ của bạn là chọn đúng các tài liệu phù hợp với yêu cầu câu hỏi (về tác giả, loại văn bản, hoặc lĩnh vực).\n❗ Chọn sai sẽ khiến tốc độ bay tăng lên và màn hình rung nhẹ. Hãy cẩn thận!",
-			"setting": "Cài đặt",
-			"start": "Bắt đầu chơi"
-		},
-		"game5": {
-			"summary": "Tổng kết trò chơi",
-			"playtime": "Thời gian chơi",
-			"seconds": "giây",
-			"accuracy": "Độ chính xác",
-			"correctPicks": "Lựa chọn đúng",
-			"question": "Câu {{section}}",
-			"correct": "Đúng",
-			"type": "Loại",
-			"author": "Tác giả",
-			"field": "Lĩnh vực"
-		},
-		"description6": {
-			"instructions": "Trong trò chơi này, bạn sẽ lật các thẻ úp xuống để tìm cặp thẻ giống nhau.\nMỗi cặp đại diện cho một địa điểm nổi tiếng. Ghi nhớ và lật thật nhanh để hoàn thành trò chơi!",
-			"setting": "Cài đặt thẻ",
-			"start": "Bắt đầu trò chơi"
-		},
-		"description4": {
-			"instructions": "Trong trò chơi này, bạn sẽ so sánh hai bức ảnh của cùng một địa điểm ở quá khứ và hiện tại.\nHãy tìm và nhấp vào những điểm khác biệt được đánh dấu sẵn.\n⏰ Bạn có 180 giây để hoàn thành nhiệm vụ. Cố gắng tìm hết các điểm trước khi hết giờ nhé!",
-			"setting": "Cài đặt bản đồ",
-			"start": "Bắt đầu chơi"
-		},
-		"game4": {
-			"title": "Trò chơi 4: So sánh quá khứ và hiện tại",
-			"selectMap": "Chọn bản đồ để bắt đầu",
-			"remainingTime": "⏱️ Thời gian còn lại",
-			"found": "✅ Điểm đã tìm thấy",
-			"explanationTitle": "📌 Giải thích các điểm đã tìm thấy:",
-			"conclusion": {
-				"done": "🎉 Hoàn thành!",
-				"timeout": "⏰ Hết giờ!",
-				"foundSpots": "🧠 Số điểm tìm thấy",
-				"playTime": "⏱️ Thời gian chơi",
-				"clicks": "🖱️ Số lần click",
-				"next": "Tiếp theo",
-				"back": "Quay lại"
-			},
-			"viewResult": "Xem kết quả"
+		"description10": {
+			"title": "Ghép Hình Cổ Vật",
+			"description": "Mô tả trò chơi",
+			"description_content": "Một bức tranh cổ đã bị chia thành 9 mảnh riêng biệt. Nhiệm vụ của bạn là ghép lại các mảnh để hoàn thiện bức tranh trong thời gian quy định.",
+			"instructions": "Hướng dẫn chơi",
+			"instruction1": "Kéo và thả các mảnh ghép vào đúng vị trí",
+			"instruction2": "Click vào mảnh ghép để xoay 90 độ",
+			"instruction3": "Mảnh ghép sẽ sáng lên khi đặt đúng vị trí",
+			"instruction4": "Hoàn thành càng nhanh càng được nhiều điểm",
+			"back": "Quay lại",
+			"settings": "Cài đặt",
+			"start": "Bắt đầu"
 		}
 	},
 	"en": {
@@ -86,17 +171,133 @@
 			"select_game": "Play & collect all the required items"
 		},
 		"games": {
-			"game1": "Find the Place",
-			"game2": "Questionaire",
-			"game3": "Discorver the mistery",
-			"game4": "Compare the past and present",
-			"game5": "Document fly",
-			"game6": "Flip Card Memory"
+			"game1": "Ghost Ship - Find the Pieces",
+			"game2": "Captain's Legacy - Maritime Knowledge",
+			"game3": "Lurking Pirates - Decode the Weapon",
+			"game4": "Time Traveler - Past Comparison",
+			"game5": "Eagle Eye - Speed Challenge",
+			"game6": "Master Sailor - Memory Test",
+			"game7": "Document Sorter - Organize Files",
+			"game8": "Map Decoder - Ancient Codes",
+			"game9": "Storm Chaser - Navigation Challenge",
+			"game10": "Treasure Assembler - Final Journey"
 		},
 		"description1": {
-			"instructions": "In this game, you'll see a map with 10 red dots representing famous places in Vietnam.\nYou can click on any dot to learn about that place before starting.\nWhen the game starts, the dots will shuffle and you'll need to find the target place within the time limit.",
-			"start": "Start Playing",
-			"setting": "Settings"
+			"title": "Ghost Ship - Find the Pieces",
+			"description": "Game Description",
+			"description_content": "In this trial, you must reclaim the first shard of the shattered Magic Stone. The treasure map lies before you, but beware! The marks will shuffle and test your wits. Only true pirate blood can spot the right place in time...",
+			"instructions": "How to Play",
+			"instruction1": "Study the map and marked locations carefully",
+			"instruction2": "Memorize important landmarks before starting",
+			"instruction3": "Find and click on the requested location",
+			"instruction4": "Complete faster for higher scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description2": {
+			"title": "Captain's Legacy",
+			"description": "Game Description",
+			"description_content": "Test your knowledge of maritime history and pirate lore. Answer questions to prove yourself worthy of the legendary captain's legacy.",
+			"instructions": "How to Play",
+			"instruction1": "Read each question carefully",
+			"instruction2": "Choose from the provided answers",
+			"instruction3": "Answer within the time limit",
+			"instruction4": "More correct answers for higher scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description3": {
+			"title": "Lurking Pirates",
+			"description": "Game Description",
+			"description_content": "Decode ancient pirate weapons. Each weapon holds a puzzle, and you must crack their codes to progress.",
+			"instructions": "How to Play",
+			"instruction1": "Observe the displayed weapon carefully",
+			"instruction2": "Find the pattern in the secret code",
+			"instruction3": "Enter your solution",
+			"instruction4": "3 attempts per puzzle",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description4": {
+			"title": "Time Traveler",
+			"description": "Game Description",
+			"description_content": "Travel through time to compare the same location in the past and present. Find the differences to better understand history.",
+			"instructions": "How to Play",
+			"instruction1": "Compare two images of the same location",
+			"instruction2": "Find and click on the differences",
+			"instruction3": "Complete within the time limit",
+			"instruction4": "Faster completion for higher scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description5": {
+			"title": "Eagle Eye",
+			"description": "Game Description",
+			"description_content": "Test your reflexes and speed. Select the correct objects flying across the screen to win.",
+			"instructions": "How to Play",
+			"instruction1": "Watch objects flying across the screen",
+			"instruction2": "Click on objects matching the requirement",
+			"instruction3": "Avoid selecting wrong objects",
+			"instruction4": "Higher accuracy for better scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description6": {
+			"title": "Master Sailor",
+			"description": "Game Description",
+			"description_content": "Test your memory with this card-matching game. Find matching pairs to complete your mission.",
+			"instructions": "How to Play",
+			"instruction1": "Flip two cards per turn to find matches",
+			"instruction2": "Remember card positions",
+			"instruction3": "Complete within the time limit",
+			"instruction4": "Fewer flips for higher scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description7": {
+			"title": "Document Sorter",
+			"description": "Game Description",
+			"description_content": "Sort and organize important documents. Each document needs to be placed in its correct category.",
+			"instructions": "How to Play",
+			"instruction1": "Drag and drop documents into categories",
+			"instruction2": "Read content carefully before sorting",
+			"instruction3": "Complete within the time limit",
+			"instruction4": "Fewer mistakes for higher scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description8": {
+			"title": "Map Decoder",
+			"description": "Game Description",
+			"description_content": "Decode ancient characters on the pirate map. Each symbol is a piece of the larger puzzle.",
+			"instructions": "How to Play",
+			"instruction1": "Observe symbols and find patterns",
+			"instruction2": "Decode each symbol using hints",
+			"instruction3": "Complete consecutive puzzles",
+			"instruction4": "Faster completion for higher scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
+		},
+		"description9": {
+			"title": "Storm Chaser",
+			"description": "Game Description",
+			"description_content": "Navigate your ship through a fierce storm. Avoid obstacles and collect valuable items.",
+			"instructions": "How to Play",
+			"instruction1": "Use arrow keys to move",
+			"instruction2": "Avoid colliding with obstacles",
+			"instruction3": "Collect valuable items",
+			"instruction4": "Higher scores increase difficulty",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
 		},
 		"game1": {
 			"find": "Find",
@@ -105,11 +306,6 @@
 			"timeUsed": "Time Used",
 			"accuracy": "Accuracy",
 			"resultTitle": "🎉 Result"
-		},
-		"description5": {
-			"instructions": "In this game, you'll see documents flying across the screen in different directions.\nYour task is to choose the documents that match the given question (by author, type, or field).\n❗ Wrong picks increase speed and shake the screen. Be careful!",
-			"setting": "Settings",
-			"start": "Start Playing"
 		},
 		"game5": {
 			"summary": "Game Summary",
@@ -122,16 +318,6 @@
 			"type": "Type",
 			"author": "Author",
 			"field": "Field"
-		},
-		"description6": {
-			"instructions": "In this game, you'll flip cards to find matching pairs.\nEach pair represents a famous place. Test your memory and match them all to win!",
-			"setting": "Card Setup",
-			"start": "Start Game"
-		},
-		"description4": {
-			"instructions": "In this game, you'll compare two photos of the same place from the past and present.\nTry to find and click the preset differences.\n⏰ You have 180 seconds. Try to find all the differences before time runs out!",
-			"setting": "Map Settings",
-			"start": "Start Game"
 		},
 		"game4": {
 			"title": "Game 4: Compare the past and present",
@@ -149,6 +335,19 @@
 				"back": "Back"
 			},
 			"viewResult": "View Result"
+		},
+		"description10": {
+			"title": "Ancient Artifact Puzzle",
+			"description": "Game Description",
+			"description_content": "An ancient painting has been divided into 9 distinct pieces. Your mission is to reassemble the pieces to complete the painting within the time limit.",
+			"instructions": "How to Play",
+			"instruction1": "Drag and drop pieces into correct positions",
+			"instruction2": "Click on a piece to rotate 90 degrees",
+			"instruction3": "Pieces will glow when placed correctly",
+			"instruction4": "Complete faster for higher scores",
+			"back": "Back",
+			"settings": "Settings",
+			"start": "Start"
 		}
 	},
 	"fr": {
@@ -162,17 +361,133 @@
 			"select_game": "Veuillez choisir un jeu à jouer"
 		},
 		"games": {
-			"game1": "Jeu 1 : Trouver l'endroit",
-			"game2": "Jeu 2 : Questionnaire",
-			"game3": "Jeu 3 : Découvrir le mystère",
-			"game4": "Jeu 4 : Comparer le passé et le présent",
-			"game5": "Jeu 5 : Document volant",
-			"game6": "Jeu 6 : Mémorisation des cartes"
+			"game1": "Navire Fantôme - Trouver les Pièces",
+			"game2": "Héritage du Capitaine - Connaissance Maritime",
+			"game3": "Pirates à l'Affût - Décoder l'Arme",
+			"game4": "Voyageur Temporel - Comparaison du Passé",
+			"game5": "Œil d'Aigle - Défi de Vitesse",
+			"game6": "Maître Marin - Test de Mémoire",
+			"game7": "Trieur de Documents - Organiser les Fichiers",
+			"game8": "Décodeur de Carte - Codes Anciens",
+			"game9": "Chasseur de Tempêtes - Défi de Navigation",
+			"game10": "Assembleur de Trésor - Voyage Final"
 		},
 		"description1": {
-			"instructions": "Dans ce jeu, vous verrez une carte avec 10 points rouges représentant des lieux célèbres au Vietnam.\nVous pouvez cliquer sur les points pour en savoir plus avant de commencer.\nUne fois commencé, les points changeront de place et vous devrez trouver le bon lieu dans le temps imparti.",
-			"start": "Commencer",
-			"setting": "Paramètres"
+			"title": "Navire Fantôme - Trouver les Pièces",
+			"description": "Description du Jeu",
+			"description_content": "Dans cette épreuve, vous devez récupérer le premier fragment de la Pierre Magique brisée. La carte au trésor est devant vous, mais attention ! Les marques changeront de place et mettront votre esprit à l'épreuve. Seul un véritable sang de pirate peut repérer le bon endroit à temps...",
+			"instructions": "Comment Jouer",
+			"instruction1": "Étudiez attentivement la carte et les emplacements marqués",
+			"instruction2": "Mémorisez les points importants avant de commencer",
+			"instruction3": "Trouvez et cliquez sur l'emplacement demandé",
+			"instruction4": "Terminez plus vite pour un meilleur score",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description2": {
+			"title": "Héritage du Capitaine",
+			"description": "Description du Jeu",
+			"description_content": "Testez vos connaissances sur l'histoire maritime et la tradition des pirates. Répondez aux questions pour vous montrer digne de l'héritage du capitaine légendaire.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Lisez attentivement chaque question",
+			"instruction2": "Choisissez parmi les réponses proposées",
+			"instruction3": "Répondez dans le temps imparti",
+			"instruction4": "Plus de bonnes réponses pour un meilleur score",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description3": {
+			"title": "Pirates à l'Affût",
+			"description": "Description du Jeu",
+			"description_content": "Décodez les armes anciennes des pirates. Chaque arme contient une énigme, et vous devez craquer leurs codes pour progresser.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Observez attentivement l'arme affichée",
+			"instruction2": "Trouvez le motif dans le code secret",
+			"instruction3": "Entrez votre solution",
+			"instruction4": "3 tentatives par énigme",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description4": {
+			"title": "Voyageur Temporel",
+			"description": "Description du Jeu",
+			"description_content": "Voyagez dans le temps pour comparer le même endroit dans le passé et le présent. Trouvez les différences pour mieux comprendre l'histoire.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Comparez deux images du même endroit",
+			"instruction2": "Trouvez et cliquez sur les différences",
+			"instruction3": "Terminez dans le temps imparti",
+			"instruction4": "Plus rapide pour un meilleur score",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description5": {
+			"title": "Œil d'Aigle",
+			"description": "Description du Jeu",
+			"description_content": "Testez vos réflexes et votre vitesse. Sélectionnez les bons objets qui volent à travers l'écran pour gagner.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Observez les objets volant à l'écran",
+			"instruction2": "Cliquez sur les objets correspondant aux critères",
+			"instruction3": "Évitez de sélectionner les mauvais objets",
+			"instruction4": "Plus de précision pour un meilleur score",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description6": {
+			"title": "Maître Marin",
+			"description": "Description du Jeu",
+			"description_content": "Testez votre mémoire avec ce jeu d'association de cartes. Trouvez les paires correspondantes pour accomplir votre mission.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Retournez deux cartes par tour pour trouver les paires",
+			"instruction2": "Mémorisez les positions des cartes",
+			"instruction3": "Terminez dans le temps imparti",
+			"instruction4": "Moins de retournements pour un meilleur score",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description7": {
+			"title": "Trieur de Documents",
+			"description": "Description du Jeu",
+			"description_content": "Triez et organisez des documents importants. Chaque document doit être placé dans sa catégorie appropriée.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Glissez-déposez les documents dans les catégories",
+			"instruction2": "Lisez attentivement avant de trier",
+			"instruction3": "Terminez dans le temps imparti",
+			"instruction4": "Moins d'erreurs pour un meilleur score",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description8": {
+			"title": "Décodeur de Carte",
+			"description": "Description du Jeu",
+			"description_content": "Décodez les caractères anciens sur la carte des pirates. Chaque symbole est une pièce du puzzle plus grand.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Observez les symboles et trouvez les motifs",
+			"instruction2": "Décodez chaque symbole avec les indices",
+			"instruction3": "Complétez les énigmes consécutives",
+			"instruction4": "Plus rapide pour un meilleur score",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
+		},
+		"description9": {
+			"title": "Chasseur de Tempêtes",
+			"description": "Description du Jeu",
+			"description_content": "Naviguez votre navire à travers une tempête féroce. Évitez les obstacles et collectez des objets précieux.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Utilisez les flèches pour vous déplacer",
+			"instruction2": "Évitez les collisions avec les obstacles",
+			"instruction3": "Collectez les objets précieux",
+			"instruction4": "Scores plus élevés augmentent la difficulté",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
 		},
 		"game1": {
 			"find": "Trouver",
@@ -180,12 +495,7 @@
 			"clicks": "clics",
 			"timeUsed": "Temps utilisé",
 			"accuracy": "Précision",
-			"resultTitle": "🎉 Résultat"
-		},
-		"description5": {
-			"instructions": "Dans ce jeu, vous verrez des documents voler à travers l'écran dans différentes directions.\nVotre tâche est de choisir les documents correspondant à la question (par auteur, type ou domaine).\n❗ Les mauvaises réponses augmentent la vitesse et font trembler l'écran. Soyez prudent !",
-			"setting": "Paramètres",
-			"start": "Commencer"
+			"resultTitle": "�� Résultat"
 		},
 		"game5": {
 			"summary": "Résumé du jeu",
@@ -198,16 +508,6 @@
 			"type": "Type",
 			"author": "Auteur",
 			"field": "Domaine"
-		},
-		"description6": {
-			"instructions": "Dans ce jeu, vous retournerez des cartes pour trouver les paires correspondantes.\nChaque paire représente un lieu célèbre. Testez votre mémoire et retrouvez-les tous !",
-			"setting": "Configuration des cartes",
-			"start": "Démarrer le jeu"
-		},
-		"description4": {
-			"instructions": "Dans ce jeu, vous comparerez deux photos d'un même lieu dans le passé et le présent.\nTrouvez et cliquez sur les différences prédéfinies.\n⏰ Vous avez 180 secondes. Essayez de toutes les repérer avant la fin du temps !",
-			"setting": "Paramètres de la carte",
-			"start": "Commencer le jeu"
 		},
 		"game4": {
 			"title": "Jeu 4 : Comparer le passé et le présent",
@@ -225,6 +525,19 @@
 				"back": "Retour"
 			},
 			"viewResult": "Voir les résultats"
+		},
+		"description10": {
+			"title": "Puzzle d'Artéfact Ancien",
+			"description": "Description du Jeu",
+			"description_content": "Une peinture ancienne a été divisée en 9 pièces distinctes. Votre mission est de rassembler les pièces pour compléter la peinture dans le temps imparti.",
+			"instructions": "Comment Jouer",
+			"instruction1": "Faites glisser et déposez les pièces aux bons endroits",
+			"instruction2": "Cliquez sur une pièce pour la faire pivoter de 90 degrés",
+			"instruction3": "Les pièces brilleront lorsqu'elles seront bien placées",
+			"instruction4": "Terminez plus rapidement pour obtenir des scores plus élevés",
+			"back": "Retour",
+			"settings": "Paramètres",
+			"start": "Commencer"
 		}
 	}
 }

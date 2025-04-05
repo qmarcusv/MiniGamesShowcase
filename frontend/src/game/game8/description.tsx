@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Game4 from "./game.component";
-import Game4Setting from "./game-setting.component";
+import Game8 from "./game.component";
+import Game8Setting from "./game-setting.component";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
 
-export default function Description4() {
+export default function Description8() {
 	const [view, setView] = useState<"description" | "game" | "setting">(
 		"description"
 	);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
-	if (view === "game") return <Game4 />;
-	if (view === "setting") return <Game4Setting />;
+	if (view === "game") return <Game8 />;
+	if (view === "setting") return <Game8Setting />;
 
 	return (
 		<div className="h-full bg-[url('/game/image/description/game.png')] bg-cover bg-no-repeat bg-center">
@@ -33,22 +33,22 @@ export default function Description4() {
 						{/* Content */}
 						<div className="relative bg-transparent px-48 py-16 text-slate-800 max-w-4xl mx-auto">
 							<h1 className="text-6xl font-pirate text-amber-950 text-center mb-16 mt-16 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-								{t("description4.title")}
+								{t("description8.title")}
 							</h1>
 
 							<div className="space-y-12 max-w-xl mx-auto">
 								<div className="text-center">
 									<h2 className="text-3xl font-pirate text-amber-950 mb-6 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-										{t("description4.description")}
+										{t("description8.description")}
 									</h2>
 									<p className="text-xl text-amber-950 font-semibold drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-										{t("description4.description_content")}
+										{t("description8.description_content")}
 									</p>
 								</div>
 
 								<div className="text-center">
 									<h2 className="text-3xl font-pirate text-amber-950 mb-8 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-										{t("description4.instructions")}
+										{t("description8.instructions")}
 									</h2>
 									<ul className="text-xl text-amber-950 space-y-5 inline-block text-left max-w-lg mx-auto font-semibold">
 										<li className="flex items-center gap-4">
@@ -56,7 +56,7 @@ export default function Description4() {
 												1
 											</span>
 											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-												{t("description4.instruction1")}
+												{t("description8.instruction1")}
 											</span>
 										</li>
 										<li className="flex items-center gap-4">
@@ -64,7 +64,7 @@ export default function Description4() {
 												2
 											</span>
 											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-												{t("description4.instruction2")}
+												{t("description8.instruction2")}
 											</span>
 										</li>
 										<li className="flex items-center gap-4">
@@ -72,7 +72,7 @@ export default function Description4() {
 												3
 											</span>
 											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-												{t("description4.instruction3")}
+												{t("description8.instruction3")}
 											</span>
 										</li>
 										<li className="flex items-center gap-4">
@@ -80,7 +80,7 @@ export default function Description4() {
 												4
 											</span>
 											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-												{t("description4.instruction4")}
+												{t("description8.instruction4")}
 											</span>
 										</li>
 									</ul>
@@ -95,21 +95,21 @@ export default function Description4() {
 							onClick={() => navigate("/games")}
 							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
 						>
-							{t("description4.back")}
+							{t("description8.back")}
 						</ButtonSound>
 
 						<ButtonSound
 							onClick={() => setView("setting")}
 							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
 						>
-							{t("description4.settings")}
+							{t("description8.settings")}
 						</ButtonSound>
 
 						<ButtonSound
 							onClick={() => setView("game")}
 							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
 						>
-							{t("description4.start")}
+							{t("description8.start")}
 						</ButtonSound>
 					</div>
 				</div>
