@@ -1,71 +1,133 @@
-import { useEffect, useState } from "react";
-import Game6 from "./game.component.tsx";
-// import Game6Setting from "./game-setting.component.tsx";
-import ButtonSound from "../../feature/button-sound/button-sound.component";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useGameContext } from "../../shared/context/game.hook";
+import Game6 from "./game.component";
+import Game6Setting from "./game-setting.component";
+import ButtonSound from "../../feature/button-sound/button-sound.component";
 
 export default function Description6() {
-  const { games, completeGame } = useGameContext();
-  const [view, setView] = useState<"description" | "game" | "setting">("description");
-  const [gridSize, setGridSize] = useState<"4x4" | "6x6">("6x6");
-  const [timers, setTimers] = useState({
-    "4x4": 45,
-    "6x6": 120,
-  });
-  const { t } = useTranslation();
+	const [view, setView] = useState<"description" | "game" | "setting">(
+		"description"
+	);
+	const [gridSize, setGridSize] = useState<"4x4" | "6x6">("6x6");
+	const [timers, setTimers] = useState({
+		"4x4": 45,
+		"6x6": 120,
+	});
+	const navigate = useNavigate();
+	const { t } = useTranslation();
 
-  if (view === "game") {
-    return <Game6 gridSize={gridSize} timer={timers[gridSize]} />;
-  }
+	if (view === "game")
+		return <Game6 gridSize={gridSize} timer={timers[gridSize]} />;
+	if (view === "setting")
+		return (
+			<Game6Setting
+				gridSize={gridSize}
+				setGridSize={setGridSize}
+				timers={timers}
+				setTimers={setTimers}
+			/>
+		);
 
-  // if (view === "setting") {
-  // 	return (
-  // 		<Game6Setting
-  // 			gridSize={gridSize}
-  // 			setGridSize={setGridSize}
-  // 			timers={timers}
-  // 			setTimers={setTimers}
-  // 		/>
-  // 	);
-  // }
+	return (
+		<div className="h-full bg-[url('/game/image/description/game.png')] bg-cover bg-no-repeat bg-center">
+			<div className="h-full flex items-center justify-center px-4 py-8 bg-black/50">
+				<div className="relative w-full h-[1000px] max-w-6xl mx-auto flex flex-col">
+					{/* Main content with scroll */}
+					<div className="relative flex-1">
+						{/* Scroll background */}
+						<div className="absolute inset-0 w-full h-full scale-110">
+							<img
+								src="/game/image/description/scroll.png"
+								className="w-full h-full object-contain"
+								alt="scroll background"
+							/>
+						</div>
 
-  return (
-    <div className="h-full bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center px-4">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl p-10 max-w-3xl w-full text-center space-y-8">
-        <h1 className="text-4xl font-extrabold text-emerald-400 drop-shadow">{t("games.game6")}</h1>
+						{/* Content */}
+						<div className="relative bg-transparent px-48 py-16 text-slate-800 max-w-4xl mx-auto">
+							<h1 className="text-6xl font-pirate text-amber-950 text-center mb-16 mt-16 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+								{t("description6.title")}
+							</h1>
 
-        <p className="text-lg text-slate-100 leading-relaxed">{t("description6.instructions")}</p>
+							<div className="space-y-12 max-w-xl mx-auto">
+								<div className="text-center">
+									<h2 className="text-3xl font-pirate text-amber-950 mb-6 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+										{t("description6.description")}
+									</h2>
+									<p className="text-xl text-amber-950 font-semibold drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+										{t("description6.description_content")}
+									</p>
+								</div>
 
-        <div className="flex justify-center gap-4 flex-wrap items-center">
-          <select
-            value={gridSize}
-            onChange={(e) => setGridSize(e.target.value as "4x4" | "6x6")}
-            className="bg-white/20 text-white px-4 py-2 rounded-xl hover:bg-white/30 transition shadow-md">
-            <option value="4x4">4 x 4</option>
-            <option value="6x6">6 x 6</option>
-          </select>
+								<div className="text-center">
+									<h2 className="text-3xl font-pirate text-amber-950 mb-8 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+										{t("description6.instructions")}
+									</h2>
+									<ul className="text-xl text-amber-950 space-y-5 inline-block text-left max-w-lg mx-auto font-semibold">
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												1
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description6.instruction1")}
+											</span>
+										</li>
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												2
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description6.instruction2")}
+											</span>
+										</li>
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												3
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description6.instruction3")}
+											</span>
+										</li>
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												4
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description6.instruction4")}
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
 
-          {/* <ButtonSound
-						soundUrl="/sounds/press.mp3"
-						onClick={() => setView("setting")}
-						className="bg-white/20 text-white px-6 py-2 rounded-xl hover:bg-white/30 transition shadow-md"
-					>
-						{t("description6.setting")}
-					</ButtonSound> */}
+					{/* Buttons outside scroll */}
+					<div className="flex justify-center gap-6 mt-8">
+						<ButtonSound
+							onClick={() => navigate("/games")}
+							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
+						>
+							{t("description6.back")}
+						</ButtonSound>
 
-          <ButtonSound
-            soundUrl="/sounds/press.mp3"
-            onClick={() => setView("game")}
-            className="bg-emerald-500 text-white px-6 py-2 rounded-xl hover:bg-emerald-600 transition shadow-md">
-            {t("description6.start")}
-          </ButtonSound>
+						<ButtonSound
+							onClick={() => setView("setting")}
+							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
+						>
+							{t("description6.settings")}
+						</ButtonSound>
 
-          <button onClick={() => completeGame(5)} className="bg-emerald-500 text-white px-4 py-2 rounded-xl">
-            Complete
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+						<ButtonSound
+							onClick={() => setView("game")}
+							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
+						>
+							{t("description6.start")}
+						</ButtonSound>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

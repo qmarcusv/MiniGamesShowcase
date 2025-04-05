@@ -1,50 +1,119 @@
 import { useState } from "react";
-import ButtonSound from "../../feature/button-sound/button-sound.component";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Game3 from "./game.component";
 import Game3Setting from "./game-setting.component";
-import { useGameContext } from "../../shared/context/game.hook";
+import ButtonSound from "../../feature/button-sound/button-sound.component";
 
 export default function Description3() {
-  const { games, completeGame } = useGameContext();
-  const [view, setView] = useState<"description" | "game" | "setting">("description");
+	const [view, setView] = useState<"description" | "game" | "setting">(
+		"description"
+	);
+	const navigate = useNavigate();
+	const { t } = useTranslation();
 
-  if (view === "game") return <Game3 />;
-  if (view === "setting") return <Game3Setting />;
+	if (view === "game") return <Game3 />;
+	if (view === "setting") return <Game3Setting />;
 
-  return (
-    <div className="h-full bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center px-4">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl p-10 max-w-3xl w-full text-center space-y-8">
-        <h1 className="text-4xl font-extrabold text-pink-400 drop-shadow">Trò chơi 3: Giải cứu bí mật cùng Flowerman</h1>
+	return (
+		<div className="h-full bg-[url('/game/image/description/game.png')] bg-cover bg-no-repeat bg-center">
+			<div className="h-full flex items-center justify-center px-4 py-8 bg-black/50">
+				<div className="relative w-full h-[1000px] max-w-6xl mx-auto flex flex-col">
+					{/* Main content with scroll */}
+					<div className="relative flex-1">
+						{/* Scroll background */}
+						<div className="absolute inset-0 w-full h-full scale-110">
+							<img
+								src="/game/image/description/scroll.png"
+								className="w-full h-full object-contain"
+								alt="scroll background"
+							/>
+						</div>
 
-        <p className="text-lg text-slate-100 leading-relaxed whitespace-pre-line">
-          Bạn sẽ thấy 9 tấm thẻ che phủ một bản đồ kho báu bí ẩn.
-          {"\n"}Mỗi thẻ đại diện cho một câu đố chữ cái.
-          {"\n"}Hãy chọn 1 ô để bắt đầu trò chơi "Flowerman" — phiên bản thân thiện của Hangman!
-          {"\n\n"}🌸 Thay vì treo người, một bông hoa sẽ rụng từng cánh nếu bạn đoán sai.
-          {"\n"}🌟 Đoán đúng từ để lật thẻ và khám phá bản đồ bên dưới.
-          {"\n\n"}Chúc bạn vui vẻ và đừng để bông hoa rụng hết nhé!
-        </p>
+						{/* Content */}
+						<div className="relative bg-transparent px-48 py-16 text-slate-800 max-w-4xl mx-auto">
+							<h1 className="text-6xl font-pirate text-amber-950 text-center mb-16 mt-16 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+								{t("description3.title")}
+							</h1>
 
-        <div className="flex justify-center gap-4 flex-wrap items-center">
-          <ButtonSound
-            soundUrl="/sounds/press.mp3"
-            onClick={() => setView("setting")}
-            className="bg-white/20 text-white px-6 py-2 rounded-xl hover:bg-white/30 transition shadow-md">
-            Cài đặt
-          </ButtonSound>
+							<div className="space-y-12 max-w-xl mx-auto">
+								<div className="text-center">
+									<h2 className="text-3xl font-pirate text-amber-950 mb-6 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+										{t("description3.description")}
+									</h2>
+									<p className="text-xl text-amber-950 font-semibold drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+										{t("description3.description_content")}
+									</p>
+								</div>
 
-          <ButtonSound
-            soundUrl="/sounds/press.mp3"
-            onClick={() => setView("game")}
-            className="bg-pink-500 text-white px-6 py-2 rounded-xl hover:bg-pink-600 transition shadow-md">
-            Bắt đầu chơi
-          </ButtonSound>
+								<div className="text-center">
+									<h2 className="text-3xl font-pirate text-amber-950 mb-8 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+										{t("description3.instructions")}
+									</h2>
+									<ul className="text-xl text-amber-950 space-y-5 inline-block text-left max-w-lg mx-auto font-semibold">
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												1
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description3.instruction1")}
+											</span>
+										</li>
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												2
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description3.instruction2")}
+											</span>
+										</li>
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												3
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description3.instruction3")}
+											</span>
+										</li>
+										<li className="flex items-center gap-4">
+											<span className="w-10 h-10 bg-amber-900/80 rounded-full flex items-center justify-center text-amber-100 font-bold border-2 border-amber-500/60 shrink-0 shadow-lg">
+												4
+											</span>
+											<span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+												{t("description3.instruction4")}
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
 
-          <button onClick={() => completeGame(2)} className="bg-emerald-500 text-white px-4 py-2 rounded-xl">
-            Complete
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+					{/* Buttons outside scroll */}
+					<div className="flex justify-center gap-6 mt-8">
+						<ButtonSound
+							onClick={() => navigate("/games")}
+							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
+						>
+							{t("description3.back")}
+						</ButtonSound>
+
+						<ButtonSound
+							onClick={() => setView("setting")}
+							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
+						>
+							{t("description3.settings")}
+						</ButtonSound>
+
+						<ButtonSound
+							onClick={() => setView("game")}
+							className="bg-amber-900/80 hover:bg-amber-800/80 text-amber-100 px-12 py-4 rounded-xl font-bold transition-colors border-2 border-amber-500/60 shadow-lg text-lg"
+						>
+							{t("description3.start")}
+						</ButtonSound>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
