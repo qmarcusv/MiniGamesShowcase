@@ -15,6 +15,7 @@ import {
 import { Artifact } from "../../shared/component/game-conclusion/game-conclusion.types";
 import GameConclusion from "../../shared/component/game-conclusion/game-conclusion.component";
 import VirtualKeyboard from "./virtual-keyboard.component";
+import Conclusion8 from "./game-conclusion.component";
 
 // Sound imports
 import tickSound from "/sound/tick.mp3";
@@ -206,6 +207,12 @@ const getActualLetterCount = (word: string): number => {
 const getRequiredLetterCount = (): number => {
 	return TARGET_WORD.replace(/-/g, "").length;
 };
+
+// Tính tổng số chữ cái cần thu thập từ tất cả các level
+const totalRequiredLetters = QUESTIONS.reduce(
+	(total, q) => total + q.solution.length,
+	0
+);
 
 export default function Game8() {
 	const [gameState, setGameState] = useState<GameState>({
@@ -445,30 +452,16 @@ export default function Game8() {
 
 	if (showConclusion && gameStats) {
 		return (
-			<div
-				className="h-full bg-cover bg-center flex items-center justify-center px-4"
-				style={{
-					backgroundImage: "url('/images/backgrounds/game8-conclusion-bg.jpg')",
-				}}
-			>
-				<div className="bg-[#0f172a]/70 backdrop-blur-sm border-4 border-orange-600 rounded-2xl shadow-2xl p-10 max-w-4xl w-full text-center space-y-8 text-orange-100 font-pirate">
-					<GameConclusion
-						gameStats={gameStats}
-						artifact={ARTIFACT}
-						onRestart={() => window.location.reload()}
-					/>
-				</div>
-			</div>
+			<Conclusion8
+				timeUsed={GAME_CONSTANTS.TOTAL_TIME - gameState.timeLeft}
+				matchedCards={gameState.collectedLetters.length}
+				totalCards={totalRequiredLetters}
+				win={gameState.hasSubmittedAnswer}
+			/>
 		);
 	}
 
 	const currentQuestion = QUESTIONS[gameState.currentQuestion - 1];
-
-	// Tính tổng số chữ cái cần thu thập từ tất cả các level
-	const totalRequiredLetters = QUESTIONS.reduce(
-		(total, q) => total + q.solution.length,
-		0
-	);
 
 	// Hiển thị bàn phím khi đã thu thập đủ số chữ cái
 	const showDecodingPhase =

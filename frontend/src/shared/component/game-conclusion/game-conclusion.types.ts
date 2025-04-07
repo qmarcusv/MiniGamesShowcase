@@ -5,6 +5,7 @@ export interface GameStats {
 	accuracy: number;
 	artifact: string;
 	artifactUnlocked: boolean;
+	hideGameOverText?: boolean;
 }
 
 export interface ArtifactRequirements {

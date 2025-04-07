@@ -20,12 +20,9 @@ export default function GameConclusion({
 	if (!gameStats) {
 		return (
 			<div className="game-conclusion space-y-4">
-				<h2 className="text-3xl font-bold text-orange-400 animate-bounce">
-					Game Over!
-				</h2>
 				<button
 					onClick={onRestart}
-					className="bg-orange-600 text-white px-8 py-4 rounded-xl text-2xl hover:bg-orange-700 transition shadow-md"
+					className="bg-orange-600 text-white px-8 py-4 rounded-xl text-2xl hover:bg-orange-700 transition shadow-md font-sans"
 				>
 					🎮 Chơi lại
 				</button>
@@ -34,10 +31,11 @@ export default function GameConclusion({
 	}
 
 	return (
-		<div className="game-conclusion space-y-4">
-			<h2 className="text-3xl font-bold text-orange-400 animate-bounce">
-				Game Over!
-			</h2>
+		<div className="game-conclusion space-y-4 font-sans">
+			{!gameStats.hideGameOverText && (
+				<div className="text-4xl font-bold">Trò chơi kết thúc!</div>
+			)}
+
 			<div className="grid grid-cols-2 gap-4 p-4 bg-slate-800/50 rounded-xl">
 				<div className="space-y-2 text-left">
 					<p className="text-xl">🎯 Điểm số: {gameStats.score}</p>
@@ -62,7 +60,7 @@ export default function GameConclusion({
 							) : (
 								<button
 									onClick={() => setShowArtifactPopup(true)}
-									className="treasure-chest-btn"
+									className="treasure-chest-btn font-sans"
 								>
 									<span className="text-2xl">🎁</span>
 									<span className="text-sm">Mở báu vật</span>
@@ -85,7 +83,7 @@ export default function GameConclusion({
 			</div>
 			<button
 				onClick={onRestart}
-				className="bg-orange-600 text-white px-8 py-4 rounded-xl text-2xl hover:bg-orange-700 transition shadow-md"
+				className="bg-orange-600 text-white px-8 py-4 rounded-xl text-2xl hover:bg-orange-700 transition shadow-md font-sans"
 			>
 				🎮 Chơi lại
 			</button>
@@ -93,7 +91,7 @@ export default function GameConclusion({
 			{/* Artifact Unlock Popup */}
 			{showArtifactPopup && (
 				<div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-					<div className="bg-[#0f172a] border-4 border-orange-600 rounded-2xl p-8 max-w-md w-full text-center space-y-4 animate-scale-up artifact-popup">
+					<div className="bg-[#0f172a] border-4 border-orange-600 rounded-2xl p-8 max-w-md w-full text-center space-y-4 animate-scale-up artifact-popup font-sans">
 						<h3 className="text-2xl font-bold text-orange-400">
 							🎉 Chúc mừng! 🎉
 						</h3>
@@ -112,7 +110,7 @@ export default function GameConclusion({
 								setShowArtifactPopup(false);
 								new Audio(correctSound).play();
 							}}
-							className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition"
+							className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition font-sans"
 						>
 							Đóng
 						</button>

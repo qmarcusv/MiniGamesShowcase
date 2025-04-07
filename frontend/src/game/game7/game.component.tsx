@@ -11,6 +11,7 @@ import {
 	Artifact,
 } from "../../shared/component/game-conclusion/game-conclusion.types";
 import "./game.component.scss";
+import Conclusion7 from "./game-conclusion.component";
 
 interface Document {
 	id: string;
@@ -432,10 +433,11 @@ export default function Game7() {
 						🎮 Bắt đầu chơi
 					</button>
 				) : gameOver && gameStats ? (
-					<GameConclusion
-						gameStats={gameStats}
-						artifact={ARTIFACT}
-						onRestart={startGame}
+					<Conclusion7
+						timeUsed={timer > 0 ? 60 - timer : 60}
+						matchedCards={correctMoves}
+						totalCards={totalMoves > 0 ? totalMoves : 1}
+						win={correctMoves > 0}
 					/>
 				) : (
 					<div className="grid grid-cols-2 gap-8">

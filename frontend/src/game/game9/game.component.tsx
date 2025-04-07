@@ -1,8 +1,27 @@
 import { useState } from "react";
 import ButtonSound from "../../feature/button-sound/button-sound.component";
+import Conclusion9 from "./game-conclusion.component";
 
 export default function Game9() {
 	const [started, setStarted] = useState(false);
+	const [showConclusion, setShowConclusion] = useState(false);
+	const [timeUsed, setTimeUsed] = useState(0);
+
+	const handleFinish = () => {
+		setTimeUsed(60); // Giả lập thời gian chơi là 60 giây
+		setShowConclusion(true);
+	};
+
+	if (showConclusion) {
+		return (
+			<Conclusion9
+				timeUsed={timeUsed}
+				matchedCards={5}
+				totalCards={10}
+				win={true}
+			/>
+		);
+	}
 
 	return (
 		<div className="h-full bg-[url('/game/image/description/game.png')] bg-cover bg-no-repeat bg-center">
@@ -23,7 +42,13 @@ export default function Game9() {
 						</div>
 					) : (
 						<div className="text-center text-amber-200/90">
-							Game đang được phát triển...
+							<p className="mb-4">Game đang được phát triển...</p>
+							<ButtonSound
+								onClick={handleFinish}
+								className="bg-blue-800/40 hover:bg-blue-700/40 text-amber-200/90 px-8 py-3 rounded-xl font-medium transition-colors border border-amber-500/20"
+							>
+								Kết thúc game
+							</ButtonSound>
 						</div>
 					)}
 				</div>
