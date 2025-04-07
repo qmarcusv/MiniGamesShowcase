@@ -10,6 +10,7 @@ interface ButtonSoundProps {
 	onClick?: () => void;
 	children: React.ReactNode;
 	className?: string;
+	title?: string;
 }
 
 export default function ButtonSound({
@@ -17,6 +18,7 @@ export default function ButtonSound({
 	onClick,
 	children,
 	className = "",
+	title,
 }: ButtonSoundProps) {
 	const soundRef = useRef<HTMLAudioElement | null>(null);
 
@@ -38,7 +40,7 @@ export default function ButtonSound({
 	};
 
 	return (
-		<button onClick={handleClick} className={className}>
+		<button onClick={handleClick} className={className} title={title}>
 			{children}
 		</button>
 	);
