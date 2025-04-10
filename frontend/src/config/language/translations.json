@@ -13,7 +13,7 @@
 			"game1": "Con Tàu Ma - Tìm mảnh ghép",
 			"game2": "Di Sản Thuyền Trưởng - Kiến thức hàng hải",
 			"game3": "Hải Tặc Lăm Le - Giải mã vũ khí",
-			"game4": "Kẻ Du Hành - So sánh quá khứ",
+			"game4": "Trở về tương lai",
 			"game5": "Đôi Mắt Đại Bàng - Thử thách tốc độ",
 			"game6": "Thủy Thủ Tài Ba - Trí nhớ siêu phàm",
 			"game7": "Người Phân Loại - Sắp xếp tài liệu",
@@ -61,9 +61,9 @@
 			"start": "Bắt đầu"
 		},
 		"description4": {
-			"title": "Kẻ Du Hành",
+			"title": "Trở về tương lai",
 			"description": "Mô tả trò chơi",
-			"description_content": "Du hành thời gian để so sánh cùng một địa điểm ở quá khứ và hiện tại. Tìm ra những điểm khác biệt để hiểu rõ hơn về lịch sử.",
+			"description_content": "Trở về tương lai đưa bạn trở về quá khứ để khám phá những thay đổi đáng kinh ngạc tại các di tích và danh lam thắng cảnh Việt Nam.",
 			"instructions": "Hướng dẫn chơi",
 			"instruction1": "So sánh hai bức ảnh cùng một địa điểm",
 			"instruction2": "Tìm và click vào các điểm khác biệt",
@@ -174,7 +174,7 @@
 			"game1": "Ghost Ship - Find the Pieces",
 			"game2": "Captain's Legacy - Maritime Knowledge",
 			"game3": "Lurking Pirates - Decode the Weapon",
-			"game4": "Time Traveler - Past Comparison",
+			"game4": "Back to the Future",
 			"game5": "Eagle Eye - Speed Challenge",
 			"game6": "Master Sailor - Memory Test",
 			"game7": "Document Sorter - Organize Files",
@@ -222,7 +222,7 @@
 			"start": "Start"
 		},
 		"description4": {
-			"title": "Time Traveler",
+			"title": "Back to the Future",
 			"description": "Game Description",
 			"description_content": "Travel through time to compare the same location in the past and present. Find the differences to better understand history.",
 			"instructions": "How to Play",
@@ -495,7 +495,7 @@
 			"clicks": "clics",
 			"timeUsed": "Temps utilisé",
 			"accuracy": "Précision",
-			"resultTitle": "�� Résultat"
+			"resultTitle": "🎉 Résultat"
 		},
 		"game5": {
 			"summary": "Résumé du jeu",

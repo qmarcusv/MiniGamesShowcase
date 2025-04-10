@@ -1,11 +1,17 @@
 export interface GameStats {
 	score: number;
+	accuracy: number;
 	totalMoves: number;
 	correctMoves: number;
-	accuracy: number;
+	wrongMoves: number;
 	artifact: string;
 	artifactUnlocked: boolean;
 	hideGameOverText?: boolean;
+	stats: Array<{
+		label: string;
+		value: string;
+		icon: string;
+	}>;
 }
 
 export interface ArtifactRequirements {
@@ -16,8 +22,11 @@ export interface ArtifactRequirements {
 export interface Artifact {
 	name: string;
 	description: string;
-	requirements: ArtifactRequirements;
 	image: string;
+	requirements: {
+		score: number;
+		accuracy: number;
+	};
 }
 
 export interface GameConclusionProps {
