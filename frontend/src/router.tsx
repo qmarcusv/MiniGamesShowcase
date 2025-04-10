@@ -42,46 +42,188 @@ export const router = createBrowserRouter([
 		children: [
 			{ index: true, element: <Home /> },
 			{ path: "game1", element: <Description1 /> },
-			{ path: "game1/game", element: <Game1 /> },
-			{ path: "game1/settings", element: <Setting1 /> },
+			{
+				path: "game1/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game1 />
+					</div>
+				),
+			},
+			{
+				path: "game1/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting1 />
+					</div>
+				),
+			},
 			{ path: "game2", element: <Description2 /> },
-			{ path: "game2/game", element: <Game2 /> },
-			{ path: "game2/settings", element: <Setting2 /> },
+			{
+				path: "game2/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game2 />
+					</div>
+				),
+			},
+			{
+				path: "game2/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting2 />
+					</div>
+				),
+			},
 			{ path: "game3", element: <Description3 /> },
-			{ path: "game3/game", element: <Game3 /> },
-			{ path: "game3/settings", element: <Setting3 /> },
+			{
+				path: "game3/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game3 />
+					</div>
+				),
+			},
+			{
+				path: "game3/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting3 />
+					</div>
+				),
+			},
 			{ path: "game4", element: <Description4 /> },
-			{ path: "game4/game", element: <Game4 /> },
-			{ path: "game4/settings", element: <Setting4 /> },
+			{
+				path: "game4/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game4 />
+					</div>
+				),
+			},
+			{
+				path: "game4/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting4 />
+					</div>
+				),
+			},
 			{ path: "game5", element: <Description5 /> },
-			{ path: "game5/game", element: <Game5 /> },
-			{ path: "game5/settings", element: <Setting5 /> },
+			{
+				path: "game5/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game5 />
+					</div>
+				),
+			},
+			{
+				path: "game5/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting5 />
+					</div>
+				),
+			},
 			{ path: "game6", element: <Description6 /> },
-			{ path: "game6/game", element: <Game6 gridSize="4x4" timer={60} /> },
+			{
+				path: "game6/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game6 gridSize="4x4" timer={60} />
+					</div>
+				),
+			},
 			{
 				path: "game6/settings",
 				element: (
-					<Setting6
-						gridSize="4x4"
-						setGridSize={() => {}}
-						timers={{ "4x4": 60, "6x6": 120 }}
-						setTimers={() => {}}
-					/>
+					<div className="hide-navbar hide-footer">
+						<Setting6
+							gridSize="4x4"
+							setGridSize={() => {}}
+							timers={{ "4x4": 60, "6x6": 120 }}
+							setTimers={() => {}}
+						/>
+					</div>
 				),
 			},
 			{ path: "game7", element: <Description7 /> },
-			{ path: "game7/game", element: <Game7 /> },
-			{ path: "game7/settings", element: <Setting7 /> },
+			{
+				path: "game7/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game7 />
+					</div>
+				),
+			},
+			{
+				path: "game7/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting7 />
+					</div>
+				),
+			},
 			{ path: "game8", element: <Description8 /> },
-			{ path: "game8/game", element: <Game8 /> },
-			{ path: "game8/settings", element: <Setting8 /> },
+			{
+				path: "game8/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game8 />
+					</div>
+				),
+			},
+			{
+				path: "game8/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting8 />
+					</div>
+				),
+			},
 			{ path: "game9", element: <Description9 /> },
-			{ path: "game9/game", element: <Game9 /> },
-			{ path: "game9/settings", element: <Setting9 /> },
+			{
+				path: "game9/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game9 />
+					</div>
+				),
+			},
+			{
+				path: "game9/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting9 />
+					</div>
+				),
+			},
 			{ path: "game10", element: <Description10 /> },
-			{ path: "game10/game", element: <Game10 /> },
-			{ path: "game10/settings", element: <Setting10 /> },
-			{ path: "treasure", element: <Treasure /> },
+			{
+				path: "game10/game",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Game10 />
+					</div>
+				),
+			},
+			{
+				path: "game10/settings",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Setting10 />
+					</div>
+				),
+			},
+			{
+				path: "treasure",
+				element: (
+					<div className="hide-navbar hide-footer">
+						<Treasure />
+					</div>
+				),
+			},
 			// { path: "play", element: <GameWrapper /> },
 			{ path: "leaderboard", element: <Leaderboard /> },
 		],

@@ -2,36 +2,36 @@
 // RESET CSS
 // =============================================================
 * {
-    // margin: 0;
-    // padding: 0;
-    box-sizing: border-box !important;
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-    dl,
-    ol,
-    ul {
-        list-style: none;
-        margin: 0;
-    }
+	// margin: 0;
+	// padding: 0;
+	box-sizing: border-box !important;
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+	dl,
+	ol,
+	ul {
+		list-style: none;
+		margin: 0;
+	}
 }
 html,
 body {
-    width: 100vw;
-    background-color: #e3e6e6;
-    margin: 0;
-    padding: 0;
-    &::-webkit-scrollbar {
-        width: 0px;
-    }
-    // background: bottom left repeat-x fixed url('./assets/images/bgs/m2.png');
+	width: 100vw;
+	background-color: #e3e6e6;
+	margin: 0;
+	padding: 0;
+	&::-webkit-scrollbar {
+		width: 0px;
+	}
+	// background: bottom left repeat-x fixed url('./assets/images/bgs/m2.png');
 }
 
 #root {
-    width: 100%;
-    position: relative;
-    // font-family: "Syne", sans-serif;
+	width: 100%;
+	position: relative;
+	// font-family: "Syne", sans-serif;
 }
 
 // Layout
@@ -40,33 +40,48 @@ body {
 // Element options
 // ======================================
 .hide-navbar {
-    .navbar {
-        display: none !important;
-    }
-    .nav-map {
-        display: block !important;
-    }
+	.navbar {
+		display: none !important;
+	}
+	.nav-map {
+		display: block !important;
+	}
 }
 
 .hide-footer .footer {
-    display: none !important;
+	display: none !important;
 }
 
 .hide-navbar-footer .navbar,
 .hide-navbar-footer .footer {
-    display: none !important;
+	display: none !important;
 }
 
 .hidden-scroll {
-    overflow: auto;
-    &::-webkit-scrollbar {
-        width: 0px;
-    }
+	overflow: auto;
+	&::-webkit-scrollbar {
+		width: 0px;
+	}
 }
 
 .c {
-    border: 1px solid red;
+	border: 1px solid red;
 }
 .c > * {
-    border: 1px solid green;
+	border: 1px solid green;
+}
+
+.hide-navbar.hide-footer {
+	min-height: 100vh;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+
+	> * {
+		height: 100%;
+		width: 100%;
+	}
 }

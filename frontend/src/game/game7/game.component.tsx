@@ -12,6 +12,7 @@ import {
 } from "../../shared/component/game-conclusion/game-conclusion.types";
 import "./game.component.scss";
 import Conclusion7 from "./game-conclusion.component";
+import { useNavigate } from "react-router-dom";
 
 interface Document {
 	id: string;
@@ -19,90 +20,118 @@ interface Document {
 	color: string;
 	colorName: string;
 	text?: string;
+	image: string;
 }
 
 const DOCUMENT_TYPES = {
-	text: { name: "Kho tài liệu", color: "#FF0000", colorName: "Đỏ" },
-	audio: { name: "Kho âm thanh", color: "#FF69B4", colorName: "Hồng" },
-	history: {
-		name: "Kho văn kiện lịch sử",
-		color: "#0000FF",
-		colorName: "Xanh dương",
+	text: {
+		name: "Kho đỏ",
+		color: "#FF6B6B",
+		colorName: "red",
+		image: "/game/game7/text.png",
 	},
-	nom: { name: "Kho chữ Nôm", color: "#00FF00", colorName: "Xanh lá" },
-	han: { name: "Kho chữ Hán", color: "#FFFF00", colorName: "Vàng" },
+	audio: {
+		name: "Kho xanh",
+		color: "#4ECDC4",
+		colorName: "teal",
+		image: "/game/game7/audio.png",
+	},
+	history: {
+		name: "Kho đen",
+		color: "#292524",
+		colorName: "black",
+		image: "/game/game7/history.png",
+	},
+	nom: {
+		name: "Kho xanh lá",
+		color: "#96CEB4",
+		colorName: "green",
+		image: "/game/game7/nom.png",
+	},
+	han: {
+		name: "Kho vàng",
+		color: "#FFEEAD",
+		colorName: "yellow",
+		image: "/game/game7/han.png",
+	},
 };
 
 const SAMPLE_DOCUMENTS: Document[] = [
 	{
 		id: "1",
 		type: "text",
-		color: "#FF0000",
-		colorName: "Đỏ",
-		text: "Kho tài liệu",
+		color: DOCUMENT_TYPES.text.color,
+		colorName: DOCUMENT_TYPES.text.colorName,
+		text: DOCUMENT_TYPES.text.name,
+		image: DOCUMENT_TYPES.text.image,
 	},
 	{
 		id: "2",
 		type: "audio",
-		color: "#FF69B4",
-		colorName: "Hồng",
-		text: "Kho âm thanh",
+		color: DOCUMENT_TYPES.audio.color,
+		colorName: DOCUMENT_TYPES.audio.colorName,
+		text: DOCUMENT_TYPES.audio.name,
+		image: DOCUMENT_TYPES.audio.image,
 	},
 	{
 		id: "3",
 		type: "history",
-		color: "#0000FF",
-		colorName: "Xanh dương",
-		text: "Kho văn kiện lịch sử",
+		color: DOCUMENT_TYPES.history.color,
+		colorName: DOCUMENT_TYPES.history.colorName,
+		text: DOCUMENT_TYPES.history.name,
+		image: DOCUMENT_TYPES.history.image,
 	},
 	{
 		id: "4",
 		type: "nom",
-		color: "#00FF00",
-		colorName: "Xanh lá",
-		text: "Kho chữ Nôm",
+		color: DOCUMENT_TYPES.nom.color,
+		colorName: DOCUMENT_TYPES.nom.colorName,
+		text: DOCUMENT_TYPES.nom.name,
+		image: DOCUMENT_TYPES.nom.image,
 	},
 	{
 		id: "5",
 		type: "han",
-		color: "#FFFF00",
-		colorName: "Vàng",
-		text: "Kho chữ Hán",
+		color: DOCUMENT_TYPES.han.color,
+		colorName: DOCUMENT_TYPES.han.colorName,
+		text: DOCUMENT_TYPES.han.name,
+		image: DOCUMENT_TYPES.han.image,
 	},
+	// Thêm các biến thể không có text để tăng độ khó
 	{
 		id: "6",
 		type: "text",
-		color: "#FF69B4",
-		colorName: "Hồng",
-		text: "Kho tài liệu",
+		color: DOCUMENT_TYPES.text.color,
+		colorName: DOCUMENT_TYPES.text.colorName,
+		image: DOCUMENT_TYPES.text.image,
 	},
 	{
 		id: "7",
 		type: "audio",
-		color: "#FF0000",
-		colorName: "Đỏ",
-		text: "Kho âm thanh",
+		color: DOCUMENT_TYPES.audio.color,
+		colorName: DOCUMENT_TYPES.audio.colorName,
+		image: DOCUMENT_TYPES.audio.image,
 	},
 	{
 		id: "8",
 		type: "history",
-		color: "#00FF00",
-		colorName: "Xanh lá",
-		text: "Kho văn kiện lịch sử",
+		color: DOCUMENT_TYPES.history.color,
+		colorName: DOCUMENT_TYPES.history.colorName,
+		image: DOCUMENT_TYPES.history.image,
 	},
 	{
 		id: "9",
 		type: "nom",
-		color: "#0000FF",
-		colorName: "Xanh dương",
-		text: "Kho chữ Nôm",
+		color: DOCUMENT_TYPES.nom.color,
+		colorName: DOCUMENT_TYPES.nom.colorName,
+		image: DOCUMENT_TYPES.nom.image,
 	},
 	{
 		id: "10",
 		type: "han",
-		color: "#FF69B4",
-		colorName: "Hồng",
-		text: "Kho chữ Hán",
+		color: DOCUMENT_TYPES.han.color,
+		colorName: DOCUMENT_TYPES.han.colorName,
+		image: DOCUMENT_TYPES.han.image,
 	},
 ];
 
@@ -153,6 +182,7 @@ const getTextColor = (backgroundColor: string): string => {
 };
 
 export default function Game7() {
+	const navigate = useNavigate();
 	const [started, setStarted] = useState(false);
 	const [timer, setTimer] = useState(60);
 	const [score, setScore] = useState(0);
@@ -169,6 +199,8 @@ export default function Game7() {
 	const [gameStats, setGameStats] = useState<GameStats | null>(null);
 	const animationFrameRef = useRef<number | undefined>(undefined);
 	const lastUpdateTimeRef = useRef<number>(0);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const menuRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		startGame();
@@ -306,67 +338,21 @@ export default function Game7() {
 		const targetType = Object.keys(DOCUMENT_TYPES)[
 			currentX
 		] as keyof typeof DOCUMENT_TYPES;
+		const targetInfo = DOCUMENT_TYPES[targetType];
+
 		console.info("=== Debug handleLanding ===");
 		console.info("currentX khi handleLanding:", currentX);
 		console.info("Loại kho đã chọn:", targetType);
 
-		const targetInfo = DOCUMENT_TYPES[targetType];
-		const targetName = targetInfo.name;
-		const targetColor = targetInfo.color;
-		const targetColorName = targetInfo.colorName;
-
-		// Tìm kho expected dựa trên màu sắc và chữ
-		let expectedType = null;
-		if (currentDoc.text) {
-			// Nếu có chữ, tìm kho có tên trùng với chữ
-			expectedType = Object.entries(DOCUMENT_TYPES).find(
-				([_, info]) => info.name === currentDoc.text
-			)?.[0];
-		} else {
-			// Nếu không có chữ, tìm kho có màu trùng
-			expectedType = Object.entries(DOCUMENT_TYPES).find(
-				([_, info]) => info.color === currentDoc.color
-			)?.[0];
-		}
-
-		// Kiểm tra theo logic mới: ưu tiên chữ hơn màu
-		let isCorrect = false;
-
-		if (currentDoc.text) {
-			// Nếu có chữ, phải khớp với tên kho
-			isCorrect = currentDoc.text === targetName;
-
-			// Nếu chữ không khớp, kiểm tra thêm xem màu sắc và chữ có khớp với kho đó không
-			if (!isCorrect) {
-				const matchingType = Object.entries(DOCUMENT_TYPES).find(
-					([_, info]) => info.name === currentDoc.text
-				);
-				if (matchingType) {
-					const [type, info] = matchingType;
-					isCorrect = currentDoc.color === info.color && type === targetType;
-				}
-			}
-		} else {
-			// Nếu không có chữ, chỉ kiểm tra màu sắc
-			isCorrect = currentDoc.color === targetColor;
-		}
+		// Kiểm tra theo logic mới: so sánh trực tiếp type của object với kho được chọn
+		const isCorrect = currentDoc.type === targetType;
 
 		// In thông tin ra terminal
 		console.info("=== Thông tin object ===");
+		console.info("Type object:", currentDoc.type);
 		console.info("Màu sắc object:", currentDoc.colorName);
 		console.info("Nội dung:", currentDoc.text || "Không có chữ");
-		console.info("Kho đã đặt:", `${targetName} (${targetColorName})`);
-		console.info(
-			"Kho expected:",
-			expectedType
-				? `${
-						DOCUMENT_TYPES[expectedType as keyof typeof DOCUMENT_TYPES].name
-				  } (${
-						DOCUMENT_TYPES[expectedType as keyof typeof DOCUMENT_TYPES]
-							.colorName
-				  })`
-				: "Không xác định"
-		);
+		console.info("Kho đã đặt:", targetType);
 		console.info("Kết quả:", isCorrect ? "Đúng" : "Sai");
 		console.info("=====================");
 
@@ -404,9 +390,27 @@ export default function Game7() {
 			score,
 			totalMoves,
 			correctMoves,
+			wrongMoves: totalMoves - correctMoves,
 			accuracy,
 			artifact: artifactUnlocked ? ARTIFACT.name : "",
 			artifactUnlocked,
+			stats: [
+				{
+					label: "Thời gian",
+					value: `${60 - timer}s`,
+					icon: "⏱️",
+				},
+				{
+					label: "Độ chính xác",
+					value: `${Math.round(accuracy)}%`,
+					icon: "🎯",
+				},
+				{
+					label: "Số vật phẩm đúng",
+					value: `${correctMoves}/${totalMoves}`,
+					icon: "📦",
+				},
+			],
 		};
 	};
 
@@ -423,22 +427,134 @@ export default function Game7() {
 	}, [timer]);
 
 	return (
-		<div className="h-full bg-[url('/image/pirate-bg.jpg')] bg-cover bg-center flex items-center justify-center px-4">
-			<div className="bg-[#0f172a]/80 backdrop-blur-md border-4 border-orange-600 rounded-2xl shadow-2xl p-10 max-w-4xl w-full text-center space-y-8 text-orange-100 font-pirate">
+		<div
+			className="h-full bg-cover bg-center bg-no-repeat flex items-center justify-center px-4 relative overflow-hidden"
+			style={{
+				backgroundImage: "url('/game/game7/gameplay.png')",
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+			}}
+		>
+			<div className="absolute inset-0 bg-black/10 backdrop-blur-[2px]"></div>
+
+			{/* Menu Button và Dropdown */}
+			<div className="fixed top-4 right-4 z-30">
+				<div className="relative">
+					<button
+						onClick={() => setIsMenuOpen(!isMenuOpen)}
+						className="w-12 h-12 bg-[#292524]/60 hover:bg-[#1c1917]/80 text-slate-200 rounded-full text-xl transition shadow-md border-2 border-[#44403c]/30 hover:border-[#292524] flex items-center justify-center"
+					>
+						⚙️
+					</button>
+					{isMenuOpen && (
+						<div
+							ref={menuRef}
+							className="absolute right-0 mt-2 w-48 bg-[#1c1917]/90 backdrop-blur-md border-2 border-[#292524] rounded-xl shadow-2xl overflow-hidden"
+						>
+							<button
+								onClick={() => {
+									setIsMenuOpen(false);
+									navigate("/");
+								}}
+								className="w-full px-4 py-2 text-left text-slate-200 hover:bg-[#292524]/60 transition flex items-center gap-2"
+							>
+								🏠 Trang chính
+							</button>
+							<button
+								onClick={() => {
+									setIsMenuOpen(false);
+									navigate("/game/7");
+								}}
+								className="w-full px-4 py-2 text-left text-slate-200 hover:bg-[#292524]/60 transition flex items-center gap-2"
+							>
+								↩️ Quay lại
+							</button>
+						</div>
+					)}
+				</div>
+			</div>
+
+			<div className="relative z-10 bg-[#1c1917]/40 backdrop-blur-sm border-4 border-[#292524] rounded-2xl shadow-2xl p-10 w-[90vw] max-w-7xl text-center space-y-8 text-slate-200 mb-32">
 				{!started ? (
 					<button
 						onClick={startGame}
-						className="bg-orange-600 text-white px-8 py-4 rounded-xl text-2xl hover:bg-orange-700 transition shadow-md"
+						className="bg-[#292524] hover:bg-[#1c1917] text-slate-200 px-8 py-4 rounded-xl text-2xl transition shadow-md border-2 border-[#44403c] hover:border-[#292524]"
 					>
 						🎮 Bắt đầu chơi
 					</button>
 				) : gameOver && gameStats ? (
-					<Conclusion7
-						timeUsed={timer > 0 ? 60 - timer : 60}
-						matchedCards={correctMoves}
-						totalCards={totalMoves > 0 ? totalMoves : 1}
-						win={correctMoves > 0}
-					/>
+					<div className="bg-[#1c1917]/80 backdrop-blur-md rounded-xl p-8 max-w-2xl mx-auto">
+						<h2 className="text-3xl font-bold mb-8 text-orange-400">
+							Trò chơi kết thúc!
+						</h2>
+						<div className="grid grid-cols-2 gap-6 mb-8">
+							<div className="bg-[#292524]/60 rounded-lg p-4">
+								<div className="text-4xl mb-2">🎯</div>
+								<div className="text-sm text-slate-400">Điểm số</div>
+								<div className="text-2xl font-bold">{score}</div>
+							</div>
+							<div className="bg-[#292524]/60 rounded-lg p-4">
+								<div className="text-4xl mb-2">📊</div>
+								<div className="text-sm text-slate-400">Độ chính xác</div>
+								<div className="text-2xl font-bold">
+									{((correctMoves / totalMoves) * 100).toFixed(1)}%
+								</div>
+							</div>
+							<div className="bg-[#292524]/60 rounded-lg p-4">
+								<div className="text-4xl mb-2">✅</div>
+								<div className="text-sm text-slate-400">Số lần đúng</div>
+								<div className="text-2xl font-bold">{correctMoves}</div>
+							</div>
+							<div className="bg-[#292524]/60 rounded-lg p-4">
+								<div className="text-4xl mb-2">📝</div>
+								<div className="text-sm text-slate-400">Tổng số lần</div>
+								<div className="text-2xl font-bold">{totalMoves}</div>
+							</div>
+						</div>
+
+						<div className="text-sm text-slate-400 mb-8">
+							<div className="font-bold text-orange-400 mb-2">
+								Yêu cầu nhận thưởng:
+							</div>
+							<div className="flex justify-center gap-8">
+								<div>
+									<span className="text-slate-400">Điểm số: </span>
+									<span
+										className={score >= 12 ? "text-green-400" : "text-red-400"}
+									>
+										12+
+									</span>
+								</div>
+								<div>
+									<span className="text-slate-400">Độ chính xác: </span>
+									<span
+										className={
+											(correctMoves / totalMoves) * 100 >= 60
+												? "text-green-400"
+												: "text-red-400"
+										}
+									>
+										60%+
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div className="flex justify-center gap-4">
+							<button
+								onClick={() => navigate("/game/7")}
+								className="bg-[#292524]/60 hover:bg-[#1c1917]/80 text-slate-200 px-6 py-3 rounded-lg transition shadow-md border border-[#44403c]/30 hover:border-[#292524] flex items-center gap-2"
+							>
+								↩️ Quay lại
+							</button>
+							<button
+								onClick={startGame}
+								className="bg-[#292524]/60 hover:bg-[#1c1917]/80 text-slate-200 px-6 py-3 rounded-lg transition shadow-md border border-[#44403c]/30 hover:border-[#292524] flex items-center gap-2"
+							>
+								🔄 Chơi lại
+							</button>
+						</div>
+					</div>
 				) : (
 					<div className="grid grid-cols-2 gap-8">
 						<div className="space-y-4">
@@ -447,8 +563,8 @@ export default function Game7() {
 									value={timer}
 									maxValue={60}
 									styles={{
-										path: { stroke: "#f97316" },
-										text: { fill: "#f97316", fontSize: "24px" },
+										path: { stroke: "#d6d3d1" },
+										text: { fill: "#d6d3d1", fontSize: "24px" },
 									}}
 								>
 									<div className="text-2xl font-bold">{timer}s</div>
@@ -456,88 +572,81 @@ export default function Game7() {
 							</div>
 							<div className="text-2xl">Điểm: {score}</div>
 							{gameStats?.artifactUnlocked && (
-								<div className="text-sm text-orange-300">
+								<div className="text-sm text-slate-300">
 									🏆 Đã mở khóa {ARTIFACT.name}!
 								</div>
 							)}
 						</div>
 
-						<div className="space-y-4">
-							<div className="relative h-[500px] border-2 border-orange-600 rounded-lg bg-slate-900/50">
-								<div className="absolute bottom-0 w-full grid grid-cols-5 gap-2 p-2">
-									{Object.entries(DOCUMENT_TYPES).map(([type, info], index) => (
-										<div
-											key={type}
-											className={`h-20 border-2 rounded-lg flex items-center justify-center ${
-												currentX === index
-													? "border-orange-400"
-													: "border-orange-600"
-											}`}
-											style={{ backgroundColor: info.color }}
-										>
-											<div
-												className="text-sm font-bold px-2 py-1 rounded"
-												style={{
-													color: getTextColor(info.color),
-													textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
-													backgroundColor: "rgba(0, 0, 0, 0.2)",
-												}}
-											>
-												{info.name}
-											</div>
-										</div>
-									))}
-								</div>
-
-								{showCurrent && currentDoc && (
+						<div className="relative h-[70vh] border-2 border-[#44403c] rounded-lg bg-[#292524]/20">
+							<div className="absolute bottom-0 w-full grid grid-cols-5 gap-2 p-2">
+								{Object.entries(DOCUMENT_TYPES).map(([type, info], index) => (
 									<div
-										className="absolute h-20 w-[calc(20%-8px)] border-2 border-orange-400 rounded-lg flex items-center justify-center"
-										style={{
-											backgroundColor: currentDoc.color,
-											left: `${currentX * 20}%`,
-											top: `${fallingY}px`,
-											transform: `translateY(0)`,
-											transition: "transform 16ms linear",
-										}}
+										key={type}
+										className={`h-24 border-2 rounded-lg flex items-center justify-center relative overflow-hidden ${
+											currentX === index
+												? "border-[#d6d3d1]"
+												: "border-[#44403c]/30"
+										}`}
 									>
-										<div
-											className="text-sm font-bold px-2 py-1 rounded"
-											style={{
-												color: getTextColor(currentDoc.color),
-												textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
-												backgroundColor: "rgba(0, 0, 0, 0.2)",
-											}}
-										>
-											{currentDoc.text || "Chỉ có màu"}
+										<img
+											src={info.image}
+											alt={info.name}
+											className="absolute inset-0 w-full h-full object-cover"
+										/>
+										<div className="relative z-10 text-sm font-bold px-2 py-1 rounded bg-black/30 text-white">
+											{info.name}
 										</div>
 									</div>
-								)}
+								))}
 							</div>
 
-							<div className="flex justify-center gap-4">
-								<button
-									onClick={handleMoveLeft}
-									className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition"
+							{showCurrent && currentDoc && (
+								<div
+									className="absolute h-24 w-[calc(20%-8px)] border-2 border-[#d6d3d1] rounded-lg flex items-center justify-center"
+									style={{
+										backgroundColor: currentDoc.color,
+										left: `${currentX * 20}%`,
+										top: `${fallingY}px`,
+										transform: `translateY(0)`,
+										transition: "transform 16ms linear",
+									}}
 								>
-									←
-								</button>
-								<button
-									onClick={handleMoveRight}
-									className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition"
-								>
-									→
-								</button>
-								<button
-									onClick={handleDrop}
-									className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition"
-								>
-									↓
-								</button>
-							</div>
+									{currentDoc.text && (
+										<div className="text-sm font-bold px-2 py-1 rounded bg-black/30 text-white">
+											{currentDoc.text}
+										</div>
+									)}
+								</div>
+							)}
 						</div>
 					</div>
 				)}
 			</div>
+
+			{/* Nút điều khiển */}
+			{started && !gameOver && (
+				<div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-8 z-20">
+					<button
+						onClick={handleMoveLeft}
+						className="w-20 h-20 bg-[#292524]/40 hover:bg-[#1c1917]/60 text-slate-200 rounded-full text-3xl transition shadow-md border-2 border-[#44403c]/30 hover:border-[#292524] flex items-center justify-center"
+					>
+						⬅️
+					</button>
+					<button
+						onClick={handleDrop}
+						className="w-20 h-20 bg-[#292524]/40 hover:bg-[#1c1917]/60 text-slate-200 rounded-full text-3xl transition shadow-md border-2 border-[#44403c]/30 hover:border-[#292524] flex items-center justify-center"
+					>
+						⬇️
+					</button>
+					<button
+						onClick={handleMoveRight}
+						className="w-20 h-20 bg-[#292524]/40 hover:bg-[#1c1917]/60 text-slate-200 rounded-full text-3xl transition shadow-md border-2 border-[#44403c]/30 hover:border-[#292524] flex items-center justify-center"
+					>
+						➡️
+					</button>
+				</div>
+			)}
 
 			{/* Artifact Unlock Popup */}
 			{showArtifactPopup && (
