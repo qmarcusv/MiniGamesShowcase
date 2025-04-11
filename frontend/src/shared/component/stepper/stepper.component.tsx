@@ -1,36 +1,51 @@
 import "./stepper.component.scss";
-import { Link } from "react-router-dom";
-// import { Button } from "../ui/button/button";
+import { FaHome, FaCog, FaPlay } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import ButtonSound from "../../../feature/button-sound/button-sound.component";
+import { useGameContext } from "../../context/game.hook";
+import { Button } from "../../ui/button/button";
 
-interface StepperProps {
-  previewLink: string;
-  nextLink: string;
-}
+export const Stepper: React.FC<{ gameId: string }> = ({ gameId }) => {
+  const navigate = useNavigate();
+  const { games } = useGameContext();
 
-const Stepper = ({ previewLink = "", nextLink = "" }: StepperProps) => {
+  const currentGameId = parseInt(gameId, 10);
+
+  if (isNaN(currentGameId)) return null;
+  const navButtonClass =
+    "w-16 h-16 sm:w-20 sm:h-20 bg-amber-700 hover:bg-amber-800 text-amber-50 rounded-xl transition-all duration-300 shadow-xl border-2 border-amber-600 hover:scale-110 flex items-center justify-center";
+
   return (
-    <div className="stepper h-30 justify-center flex items-center gap-10">
-      {previewLink != "" && (
-        <Link to={previewLink}>
-          <button
-            type="button"
-            className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-            Back
-          </button>
-        </Link>
+    <div className="stepper fixed bottom-8 p-4 w-full flex justify-between items-center rounded">
+      {currentGameId > 1 ? (
+        <button onClick={() => navigate(`/game${currentGameId - 1}`)} className={navButtonClass}>
+          ←
+        </button>
+      ) : (
+        <div className={navButtonClass}></div>
       )}
 
-      {nextLink != "" && (
-        <Link to={nextLink}>
-          <button
-            type="button"
-            className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-            Next
-          </button>
-        </Link>
+      <div className="flex gap-2">
+        <ButtonSound onClick={() => navigate("/")} className={navButtonClass}>
+          <FaHome size={24} />
+        </ButtonSound>
+
+        <ButtonSound onClick={() => navigate(`/game${currentGameId}/settings`)} className={navButtonClass}>
+          <FaCog size={24} />
+        </ButtonSound>
+
+        <ButtonSound onClick={() => navigate(`/game${currentGameId}/game`)} className={navButtonClass}>
+          <FaPlay size={24} />
+        </ButtonSound>
+      </div>
+
+      {currentGameId < games.length - 1 ? (
+        <button onClick={() => navigate(`/game${currentGameId + 1}`)} className={navButtonClass}>
+          →
+        </button>
+      ) : (
+        <div className={navButtonClass}></div>
       )}
     </div>
   );
 };
-
-export default Stepper;
