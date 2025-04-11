@@ -1,4 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDrag, useDrop } from "react-dnd";
+import "./game.scss";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import correctSound from "/sound/correct.mp3";
@@ -13,15 +17,13 @@ import {
 
 interface PuzzlePiece {
 	id: number;
-	image: string;
-	correctPosition: { x: number; y: number };
-	currentPosition: { x: number; y: number };
-	rotation: number;
+	originalPos: { x: number; y: number };
+	currentPos: { x: number; y: number };
 }
 
-const PUZZLE_SIZE = 3; // 3x3 puzzle
+const GRID_SIZE = 6;
+const PIECE_SIZE = 80; // px
 const TIME_LIMIT = 300; // 5 minutes
-const ROTATION_STEP = 90; // 90 degrees rotation
 
 const ARTIFACT: Artifact = {
 	name: "Mảnh ghép bí ẩn",
@@ -34,110 +36,246 @@ const ARTIFACT: Artifact = {
 };
 
 export default function Game10() {
+	const [selectedImage, setSelectedImage] = useState<string>("");
 	const [pieces, setPieces] = useState<PuzzlePiece[]>([]);
-	const [selectedPiece, setSelectedPiece] = useState<PuzzlePiece | null>(null);
-	const [timer, setTimer] = useState(TIME_LIMIT);
-	const [score, setScore] = useState(0);
+	const [isComplete, setIsComplete] = useState(false);
 	const [moves, setMoves] = useState(0);
+	const [score, setScore] = useState(0);
 	const [correctPlacements, setCorrectPlacements] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
 	const [gameStats, setGameStats] = useState<GameStats | null>(null);
 	const [showArtifactPopup, setShowArtifactPopup] = useState(false);
+	const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
+	const [gameStarted, setGameStarted] = useState(false);
 
-	// Initialize puzzle pieces
 	useEffect(() => {
-		const initialPieces: PuzzlePiece[] = [];
-		for (let i = 0; i < PUZZLE_SIZE * PUZZLE_SIZE; i++) {
-			const row = Math.floor(i / PUZZLE_SIZE);
-			const col = i % PUZZLE_SIZE;
-			initialPieces.push({
-				id: i,
-				image: `/images/puzzle/piece${i + 1}.jpg`,
-				correctPosition: { x: col, y: row },
-				currentPosition: {
-					x: Math.floor(Math.random() * PUZZLE_SIZE),
-					y: Math.floor(Math.random() * PUZZLE_SIZE),
-				},
-				rotation: Math.floor(Math.random() / ROTATION_STEP) * ROTATION_STEP,
+		if (!selectedImage || gameOver) return;
+
+		const timer = setInterval(() => {
+			setTimeLeft((prev) => {
+				if (prev <= 0) {
+					clearInterval(timer);
+					handleGameOver();
+					return 0;
+				}
+				return prev - 1;
 			});
+		}, 1000);
+
+		return () => clearInterval(timer);
+	}, [selectedImage, gameOver]);
+
+	useEffect(() => {
+		if (isComplete) {
+			const timer = setTimeout(() => {
+				handleGameOver();
+			}, 2000);
+			return () => clearTimeout(timer);
 		}
-		setPieces(initialPieces);
+	}, [isComplete]);
+
+	// Tối ưu hàm khởi tạo puzzle bằng useCallback
+	const initializePuzzle = useCallback((imageUrl: string) => {
+		// Tối ưu kích thước ảnh trước khi sử dụng
+		const img = new Image();
+		img.onload = () => {
+			const canvas = document.createElement("canvas");
+			const ctx = canvas.getContext("2d");
+
+			// Giảm kích thước ảnh xuống vừa đủ (GRID_SIZE * PIECE_SIZE)
+			const size = GRID_SIZE * PIECE_SIZE;
+			canvas.width = size;
+			canvas.height = size;
+
+			if (ctx) {
+				ctx.drawImage(img, 0, 0, size, size);
+				const optimizedImageUrl = canvas.toDataURL("image/jpeg", 0.8);
+
+				const newPieces: PuzzlePiece[] = [];
+				for (let y = 0; y < GRID_SIZE; y++) {
+					for (let x = 0; x < GRID_SIZE; x++) {
+						newPieces.push({
+							id: y * GRID_SIZE + x,
+							originalPos: { x, y },
+							currentPos: { x, y },
+						});
+					}
+				}
+
+				setPieces(shufflePieces(newPieces));
+				setSelectedImage(optimizedImageUrl);
+				setMoves(0);
+				setIsComplete(false);
+			}
+		};
+		img.src = imageUrl;
 	}, []);
 
-	// Timer countdown
-	useEffect(() => {
-		if (!gameOver && timer > 0) {
-			const interval = setInterval(() => {
-				setTimer((prev) => {
-					if (prev <= 1) {
-						handleGameOver();
-						return 0;
-					}
-					if (prev <= 10) new Audio(hurrySound).play();
-					else new Audio(tickSound).play();
-					return prev - 1;
-				});
-			}, 1000);
-			return () => clearInterval(interval);
-		}
-	}, [gameOver, timer]);
+	// Tối ưu hàm tráo mảnh bằng useMemo
+	const shufflePieces = useCallback(
+		(piecesToShuffle: PuzzlePiece[]): PuzzlePiece[] => {
+			const shuffled = [...piecesToShuffle];
+			for (let i = shuffled.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				const temp = { ...shuffled[i].currentPos };
+				shuffled[i].currentPos = { ...shuffled[j].currentPos };
+				shuffled[j].currentPos = temp;
+			}
+			return shuffled;
+		},
+		[]
+	);
 
-	const handlePieceClick = (piece: PuzzlePiece) => {
-		if (selectedPiece?.id === piece.id) {
-			// Rotate piece
-			setPieces(
-				pieces.map((p) =>
-					p.id === piece.id
-						? { ...p, rotation: (p.rotation + ROTATION_STEP) % 360 }
-						: p
-				)
-			);
-		} else {
-			setSelectedPiece(piece);
-		}
-	};
-
-	const handleDrop = (targetX: number, targetY: number) => {
-		if (!selectedPiece) return;
-
-		setMoves((prev) => prev + 1);
-
-		const isCorrectPosition =
-			selectedPiece.correctPosition.x === targetX &&
-			selectedPiece.correctPosition.y === targetY &&
-			selectedPiece.rotation === 0;
-
-		if (isCorrectPosition) {
-			new Audio(correctSound).play();
-			setCorrectPlacements((prev) => prev + 1);
-			setScore((prev) => prev + 100);
-		} else {
-			new Audio(wrongSound).play();
-		}
-
-		// Update piece position
-		setPieces(
-			pieces.map((p) =>
-				p.id === selectedPiece.id
-					? { ...p, currentPosition: { x: targetX, y: targetY } }
-					: p
-			)
+	// Tối ưu kiểm tra hoàn thành bằng useMemo
+	const checkCompletion = useCallback(() => {
+		const isCompleted = pieces.every(
+			(piece) =>
+				piece.originalPos.x === piece.currentPos.x &&
+				piece.originalPos.y === piece.currentPos.y
 		);
-
-		setSelectedPiece(null);
-
-		// Check if puzzle is complete
-		if (
-			correctPlacements + (isCorrectPosition ? 1 : 0) ===
-			PUZZLE_SIZE * PUZZLE_SIZE
-		) {
-			handleGameOver();
+		if (isCompleted && !isComplete) {
+			setIsComplete(true);
 		}
+	}, [pieces, isComplete]);
+
+	// Thêm debounce cho việc di chuyển mảnh
+	const handlePieceDrop = useCallback(
+		(draggedPiece: PuzzlePiece, dropPos: { x: number; y: number }) => {
+			setPieces((prevPieces) => {
+				const newPieces = prevPieces.map((piece) => {
+					if (piece.id === draggedPiece.id) {
+						return { ...piece, currentPos: dropPos };
+					}
+					if (
+						piece.currentPos.x === dropPos.x &&
+						piece.currentPos.y === dropPos.y
+					) {
+						return { ...piece, currentPos: draggedPiece.currentPos };
+					}
+					return piece;
+				});
+				return newPieces;
+			});
+			setMoves((prev) => prev + 1);
+		},
+		[]
+	);
+
+	useEffect(() => {
+		const timeoutId = setTimeout(checkCompletion, 300);
+		return () => clearTimeout(timeoutId);
+	}, [pieces, checkCompletion]);
+
+	// Tối ưu render mảnh ghép bằng React.memo
+	const PuzzlePiece = useMemo(() => {
+		return ({ piece }: { piece: PuzzlePiece }) => {
+			const [{ isDragging }, drag] = useDrag(() => ({
+				type: "puzzle-piece",
+				item: piece,
+				collect: (monitor) => ({
+					isDragging: !!monitor.isDragging(),
+				}),
+			}));
+
+			const style = {
+				backgroundImage: `url(${selectedImage})`,
+				backgroundSize: `${GRID_SIZE * 100}%`,
+				backgroundPosition: `${
+					(piece.originalPos.x * 100) / (GRID_SIZE - 1)
+				}% ${(piece.originalPos.y * 100) / (GRID_SIZE - 1)}%`,
+			};
+
+			return (
+				<div
+					ref={drag as any}
+					className={`puzzle-piece ${isDragging ? "dragging" : ""}`}
+					style={style}
+				/>
+			);
+		};
+	}, [selectedImage]);
+
+	// Tối ưu render ô đích bằng React.memo
+	const DropCell = useMemo(() => {
+		return ({ x, y }: { x: number; y: number }) => {
+			const [{ isOver }, drop] = useDrop(() => ({
+				accept: "puzzle-piece",
+				drop: (item: PuzzlePiece) => handlePieceDrop(item, { x, y }),
+				collect: (monitor) => ({
+					isOver: !!monitor.isOver(),
+				}),
+			}));
+
+			const piece = pieces.find(
+				(p) => p.currentPos.x === x && p.currentPos.y === y
+			);
+
+			return (
+				<div
+					ref={drop as any}
+					className={`grid-cell ${isOver ? "can-drop" : ""}`}
+				>
+					{piece && <PuzzlePiece piece={piece} />}
+				</div>
+			);
+		};
+	}, [pieces, handlePieceDrop, PuzzlePiece]);
+
+	const startGame = useCallback(
+		(imageUrl: string) => {
+			setGameStarted(true);
+			setTimeLeft(TIME_LIMIT);
+			setMoves(0);
+			setScore(0);
+			setCorrectPlacements(0);
+			setIsComplete(false);
+			setGameOver(false);
+			initializePuzzle(imageUrl);
+		},
+		[initializePuzzle]
+	);
+
+	const ImageSelector = () => {
+		const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+			const file = e.target.files?.[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onloadend = () => {
+					setSelectedImage(reader.result as string);
+					setGameStarted(false);
+				};
+				reader.readAsDataURL(file);
+			}
+		};
+
+		return (
+			<div className="image-selector">
+				<h2>Chọn ảnh để bắt đầu chơi</h2>
+				<input
+					type="file"
+					accept="image/*"
+					onChange={handleImageUpload}
+					className="file-input"
+				/>
+				{selectedImage && !gameStarted && (
+					<div className="preview-container">
+						<h3>Xem trước ảnh:</h3>
+						<img src={selectedImage} alt="Preview" className="preview-image" />
+						<button
+							className="start-game-button"
+							onClick={() => startGame(selectedImage)}
+						>
+							Bắt đầu chơi
+						</button>
+					</div>
+				)}
+			</div>
+		);
 	};
 
 	const calculateGameStats = (): GameStats => {
 		const accuracy = (correctPlacements / moves) * 100 || 0;
-		const timeBonus = Math.max(0, TIME_LIMIT - timer) * 2;
+		const timeBonus = Math.max(0, TIME_LIMIT - moves) * 2;
 		const finalScore = score + timeBonus;
 
 		const artifactUnlocked =
@@ -148,9 +286,27 @@ export default function Game10() {
 			score: finalScore,
 			totalMoves: moves,
 			correctMoves: correctPlacements,
+			wrongMoves: moves - correctPlacements,
 			accuracy,
 			artifact: artifactUnlocked ? ARTIFACT.name : "",
 			artifactUnlocked,
+			stats: [
+				{
+					label: "Số bước di chuyển",
+					value: moves.toString(),
+					icon: "🎮",
+				},
+				{
+					label: "Số bước đúng",
+					value: correctPlacements.toString(),
+					icon: "✅",
+				},
+				{
+					label: "Điểm thưởng thời gian",
+					value: timeBonus.toString(),
+					icon: "⏱️",
+				},
+			],
 		};
 	};
 
@@ -167,66 +323,98 @@ export default function Game10() {
 		window.location.reload();
 	};
 
+	const formatTime = (seconds: number) => {
+		const mins = Math.floor(seconds / 60);
+		const secs = seconds % 60;
+		return `${mins}:${secs.toString().padStart(2, "0")}`;
+	};
+
+	const handleNewGame = () => {
+		setSelectedImage("");
+		setGameStarted(false);
+		setTimeLeft(TIME_LIMIT);
+	};
+
 	return (
-		<div className="h-full bg-[url('/game/image/description/game.png')] bg-cover bg-center flex items-center justify-center px-4">
-			<div className="bg-[#0f172a]/80 backdrop-blur-md border-4 border-purple-600 rounded-2xl shadow-2xl p-10 max-w-4xl w-full text-center space-y-8 text-purple-100">
-				{gameOver && gameStats ? (
+		<DndProvider backend={HTML5Backend}>
+			<div className="game10-container">
+				{!gameStarted ? (
+					<ImageSelector />
+				) : gameOver ? (
 					<GameConclusion
-						gameStats={gameStats}
+						gameStats={gameStats!}
 						artifact={ARTIFACT}
 						onRestart={restartGame}
 					/>
 				) : (
-					<div className="grid grid-cols-2 gap-8">
-						<div className="space-y-4">
-							<div className="w-32 h-32 mx-auto">
+					<div className="game-area">
+						<div className="game-info">
+							<h2>Xếp hình 6x6</h2>
+							<div className="timer-container">
 								<CircularProgressbarWithChildren
-									value={timer}
-									maxValue={TIME_LIMIT}
+									value={(timeLeft / TIME_LIMIT) * 100}
+									strokeWidth={6}
 									styles={{
-										path: { stroke: "#9333ea" },
-										text: { fill: "#9333ea", fontSize: "24px" },
+										path: {
+											stroke: timeLeft < 60 ? "#ff4444" : "#4CAF50",
+											transition: "stroke-dashoffset 0.5s ease 0s",
+										},
+										trail: {
+											stroke: "#1a1a1a",
+										},
 									}}
 								>
-									<div className="text-2xl font-bold">{timer}s</div>
+									<div className="timer-text">
+										<span>{formatTime(timeLeft)}</span>
+									</div>
 								</CircularProgressbarWithChildren>
 							</div>
-							<div className="text-2xl">Điểm: {score}</div>
-							<div className="text-lg">Số bước: {moves}</div>
-							<div className="text-lg">Đúng: {correctPlacements}</div>
+							<p>Số bước di chuyển: {moves}</p>
+							{isComplete && (
+								<div className="victory-message">
+									🎉 Chúc mừng! Bạn đã hoàn thành trong {moves} bước!
+								</div>
+							)}
+							<button
+								className="shuffle-button"
+								onClick={() => setPieces(shufflePieces(pieces))}
+							>
+								Tráo lại
+							</button>
+							<button className="new-game-button" onClick={handleNewGame}>
+								Chọn ảnh mới
+							</button>
 						</div>
 
-						<div className="grid grid-cols-3 gap-2 bg-slate-800/50 p-4 rounded-xl">
-							{Array.from({ length: PUZZLE_SIZE * PUZZLE_SIZE }).map((_, i) => {
-								const x = i % PUZZLE_SIZE;
-								const y = Math.floor(i / PUZZLE_SIZE);
-								const piece = pieces.find(
-									(p) => p.currentPosition.x === x && p.currentPosition.y === y
-								);
-
-								return (
-									<div
+						<div className="puzzle-board">
+							<div
+								className="target-grid"
+								style={{
+									gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+									width: GRID_SIZE * PIECE_SIZE + "px",
+									height: GRID_SIZE * PIECE_SIZE + "px",
+								}}
+							>
+								{Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, i) => (
+									<DropCell
 										key={i}
-										className={`aspect-square border-2 ${
-											piece ? "border-purple-500" : "border-purple-800"
-										} rounded-lg overflow-hidden cursor-pointer`}
-										onClick={() => piece && handlePieceClick(piece)}
-										onDragOver={(e) => e.preventDefault()}
-										onDrop={() => handleDrop(x, y)}
-									>
-										{piece && (
-											<img
-												src={piece.image}
-												alt={`Piece ${piece.id}`}
-												className="w-full h-full object-cover"
-												style={{ transform: `rotate(${piece.rotation}deg)` }}
-												draggable
-												onDragStart={() => setSelectedPiece(piece)}
-											/>
-										)}
-									</div>
-								);
-							})}
+										x={i % GRID_SIZE}
+										y={Math.floor(i / GRID_SIZE)}
+									/>
+								))}
+							</div>
+						</div>
+
+						<div className="original-image">
+							<h3>Ảnh gốc:</h3>
+							<img
+								src={selectedImage}
+								alt="Original"
+								style={{
+									maxWidth: GRID_SIZE * PIECE_SIZE + "px",
+									maxHeight: GRID_SIZE * PIECE_SIZE + "px",
+								}}
+							/>
 						</div>
 					</div>
 				)}
@@ -261,6 +449,6 @@ export default function Game10() {
 					</div>
 				</div>
 			)}
-		</div>
+		</DndProvider>
 	);
 }

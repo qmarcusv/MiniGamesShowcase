@@ -44,3 +44,42 @@
 .text-shadow-medium {
 	filter: drop-shadow(0 2px 2px rgba(255, 255, 255, 0.9));
 }
+
+.game-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.place-info {
+	margin-top: 1rem;
+	padding: 1rem;
+	background-color: rgba(12, 30, 53, 0.9);
+	border: 4px solid #ca8a04;
+	border-radius: 0.5rem;
+	color: #fcd34d;
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+
+	h3 {
+		font-size: 1.25rem;
+		font-weight: bold;
+		margin-bottom: 0.5rem;
+		color: #fcd34d;
+	}
+
+	p {
+		font-size: 0.875rem;
+		margin-bottom: 0.25rem;
+		color: #fcd34d;
+
+		strong {
+			color: #fde68a;
+		}
+	}
+}

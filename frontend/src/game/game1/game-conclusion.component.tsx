@@ -24,6 +24,7 @@ interface Conclusion1Props {
 	matchedCards: number;
 	totalCards: number;
 	win: boolean;
+	timeoutCount: number;
 }
 
 export default function Conclusion1({
@@ -31,6 +32,7 @@ export default function Conclusion1({
 	matchedCards,
 	totalCards,
 	win,
+	timeoutCount,
 }: Conclusion1Props) {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
@@ -43,11 +45,17 @@ export default function Conclusion1({
 		accuracy,
 		totalMoves: totalCards,
 		correctMoves: matchedCards,
+		wrongMoves: totalCards - matchedCards,
 		artifact: ARTIFACT.name,
 		artifactUnlocked:
 			accuracy >= ARTIFACT.requirements.accuracy &&
 			score >= ARTIFACT.requirements.score,
 		hideGameOverText: true,
+		stats: [
+			{ label: "Thời gian", value: `${timeUsed}s`, icon: "⏱️" },
+			{ label: "Số lần hết giờ", value: `${timeoutCount}`, icon: "⚠️" },
+			{ label: "Điểm trừ", value: `-${timeoutCount * 15}`, icon: "➖" },
+		],
 	};
 
 	return (
