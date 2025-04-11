@@ -120,4 +120,114 @@ export const places: PlaceInfo[] = [
 		history:
 			"Phú Quốc là đảo lớn nhất Việt Nam, nổi tiếng với bãi biển đẹp và nước mắm truyền thống.",
 	},
+	{
+		id: "myson",
+		name: "Thánh địa Mỹ Sơn",
+		position: { x: 0.35, y: 0.15 },
+		builtYear: 400,
+		architect: "Người Chăm",
+		age: 1624,
+		image: "/places/myson.jpg",
+		history:
+			"Thánh địa Mỹ Sơn là quần thể đền đài Chăm Pa cổ, di sản văn hóa thế giới.",
+	},
+	{
+		id: "phongnha",
+		name: "Động Phong Nha",
+		position: { x: 0.65, y: 0.15 },
+		builtYear: 0,
+		architect: "Tự nhiên",
+		age: 400000,
+		image: "/places/phongnha.jpg",
+		history:
+			"Động Phong Nha là một trong những hang động đẹp nhất thế giới với hệ thống sông ngầm.",
+	},
+	{
+		id: "cantho",
+		name: "Chợ nổi Cần Thơ",
+		position: { x: 0.15, y: 0.7 },
+		builtYear: 1915,
+		architect: "Người dân địa phương",
+		age: 109,
+		image: "/places/cantho.jpg",
+		history:
+			"Chợ nổi Cần Thơ là nét văn hóa đặc trưng của vùng sông nước miền Tây Nam Bộ.",
+	},
+	{
+		id: "condao",
+		name: "Côn Đảo",
+		position: { x: 0.9, y: 0.35 },
+		builtYear: 1862,
+		architect: "Thực dân Pháp",
+		age: 162,
+		image: "/places/condao.jpg",
+		history:
+			"Côn Đảo là quần đảo với nhiều di tích lịch sử và bãi biển hoang sơ.",
+	},
+	{
+		id: "mocchau",
+		name: "Cao nguyên Mộc Châu",
+		position: { x: 0.25, y: 0.35 },
+		builtYear: 0,
+		architect: "Tự nhiên",
+		age: 1000000,
+		image: "/places/mocchau.jpg",
+		history:
+			"Mộc Châu nổi tiếng với đồi chè, thảo nguyên và không khí trong lành.",
+	},
+	{
+		id: "catba",
+		name: "Đảo Cát Bà",
+		position: { x: 0.75, y: 0.65 },
+		builtYear: 0,
+		architect: "Tự nhiên",
+		age: 500000,
+		image: "/places/catba.jpg",
+		history:
+			"Cát Bà là quần đảo đa dạng sinh học với vườn quốc gia và bãi biển đẹp.",
+	},
+	{
+		id: "cucphuong",
+		name: "Vườn quốc gia Cúc Phương",
+		position: { x: 0.4, y: 0.45 },
+		builtYear: 1962,
+		architect: "Tự nhiên",
+		age: 500000,
+		image: "/places/cucphuong.jpg",
+		history:
+			"Cúc Phương là vườn quốc gia đầu tiên của Việt Nam với hệ sinh thái phong phú.",
+	},
+	{
+		id: "samson",
+		name: "Biển Sầm Sơn",
+		position: { x: 0.55, y: 0.6 },
+		builtYear: 1907,
+		architect: "Tự nhiên",
+		age: 117,
+		image: "/places/samson.jpg",
+		history:
+			"Sầm Sơn là bãi biển du lịch nổi tiếng với bờ cát trắng và sóng biển trong xanh.",
+	},
+	{
+		id: "hagiang",
+		name: "Cao nguyên đá Hà Giang",
+		position: { x: 0.18, y: 0.15 },
+		builtYear: 0,
+		architect: "Tự nhiên",
+		age: 1000000,
+		image: "/places/hagiang.jpg",
+		history:
+			"Cao nguyên đá Hà Giang nổi tiếng với cảnh quan hùng vĩ và văn hóa dân tộc đặc sắc.",
+	},
+	{
+		id: "baibe",
+		name: "Hồ Ba Bể",
+		position: { x: 0.35, y: 0.25 },
+		builtYear: 0,
+		architect: "Tự nhiên",
+		age: 500000,
+		image: "/places/baibe.jpg",
+		history:
+			"Hồ Ba Bể là hồ nước ngọt tự nhiên lớn nhất Việt Nam, được bao quanh bởi núi đá vôi và rừng nguyên sinh.",
+	},
 ];

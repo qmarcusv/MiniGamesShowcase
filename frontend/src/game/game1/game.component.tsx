@@ -18,27 +18,37 @@ import { useNavigate } from "react-router-dom";
 const shipParts = [
 	{
 		name: "Thân tàu",
-		image: "/places/halong.jpg",
+		image: "/game/game1/ship_hull.png",
+		placeImage: "/places/halong.jpg",
+		placeName: "Vịnh Hạ Long",
 		description: "Mảnh thân tàu chính - phần quan trọng nhất của con tàu!",
 	},
 	{
 		name: "Buồm",
-		image: "/places/nhathoducba.jpg",
+		image: "/game/game1/ship_sail.png",
+		placeImage: "/places/nhathoducba.jpg",
+		placeName: "Nhà thờ Đức Bà",
 		description: "Cánh buồm giúp tàu di chuyển nhanh trên biển",
 	},
 	{
 		name: "Mỏ neo",
-		image: "/places/hoian.jpg",
+		image: "/game/game1/ship_anchor.png",
+		placeImage: "/places/hoian.jpg",
+		placeName: "Phố cổ Hội An",
 		description: "Mỏ neo giúp tàu đậu an toàn khi cần",
 	},
 	{
 		name: "Bánh lái",
-		image: "/places/dalat.jpg",
+		image: "/game/game1/ship_wheel.png",
+		placeImage: "/places/dalat.jpg",
+		placeName: "Ga Đà Lạt",
 		description: "Bánh lái điều khiển hướng đi của con tàu",
 	},
 	{
 		name: "Súng thần công",
-		image: "/places/nharong.jpg",
+		image: "/game/game1/ship_cannon.png",
+		placeImage: "/places/nharong.jpg",
+		placeName: "Nhà Rồng",
 		description: "Súng thần công - vũ khí mạnh mẽ của cướp biển!",
 	},
 ];
@@ -54,6 +64,68 @@ interface Place {
 	history: string;
 }
 
+interface MathQuestion {
+	a: number;
+	b: number;
+	c: number;
+	operation1: "+" | "-";
+	operation2: "+" | "-";
+	result: number;
+	expression: string;
+}
+
+// Hàm tạo số ngẫu nhiên trong khoảng min-max
+function getRandomNumber(min: number, max: number): number {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Hàm tạo câu hỏi toán học với kết quả từ 1-20
+function generateMathQuestion(): MathQuestion {
+	let a: number, b: number, c: number;
+	let operation1: "+" | "-";
+	let operation2: "+" | "-";
+	let result: number;
+
+	do {
+		// Tạo 3 số ngẫu nhiên từ 1-99
+		a = getRandomNumber(1, 99);
+		b = getRandomNumber(1, 99);
+		c = getRandomNumber(1, 99);
+
+		// Chọn ngẫu nhiên phép toán
+		operation1 = Math.random() < 0.5 ? "+" : "-";
+		operation2 = Math.random() < 0.5 ? "+" : "-";
+
+		// Tính kết quả
+		result =
+			operation1 === "+"
+				? operation2 === "+"
+					? a + b + c
+					: a + b - c
+				: operation2 === "+"
+				? a - b + c
+				: a - b - c;
+	} while (result < 1 || result > 20); // Lặp lại nếu kết quả không nằm trong 1-20
+
+	// Tạo chuỗi biểu thức để hiển thị
+	const expression = `${a} ${operation1} ${b} ${operation2} ${c}`;
+
+	return {
+		a,
+		b,
+		c,
+		operation1,
+		operation2,
+		result,
+		expression,
+	};
+}
+
+// Hàm kiểm tra câu trả lời
+function checkAnswer(question: MathQuestion, selectedNumber: number): boolean {
+	return question.result === selectedNumber;
+}
+
 export default function Game1() {
 	const navigate = useNavigate();
 	const [started, setStarted] = useState(false);
@@ -61,7 +133,7 @@ export default function Game1() {
 	const [questionSet, setQuestionSet] = useState<Place[]>([]);
 	const [selectedDot, setSelectedDot] = useState<Place | null>(null);
 	const [highlightId, setHighlightId] = useState<string | null>(null);
-	const [timer, setTimer] = useState(10);
+	const [timer, setTimer] = useState(20);
 	const [timeUsed, setTimeUsed] = useState(0);
 	const [correctCount, setCorrectCount] = useState(0);
 	const [clickCount, setClickCount] = useState(0);
@@ -83,6 +155,17 @@ export default function Game1() {
 	const [shuffledPositions, setShuffledPositions] = useState<{
 		[id: string]: { x: number; y: number };
 	}>({});
+	const [currentQuestion, setCurrentQuestion] = useState<MathQuestion | null>(
+		null
+	);
+	const [selectedPlaceInfo, setSelectedPlaceInfo] = useState<Place | null>(
+		null
+	);
+
+	// Thêm state cho điểm số
+	const [score, setScore] = useState(0);
+	const [consecutiveCorrect, setConsecutiveCorrect] = useState(0);
+	const [timeoutCount, setTimeoutCount] = useState(0);
 
 	// Hiệu ứng nhấp nháy cho điểm cần chọn
 	useEffect(() => {
@@ -131,8 +214,15 @@ export default function Game1() {
 			interval = window.setInterval(() => {
 				setTimer((prev) => {
 					if (prev <= 1) {
+						setTimeoutCount((count) => count + 1);
+						if (!collectedParts.includes(correctCount)) {
+							setCollectedParts((prev) => [...prev, correctCount]);
+							setLastCollectedPart(correctCount);
+							setShowNewPartInfo(true);
+						}
+						setCorrectCount((count) => count + 1);
 						nextQuestion();
-						return 10;
+						return 20;
 					}
 					if (prev <= 4) new Audio(hurrySound).play();
 					else new Audio(tickSound).play();
@@ -211,59 +301,59 @@ export default function Game1() {
 	}, []);
 
 	const generateShuffledPositions = () => {
-		// Tạo mảng vị trí riêng biệt từ places
-		const uniquePositions = places.map((place) => ({ ...place.position }));
-
-		// Trộn mảng vị trí
-		for (let i = uniquePositions.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[uniquePositions[i], uniquePositions[j]] = [
-				uniquePositions[j],
-				uniquePositions[i],
-			];
-		}
-
-		// Tạo bản đồ vị trí mới với kiểu dữ liệu hợp lý
 		const newPositions: { [id: string]: { x: number; y: number } } = {};
 
-		// Gán vị trí mới cho từng điểm, đảm bảo không trùng lặp
+		// Chia bản đồ thành lưới 5x4
+		const gridCols = 5;
+		const gridRows = 4;
+		const cells: { x: number; y: number }[] = [];
+
+		// Tạo các ô trong lưới
+		for (let row = 0; row < gridRows; row++) {
+			for (let col = 0; col < gridCols; col++) {
+				cells.push({
+					x: 0.15 + (col * 0.7) / (gridCols - 1), // 0.15 đến 0.85
+					y: 0.15 + (row * 0.7) / (gridRows - 1), // 0.15 đến 0.85
+				});
+			}
+		}
+
+		// Trộn ngẫu nhiên các ô
+		for (let i = cells.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[cells[i], cells[j]] = [cells[j], cells[i]];
+		}
+
+		// Thêm độ ngẫu nhiên nhỏ cho mỗi vị trí
 		places.forEach((place, index) => {
-			// Lấy vị trí từ mảng đã trộn, đảm bảo không trùng lặp
-			const newPos = uniquePositions[index % uniquePositions.length];
+			if (index < cells.length) {
+				const jitterX = (Math.random() - 0.5) * 0.06; // ±3%
+				const jitterY = (Math.random() - 0.5) * 0.06; // ±3%
 
-			// Thêm độ nhiễu nhỏ để tránh trùng lặp hoàn toàn (không vượt quá biên)
-			const jitterX = Math.random() * 0.04 - 0.02; // +/- 2%
-			const jitterY = Math.random() * 0.04 - 0.02; // +/- 2%
-
-			// Đảm bảo tọa độ trong khoảng [0.05, 0.95] để không bị ra ngoài viền
-			const newX = Math.min(0.95, Math.max(0.05, newPos.x + jitterX));
-			const newY = Math.min(0.95, Math.max(0.05, newPos.y + jitterY));
-
-			newPositions[place.id] = {
-				x: newX,
-				y: newY,
-			};
+				newPositions[place.id] = {
+					x: Math.min(0.85, Math.max(0.15, cells[index].x + jitterX)),
+					y: Math.min(0.85, Math.max(0.15, cells[index].y + jitterY)),
+				};
+			}
 		});
 
 		return newPositions;
 	};
 
 	const startShuffle = () => {
-		// Đánh dấu đang swap để thực hiện hiệu ứng
 		setSwapping(true);
-
-		// Tạo vị trí mới và áp dụng ngay lập tức
 		const newPositions = generateShuffledPositions();
 		setShuffledPositions(newPositions);
-
-		// Đặt timeout để kết thúc hiệu ứng swap
-		setTimeout(() => setSwapping(false), 1200);
+		setTimeout(() => setSwapping(false), 400); // Giảm thời gian animation xuống 400ms
 	};
 
 	const handleStart = () => {
+		setSelectedPlaceInfo(null);
 		setStarted(true);
-		setHighlightId(questionSet[0].id);
-		setTimer(10);
+		setTimer(20);
+		setScore(0);
+		setConsecutiveCorrect(0);
+		setCurrentQuestion(generateMathQuestion());
 		startShuffle();
 	};
 
@@ -272,25 +362,42 @@ export default function Game1() {
 	};
 
 	const handleDotClick = (place: Place) => {
-		setSelectedDot(place);
-		if (correctCount >= 5) return;
+		if (!started) {
+			setSelectedPlaceInfo(place);
+			return;
+		}
 
-		if (started && !isPaused) {
-			setClickCount((c) => c + 1);
-			if (place.id === highlightId) {
+		if (correctCount >= 5) {
+			return;
+		}
+
+		if (
+			!waitingToFinish &&
+			!showNewPartInfo &&
+			!isPaused &&
+			!showConclusion &&
+			currentQuestion
+		) {
+			const selectedNumber = places.findIndex((p) => p.id === place.id) + 1;
+			const isCorrect = checkAnswer(currentQuestion, selectedNumber);
+
+			if (isCorrect) {
 				new Audio(correctSound).play();
 				const newCount = correctCount + 1;
 				setCorrectCount(newCount);
+
+				// Tính điểm cơ bản và thưởng thời gian
+				const timeBonus = timer >= 8 ? 10 : timer >= 5 ? 5 : 0;
+				setScore((prev) => prev + 20 + timeBonus);
 
 				// Thêm mảnh tàu mới
 				if (!collectedParts.includes(correctCount)) {
 					setCollectedParts((prev) => [...prev, correctCount]);
 					setLastCollectedPart(correctCount);
 					setShowNewPartInfo(true);
-					setSelectedDot(null); // Đóng info box nếu đang mở
 				}
 
-				// Chỉ chuyển sang câu hỏi tiếp theo nếu chưa đủ 5 điểm đúng
+				// Chuyển sang câu hỏi tiếp theo nếu chưa đủ 5 điểm đúng
 				if (newCount < 5) {
 					nextQuestion();
 				}
@@ -301,15 +408,32 @@ export default function Game1() {
 	};
 
 	const nextQuestion = () => {
-		setSelectedDot(null);
 		if (currentIndex < 4) {
-			const next = currentIndex + 1;
-			setCurrentIndex(next);
-			setHighlightId(questionSet[next].id);
-			setTimer(10);
-			startShuffle();
+			// Đặt trạng thái swapping trước
+			setSwapping(true);
+
+			// Tạo vị trí mới trước
+			const newPositions = generateShuffledPositions();
+
+			// Sử dụng setTimeout để đảm bảo các thao tác được thực hiện tuần tự
+			setTimeout(() => {
+				setShuffledPositions(newPositions);
+
+				// Cập nhật câu hỏi và index sau khi animation bắt đầu
+				setTimeout(() => {
+					const next = currentIndex + 1;
+					setCurrentIndex(next);
+					setCurrentQuestion(generateMathQuestion());
+					setTimer(20);
+
+					// Kết thúc animation
+					setTimeout(() => {
+						setSwapping(false);
+					}, 300);
+				}, 50);
+			}, 50);
 		} else {
-			setWaitingToFinish(true); // wait for user to confirm
+			setWaitingToFinish(true);
 		}
 	};
 
@@ -324,6 +448,7 @@ export default function Game1() {
 				matchedCards={correctCount}
 				totalCards={5}
 				win={correctCount > 0}
+				timeoutCount={timeoutCount}
 			/>
 		);
 	}
@@ -400,115 +525,136 @@ export default function Game1() {
 					alt="Treasure Map"
 					className="absolute w-full h-full object-cover opacity-90"
 				/>
-				{places.map((place) => (
+				{places.map((place, index) => (
 					<motion.div
 						key={place.id}
+						initial={false}
 						animate={{
-							left: `${
+							left: `${(
 								(shuffledPositions[place.id]?.x ?? place.position.x) * 100
-							}%`,
-							top: `${
+							).toFixed(2)}%`,
+							top: `${(
 								(shuffledPositions[place.id]?.y ?? place.position.y) * 100
-							}%`,
+							).toFixed(2)}%`,
 						}}
 						transition={{
-							duration: swapping ? 1.2 : 0,
-							ease: "easeInOut",
-							type: "spring", // Thay đổi từ tween sang spring để có chuyển động tự nhiên hơn
-							damping: 25, // Tăng damping để giảm hiệu ứng rung
-							stiffness: 180, // Tăng stiffness để chuyển động nhanh hơn
-							mass: 0.8, // Giảm mass để làm cho chuyển động nhẹ nhàng
+							duration: swapping ? 0.3 : 0,
+							type: "tween",
+							ease: "easeOut",
 						}}
-						className={`absolute w-8 h-8 rounded-full cursor-pointer border-2
+						className={`absolute w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold text-lg transform -translate-x-1/2 -translate-y-1/2
+							${correctCount >= 5 ? "cursor-default opacity-50" : "cursor-pointer"}
 							${
 								started && place.id === highlightId && correctCount < 5
 									? flickerHighlight
-										? "bg-amber-700 border-amber-400" // Hiệu ứng nhấp nháy - trở về màu mặc định
-										: "bg-yellow-300 ring-4 ring-yellow-500 border-amber-800 animate-pulse"
-									: "bg-amber-700 border-amber-400"
+										? "bg-amber-700 border-amber-400 text-amber-200"
+										: "bg-yellow-300 ring-4 ring-yellow-500 border-amber-800 animate-pulse text-amber-900"
+									: "bg-amber-700 border-amber-400 text-amber-200"
 							}
 							${swapping && started ? "opacity-70" : "opacity-100"}`}
 						style={{
-							transform: "translate(-50%, -50%)",
-							willChange: "transform, left, top",
-							x: 0,
-							y: 0,
 							position: "absolute",
-							zIndex: place.id === highlightId ? 10 : 1, // Điểm cần chọn hiển thị trên cùng
+							willChange: "transform",
+							zIndex: place.id === highlightId ? 10 : 1,
 						}}
-						layoutId={place.id}
 						onClick={() => handleDotClick(place)}
-					/>
+					>
+						{index + 1}
+					</motion.div>
 				))}
-
-				{/* Hiển thị mảnh tàu thu thập được ở dưới cùng */}
-				<div className="absolute bottom-4 left-4 right-4 bg-[#0c1e35]/80 border-2 border-amber-600 rounded-lg p-2 backdrop-blur-sm">
-					<div className="flex items-center gap-2">
-						<div className="w-12 h-12 relative">
-							<CircularProgressbarWithChildren
-								value={shipProgress}
-								styles={buildStyles({
-									pathColor: "#f59e0b",
-									trailColor: "#1e293b",
-									strokeLinecap: "butt",
-								})}
-							>
-								{shipProgress >= 100 ? (
-									<div className="w-8 h-8 rounded-full">
-										<img
-											src="/places/halong.jpg"
-											alt="Completed Ship"
-											className="w-full h-full object-cover rounded-full"
-										/>
-									</div>
-								) : (
-									<span className="text-amber-200 text-xs font-bold">
-										{Math.round(shipProgress)}%
-									</span>
-								)}
-							</CircularProgressbarWithChildren>
-						</div>
-
-						<div className="flex-1">
-							<h3 className="text-sm font-bold text-amber-300">
-								⚓ Mảnh tàu thu thập
-							</h3>
-							{/* Ship parts collection display */}
-							{collectedParts.length > 0 ? (
-								<div className="flex gap-1 mt-1">
-									{collectedParts.map((partIndex) => (
-										<div
-											key={partIndex}
-											className="w-6 h-6 bg-amber-800/50 rounded border border-amber-500"
-											title={shipParts[partIndex].name}
-										>
-											<img
-												src={shipParts[partIndex].image}
-												alt={shipParts[partIndex].name}
-												className="w-full h-full object-cover rounded"
-											/>
-										</div>
-									))}
-								</div>
-							) : (
-								<p className="text-xs text-amber-200/80">Chưa có mảnh nào</p>
-							)}
-						</div>
-
-						{!started && (
-							<button
-								onClick={handleStart}
-								className="bg-amber-600 hover:bg-amber-700 px-4 py-1 rounded-lg text-white shadow text-sm font-bold ml-auto"
-							>
-								🏴‍☠️ Săn báu vật!
-							</button>
-						)}
-					</div>
-				</div>
 			</div>
 
 			{/* Right Panel */}
 			<div className="flex flex-col gap-4 w-[360px]">
+				{/* Score Display */}
+				<div className="bg-[#0c1e35]/90 border-4 border-amber-600 p-4 rounded-lg shadow">
+					<div className="text-center">
+						<h3 className="text-xl font-bold text-amber-300">
+							Điểm số: {score}
+						</h3>
+						{timeoutCount > 0 && (
+							<p className="text-sm text-red-400">
+								Hết giờ: {timeoutCount} lần (-{timeoutCount * 15} điểm)
+							</p>
+						)}
+					</div>
+				</div>
+
+				{/* Ship Parts Collection Box */}
+				<div className="bg-[#0c1e35]/90 border-4 border-amber-600 p-4 rounded-lg shadow">
+					<div className="flex flex-col gap-3 h-[120px]">
+						<div className="flex items-center justify-between">
+							<div className="w-8 h-8 relative">
+								<CircularProgressbarWithChildren
+									value={shipProgress}
+									styles={buildStyles({
+										pathColor: "#f59e0b",
+										trailColor: "#1e293b",
+										strokeLinecap: "butt",
+									})}
+								>
+									<span className="text-amber-200 text-[10px] font-bold">
+										{Math.round(shipProgress)}%
+									</span>
+								</CircularProgressbarWithChildren>
+							</div>
+						</div>
+
+						<div className="flex-1 flex flex-wrap items-center justify-center gap-2">
+							{!started ? (
+								<button
+									onClick={handleStart}
+									className="bg-amber-600 hover:bg-amber-700 px-6 py-2 rounded-lg text-white shadow text-lg font-bold"
+								>
+									🏴‍☠️ Bắt đầu!
+								</button>
+							) : collectedParts.length > 0 ? (
+								collectedParts.map((partIndex) => (
+									<div
+										key={partIndex}
+										className="w-12 h-12 bg-amber-800/50 rounded border border-amber-500"
+										title={shipParts[partIndex].name}
+									>
+										<img
+											src={shipParts[partIndex].image}
+											alt={shipParts[partIndex].name}
+											className="w-full h-full object-contain p-1"
+										/>
+									</div>
+								))
+							) : (
+								<p className="text-xs text-amber-200/80">Chưa có mảnh nào</p>
+							)}
+						</div>
+					</div>
+				</div>
+
+				{/* Question Box */}
+				{started && currentQuestion && !showNewPartInfo ? (
+					<div className="bg-[#0c1e35]/90 border-4 border-amber-600 p-4 rounded-lg shadow text-center">
+						<div className="mb-4">
+							<h3 className="text-xl font-bold text-amber-300 mb-2">
+								Câu hỏi {currentIndex + 1}/5
+							</h3>
+							<p className="text-2xl font-bold text-amber-100">
+								{currentQuestion.expression} = ?
+							</p>
+						</div>
+						<div className="w-32 h-32 mx-auto">
+							<CircularProgressbarWithChildren
+								value={(timer / 20) * 100}
+								styles={buildStyles({
+									pathColor: timer <= 3 ? "#ef4444" : "#f59e0b",
+									trailColor: "#334155",
+								})}
+								strokeWidth={8}
+							>
+								<div className="text-white text-3xl font-bold">{timer}s</div>
+							</CircularProgressbarWithChildren>
+						</div>
+					</div>
+				) : null}
+
 				{/* Ship Building Progress */}
 				{shipProgress >= 100 && (
 					<div className="bg-[#0c1e35]/90 border-4 border-amber-600 p-4 rounded-lg shadow text-center">
@@ -529,57 +675,33 @@ export default function Game1() {
 						<p className="text-lg font-semibold text-amber-100">
 							Bạn đã tìm thấy {shipParts[lastCollectedPart].name}!
 						</p>
-						<div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-amber-500 bg-amber-800/30 p-1">
-							<img
-								src={shipParts[lastCollectedPart].image}
-								alt={shipParts[lastCollectedPart].name}
-								className="w-full h-full object-cover"
-							/>
+						<div className="flex gap-4 justify-center items-center">
+							<div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-amber-500 bg-amber-800/30 p-2">
+								<img
+									src={shipParts[lastCollectedPart].image}
+									alt={shipParts[lastCollectedPart].name}
+									className="w-full h-full object-contain"
+								/>
+							</div>
+							<div className="w-32 h-32 rounded-lg overflow-hidden border-2 border-amber-500">
+								<img
+									src={shipParts[lastCollectedPart].placeImage}
+									alt={shipParts[lastCollectedPart].placeName}
+									className="w-full h-full object-cover"
+								/>
+							</div>
 						</div>
 						<p className="text-amber-200">
 							{shipParts[lastCollectedPart].description}
+						</p>
+						<p className="text-sm text-amber-200">
+							Tìm thấy tại: {shipParts[lastCollectedPart].placeName}
 						</p>
 						<p className="text-sm text-amber-300 mt-1">
 							Còn {5 - collectedParts.length} mảnh tàu để tìm!
 						</p>
 					</div>
-				) : (
-					<div className="bg-[#0c1e35]/90 border-4 border-amber-600 p-4 rounded-lg shadow text-center">
-						{started ? (
-							<>
-								<div className="w-32 h-32 mx-auto">
-									<CircularProgressbarWithChildren
-										value={(timer / 10) * 100}
-										styles={buildStyles({
-											pathColor: timer <= 3 ? "#ef4444" : "#f59e0b",
-											trailColor: "#334155",
-										})}
-										strokeWidth={8}
-									>
-										<div className="text-white text-3xl font-bold">
-											{timer}s
-										</div>
-									</CircularProgressbarWithChildren>
-								</div>
-							</>
-						) : (
-							<div className="py-12 text-center">
-								<h2 className="text-2xl font-bold text-amber-300 mb-4">
-									Săn tìm kho báu
-								</h2>
-								<p className="text-amber-200 mb-4">
-									Tìm 5 địa điểm bí mật để thu thập các mảnh tàu cướp biển!
-								</p>
-								<button
-									onClick={handleStart}
-									className="bg-amber-600 hover:bg-amber-700 px-6 py-2 rounded-lg text-white shadow font-bold text-lg mx-auto"
-								>
-									🏴‍☠️ Bắt đầu săn báu vật!
-								</button>
-							</div>
-						)}
-					</div>
-				)}
+				) : null}
 
 				{/* Info Box */}
 				{selectedDot ? (
@@ -606,6 +728,35 @@ export default function Game1() {
 						</p>
 					</div>
 				) : null}
+
+				{!started && selectedPlaceInfo && (
+					<div className="bg-[#0c1e35]/90 border-4 border-amber-600 p-4 rounded-lg shadow">
+						<h3 className="text-xl font-bold text-amber-300 mb-3 text-center">
+							Thông tin địa điểm: {selectedPlaceInfo.name}
+						</h3>
+						<div className="mb-4">
+							<img
+								src={selectedPlaceInfo.image}
+								alt={selectedPlaceInfo.name}
+								className="w-full h-48 object-cover rounded-lg border-2 border-amber-500"
+							/>
+						</div>
+						<div className="text-left">
+							<p className="text-sm text-amber-200 mb-2">
+								<strong>Năm xây dựng:</strong> {selectedPlaceInfo.builtYear}
+							</p>
+							<p className="text-sm text-amber-200 mb-2">
+								<strong>Kiến trúc sư:</strong> {selectedPlaceInfo.architect}
+							</p>
+							<p className="text-sm text-amber-200 mb-2">
+								<strong>Tuổi:</strong> {selectedPlaceInfo.age} năm
+							</p>
+							<p className="text-sm text-amber-200">
+								<strong>Lịch sử:</strong> {selectedPlaceInfo.history}
+							</p>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
